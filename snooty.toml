@@ -12,7 +12,7 @@ toc_landing_pages = [
   "/atlas-cli-env-variables",
   "/atlas-cli-profiles",
   "/connect-atlas-cli",
-  "/install-atlas-cli",
+  "/install-atlas-cli"
   "/migrate-to-atlas-cli",
   ]
 
