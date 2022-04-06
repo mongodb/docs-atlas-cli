@@ -212,7 +212,7 @@ Follow These Steps
 
             From a terminal, issue the following command to import the MongoDB
             public GPG Key from
-            ``https://pgp.mongodb.com/server-5.0.asc>``.
+            ``https://pgp.mongodb.com/server-5.0.asc``.
             Replace ``5.0`` with your
             edition of MongoDB. 
 
