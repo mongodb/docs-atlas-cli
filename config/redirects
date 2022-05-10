@@ -1,4 +1,4 @@
 define: base https://www.mongodb.com/docs/atlas/cli
 define: versions v1.0 master
  
-raw: docs/atlas/cli -> ${base}/stable/
+raw: docs/atlas/cli/ -> ${base}/stable/
