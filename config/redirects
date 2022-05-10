@@ -2,7 +2,11 @@ define: base https://www.mongodb.com/docs/atlas/cli
 define: versions v1.0 master
  
 <<<<<<< HEAD
+<<<<<<< HEAD
 raw: docs/atlas/cli/ -> ${base}/stable/
 =======
 raw: docs/atlas/cli -> ${base}/stable/
 >>>>>>> c3cb95b ((DOCSP-22540) Fixes redirect for base)
+=======
+raw: docs/atlas/cli/ -> ${base}/stable/
+>>>>>>> e6fa1d1 (Adds change from copy review)
