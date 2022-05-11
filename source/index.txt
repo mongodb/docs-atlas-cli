@@ -28,14 +28,13 @@ Follow these steps to get started using the {+atlas-cli+}:
 1. :ref:`Install the {+atlas-cli+} <install-atlas-cli>`
 2. :ref:`Connect from the {+atlas-cli+} <connect-atlas-cli>`
 3. :ref:`atlas-cli-tutorials` or :doc:`Go straight to the 
-   {+atlas-cli+}commands </command/atlas>`
+   {+atlas-cli+} commands </command/atlas>`
 
 .. toctree::
    :titlesonly:
 
    Overview </index>
    /install-atlas-cli
-   /atlas-cli-getting-started
    /connect-atlas-cli
    /atlas-cli-tutorials
    Atlas CLI Commands </command/atlas>

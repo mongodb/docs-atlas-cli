@@ -1,9 +1,9 @@
 :noprevnext:
 .. _atlas-cli-tutorials:
 
-===========================
-Learn from Guided Tutorials
-===========================
+=======================================
+Manage |service| from the {+atlas-cli+}
+=======================================
 
 .. default-domain:: mongodb
 
@@ -13,11 +13,14 @@ Learn from Guided Tutorials
    :depth: 1
    :class: singlecol
 
-Use the following tutorials to learn how to learn more about 
-{+atlas-cli+} commands. To learn the basics, see :ref:`install-atlas-cli` and :ref:`connect-atlas-cli`.
+Use the following tutorials to learn how to manage |service| using the 
+{+atlas-cli+}. 
+
+To learn the {+atlas-cli+} basics, see :ref:`install-atlas-cli` and :ref:`connect-atlas-cli`.
+
+You can also go straight to the :doc:`{+atlas-cli+} Commands </command/atlas>`.
 
 .. list-table:: 
-
    :header-rows: 1
    :widths: 40 60
 
@@ -36,4 +39,5 @@ Use the following tutorials to learn how to learn more about
 .. toctree::
    :titlesonly:
 
+   /atlas-cli-getting-started
    /atlas-cli-quickstart
