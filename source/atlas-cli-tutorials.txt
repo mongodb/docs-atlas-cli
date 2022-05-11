@@ -1,0 +1,23 @@
+:noprevnext:
+.. _atlas-cli-tutorials:
+
+=======================
+{+atlas-cli+} Tutorials
+=======================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Use the following tutorials to learn how to use {+atlas-cli+} commands.
+
+If you're new to |service| and want to set up an account, see :ref:`atlas-cli-onboarding`.
+
+.. toctree::
+   :titlesonly:
+
+   /atlas-cli-quickstart
