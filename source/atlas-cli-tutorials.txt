@@ -1,9 +1,9 @@
 :noprevnext:
 .. _atlas-cli-tutorials:
 
-=======================
-{+atlas-cli+} Tutorials
-=======================
+===========================
+Learn from Guided Tutorials
+===========================
 
 .. default-domain:: mongodb
 
@@ -13,9 +13,25 @@
    :depth: 1
    :class: singlecol
 
-Use the following tutorials to learn how to use {+atlas-cli+} commands.
+Use the following tutorials to learn how to learn more about 
+{+atlas-cli+} commands. To learn the basics, see :ref:`install-atlas-cli` and :ref:`connect-atlas-cli`.
 
-If you're new to |service| and want to set up an account, see :ref:`atlas-cli-onboarding`.
+.. list-table:: 
+
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Tutorial
+     - Objective
+
+   * - :ref:`atlas-cli-onboarding`
+     - Use the ``atlas setup`` command to onboard with |service|,
+       including creating your account and creating your first 
+       organization, project, and {+cluster+}. You can also use this tutorial to create your first {+cluster+} even if you already have an |service| account, organzation, and project.
+
+   * - :ref:`atlas-cli-quick-start`
+     - Use the ``atlas quickstart`` command to create your first 
+       {+cluster+}. This tutorial requires an |service| account and an existing organization.
 
 .. toctree::
    :titlesonly:

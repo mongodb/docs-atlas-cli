@@ -1,8 +1,8 @@
 .. _atlas-cli-onboarding:
 
-===============================================
-Get Started with |service| with ``atlas setup``
-===============================================
+==========================
+Get Started with |service|
+==========================
 
 .. default-domain:: mongodb
 
@@ -12,10 +12,12 @@ Get Started with |service| with ``atlas setup``
    :depth: 1
    :class: singlecol
 
-This tutorial demonstrates how to use the ``atlas setup`` command to: 
+You can get started with |service| via the {+atlas-cli+} using a single command: ``atlas setup``.
+
+This tutorial demonstrates how to use ``atlas setup`` to: 
 
 1. Sign up for an |service| account.
-#. Create one |service| organization project.
+#. Create one |service| organization and one project.
 #. Create one cluster in your |service| project.
 #. Load :atlas:`sample data </sample-data/available-sample-datasets/>` 
    into your |service| cluster.
@@ -52,29 +54,33 @@ Complete the following procedure to get started with |service|.
          
       A browser window displays the :guilabel:`Create Your Account` screen.
 
-      If you are already logged into an |service| account, ``atlas setup`` performs one of hte following actions:
+      If you want to log into an existing |service| account, click :guilabel:`Log in now`.
 
-      - Creates your first organization and project if no organization
-        or project exists.
-      - Prompts you to select a default organization and default
-        project if you have existing organizations and projects. Select a default organization and project and press :guilabel:`Enter`.
-
-      If you are already logged into an existing |service| account, proceed to step 4.
+      If you're already logged into an existing |service| account, proceed to step 3.
 
    .. step:: Sign up and verify your account.
 
       Enter your account information and click :guilabel:`Sign Up`. Follow the prompts to verify your email or register using third-party authentication.
 
-      |service| automatically creates your first organization and project.
-
    .. step:: Verify your {+atlas-cli+} session.
 
-      When you reach the :guilabel:`Paste or enter {+atlas-cli+} verification code` screen, copy the verification code from the {+atlas-cli+} and paste it into the browser. Then, click :guilabel:`Confirm Authorization` and return to the terminal window.
+      When you reach the :guilabel:`Activation` screen, copy the verification code from the {+atlas-cli+} and paste it into the browser. Then, click :guilabel:`Confirm Authorization`.
+      
+      The browser displays :guilabel:`You're all set!`. Return to the terminal window.
 
    .. step:: Choose your {+cluster+} creation settings.
 
-      ``atlas setup`` creates an ``M0`` cluster in |service|. ``M0``
-      clusters have some operational :ref:`limitations <atlas-free-tier>`.
+      ``atlas setup`` performs the following actions after you verify your {+atlas-cli+} session:
+
+      a. If you are creating a new |service| account, ``atlas setup``
+         automatically creates your first organization and project.
+      b. If you were logged into an existing account, ``atlas setup``:
+         - Creates your first organization and project if no
+           organization or project exists.
+         - Prompts you to select a default organization and default
+           project if you have existing organizations and projects. Select a default organization and project and press :guilabel:`Enter`.
+      c. Creates an ``M0`` cluster in |service|. ``M0``
+         clusters have some operational :ref:`limitations <atlas-free-tier>`.
 
       You can choose from the following {+cluster+} creation settings: 
       
