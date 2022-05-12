@@ -77,7 +77,7 @@ Complete the following procedure to get started with |service|.
       creates an ``M0`` cluster. ``M0`` clusters have some operational
       :ref:`limitations <atlas-free-tier>`.
 
-      If you logged into an existing account and had existing
+      If you log into an existing account and have existing
       organizations and projects, ``atlas setup`` prompts you to select
       a default organization and default project. Select a default
       organization and project and press
@@ -114,8 +114,6 @@ Complete the following procedure to get started with |service|.
             Database User Username: Cluster9876543
             Database User Password: abcdef12345
 
-            Connection string: mongosh -u Cluster-9876543 -p abcdef12345 mongod
-
             Creating your cluster... [Its safe to 'Ctrl + C']
 
 
@@ -126,10 +124,8 @@ Take the Next Steps
 
 Congratulations! You have successfully set up your |service| account.
 
-Use the :manual:`connection string 
-</reference/connection-string/#connection-string-options>` 
-that the {+atlas-cli+} provides to connect to your cluster through 
-{+mongosh+}.
+Use the :manual:`connection string </reference/connection-string/#connection-string-options>` 
+to connect to your cluster through {+mongosh+} or your application.
 
 To view the status of your cluster, run the :ref:`atlas-clusters`
 command.
