@@ -12,25 +12,22 @@ Get Started with |service|
    :depth: 1
    :class: singlecol
 
-You can get started with |service| via the {+atlas-cli+} using a single command: ``atlas setup``.
+You can get started with |service| via the {+atlas-cli+} using a single
+command: ``atlas setup``.
 
 This tutorial demonstrates how to use ``atlas setup`` to: 
 
 1. Sign up for an |service| account.
-#. Create one |service| organization and one project.
-#. Create one cluster in your |service| project.
+#. Authenticate with the new |service| account.
+#. Create one free {+cluster+}.
 #. Load :atlas:`sample data </sample-data/available-sample-datasets/>` 
    into your |service| cluster.
 #. Add your IP address to your project's IP access list.
 #. Create a MongoDB user for your |service| cluster.
 #. Connect to your new cluster using the MongoDB Shell, {+mongosh+}.
 
-You can also run ``atlas setup`` if:
-
-- You have an |service| account, but you haven't set up an
-  organization, project, or {+cluster+}.
-- You have an |service| account and an organization/project, but you
-  haven't set up a {+cluster+}.
+You can also run ``atlas setup`` if you have an |service| account and
+an organization/project, but you haven't set up a {+cluster+}.
 
 .. _atlas-cli-onboarding-reqs:
 
@@ -52,37 +49,39 @@ Complete the following procedure to get started with |service|.
       
          atlas setup
          
-      A browser window displays the :guilabel:`Create Your Account` screen.
+      A browser window displays the :guilabel:`Create Your Account`
+      screen.
 
-      If you want to log into an existing |service| account, click :guilabel:`Log in now`.
+      If you want to log into an existing |service| account, click
+      :guilabel:`Log in now` and log in.
 
-      If you're already logged into an existing |service| account, proceed to step 3.
+      If you're already logged into an existing |service| account,
+      proceed to step 3.
 
    .. step:: Sign up and verify your account.
 
-      Enter your account information and click :guilabel:`Sign Up`. Follow the prompts to verify your email or register using third-party authentication.
+      Enter your account information and click :guilabel:`Sign Up`.
+      Follow the prompts to verify your email or register using
+      third-party authentication.
 
    .. step:: Verify your {+atlas-cli+} session.
 
-      When you reach the :guilabel:`Activation` screen, copy the verification code from the {+atlas-cli+} and paste it into the browser. Then, click :guilabel:`Confirm Authorization`.
-      
-      The browser displays :guilabel:`You're all set!`. Return to the terminal window.
+      When you reach the :guilabel:`Activation` screen, copy the
+      verification code from the {+atlas-cli+} and paste it into the
+      browser. Then, click :guilabel:`Confirm Authorization` and return
+      to the terminal window.
 
    .. step:: Choose your {+cluster+} creation settings.
 
-      After you verify your {+atlas-cli+} session, ``atlas setup`` performs the following actions:
+      After you verify your {+atlas-cli+} session, ``atlas setup``
+      creates an ``M0`` cluster. ``M0`` clusters have some operational
+      :ref:`limitations <atlas-free-tier>`.
 
-      - If you are creating a new |service| account, ``atlas setup``
-        automatically creates your first organization and project.
-      - If you were logged into an existing account, ``atlas setup``:
-  
-        - Creates your first organization and project if no
-          organization or project exists.
-        - Prompts you to select a default organization and default
-          project if you have existing organizations and projects. Select a default organization and project and press :guilabel:`Enter`.
-
-      - Creates an ``M0`` cluster in |service|. ``M0``
-        clusters have some operational :ref:`limitations <atlas-free-tier>`.
+      If you logged into an existing account and had existing
+      organizations and projects, ``atlas setup`` prompts you to select
+      a default organization and default project. Select a default
+      organization and project and press
+      :guilabel:`Enter`.
 
       You can choose from the following {+cluster+} creation settings: 
       
@@ -116,7 +115,8 @@ Complete the following procedure to get started with |service|.
                .. input::
                   :language: sh
             
-                  Do you want to set up your first free database in Atlas with default settings? It's free forever! **Y**
+                  Do you want to set up your first free database in
+                  Atlas with default settings? It's free forever! **Y**
 
                .. output::
                   :language: sh
@@ -134,7 +134,9 @@ Complete the following procedure to get started with |service|.
          .. tab:: Interactive Mode
             :tabid: interactive
 
-            The command prompts you for the cluster settings and provides default options. Press :kbd:`Enter` when prompted to accept the default settings. 
+            The command prompts you for the cluster settings and
+            provides default options. Press :kbd:`Enter` when prompted
+            to accept the default settings. 
 
             .. io-code-block::
          
@@ -159,10 +161,12 @@ Complete the following procedure to get started with |service|.
 
                   [Set up your database authentication access details]
                   ? Database User Username Quickstart-2345678
-                  ? Database User Password [Press Enter to use an auto-generated password 'abcdef12345'] abcdef12345
+                  ? Database User Password [Press Enter to use an
+                  auto-generated password 'abcdef12345'] abcdef12345
 
                   [Set up your database network access details]
-                  ? Access List Entry [Press Enter to use your public IP address '192.0.2.0'] 192.0.2.0
+                  ? Access List Entry [Press Enter to use your public
+                  IP address '192.0.2.0'] 192.0.2.0
 
                  [Connect to Quickstart-9876543]
                   ? Do you want to access Quickstart-9876543 with MongoDB Shell? Yes
@@ -183,7 +187,8 @@ Complete the following procedure to get started with |service|.
 
                   Loading sample data into your cluster... [Its safe to 'Ctrl + C']
 
-                  Now you can connect to your Atlas cluster with: mongosh -u Quickstart-9876543 -p abcdef12345 mongodb+srv://quickstart-9876543.example.mongodb.net
+                  Now you can connect to your Atlas cluster with:
+                  mongosh -u Quickstart-9876543 -p abcdef12345 mongodb+srv://quickstart-9876543.example.mongodb.net
 
          .. tab:: Non-Interactive Mode
             :tabid: noninteractive
@@ -204,7 +209,9 @@ Complete the following procedure to get started with |service|.
                .. input::
                   :language: sh 
 
-                  atlas quickstart --clusterName getStarted --provider AWS --region US_EAST_1 --username testUser --password changeMe accessListIp 192.0.2.15 --skipSampleData
+                  atlas quickstart --clusterName getStarted --provider
+                  AWS --region US_EAST_1 --username testUser --password
+                  changeMe accessListIp 192.0.2.15 --skipSampleData
             
                .. output::
                   :language: sh
@@ -216,10 +223,12 @@ Complete the following procedure to get started with |service|.
                   Enter [?] on any option to get help.
 
                   [Set up your database network access details]
-                  ? Access List Entry [Press Enter to use your public IP address '192.0.2.15'] 192.0.2.15
+                  ? Access List Entry [Press Enter to use your public
+                  IP address '192.0.2.15'] 192.0.2.15
 
                   [Connect to getStarted]
-                  ? Do you want to access getStarted with MongoDB Shell? Yes
+                  ? Do you want to access getStarted with MongoDB
+                  Shell? Yes
 
                   [Summary of changes]
                   Cluster Name:                          getStarted
@@ -236,17 +245,20 @@ Complete the following procedure to get started with |service|.
                   Creating your cluster... [Its safe to 'Ctrl + C']
 
 
-                  Now you can connect to your |service| cluster with: mongosh -u testUser -p changeMe mongodb+srv://getStarted.example.mongodb.net
+                  Now you can connect to your |service| cluster with:
+                  mongosh -u testUser -p changeMe mongodb+srv://getStarted.example.mongodb.net
 
 .. _atlas-cli-onboarding-summary:
 
 Take the Next Steps
 -------------------
 
-Congratulations! You have successfully created a cluster to host your
-data. 
+Congratulations! You have successfully set up your |service| account.
 
-Use the :manual:`connection string </reference/connection-string/#connection-string-options>` 
-to connect to your cluster through {+mongosh+} or your application.
+Use the :manual:`connection string 
+</reference/connection-string/#connection-string-options>` 
+that the {+atlas-cli+} provides to connect to your cluster through 
+{+mongosh+}.
 
-To view the status of your cluster, run the :ref:`atlas-clusters` command.
+To view the status of your cluster, run the :ref:`atlas-clusters`
+command.

@@ -1,4 +1,3 @@
-:noprevnext:
 .. _atlas-cli-tutorials:
 
 =======================================
@@ -16,9 +15,11 @@ Manage |service| from the {+atlas-cli+}
 Use the following tutorials to learn how to manage |service| using the 
 {+atlas-cli+}. 
 
-To learn the {+atlas-cli+} basics, see :ref:`install-atlas-cli` and :ref:`connect-atlas-cli`.
+To learn the {+atlas-cli+} basics, see :ref:`install-atlas-cli` and
+:ref:`connect-atlas-cli`.
 
-You can also go straight to the :doc:`{+atlas-cli+} Commands </command/atlas>`.
+You can also go straight to the :doc:`{+atlas-cli+} Commands 
+</command/atlas>`.
 
 .. list-table:: 
    :header-rows: 1
@@ -29,12 +30,14 @@ You can also go straight to the :doc:`{+atlas-cli+} Commands </command/atlas>`.
 
    * - :ref:`atlas-cli-onboarding`
      - Use the ``atlas setup`` command to onboard with |service|,
-       including creating your account and creating your first 
-       organization, project, and {+cluster+}. You can also use this tutorial to create your first {+cluster+} even if you already have an |service| account, organzation, and project.
+       including creating your account and {+cluster+}. You can also
+       use this tutorial to create your first {+cluster+} even if you
+       already have an |service| account.
 
    * - :ref:`atlas-cli-quick-start`
      - Use the ``atlas quickstart`` command to create your first 
-       {+cluster+}. This tutorial requires an |service| account and an existing organization.
+       {+cluster+}. This tutorial requires an |service| account and an
+       existing organization.
 
 .. toctree::
    :titlesonly:

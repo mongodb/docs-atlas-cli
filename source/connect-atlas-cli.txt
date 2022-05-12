@@ -24,7 +24,8 @@ When you connect to an existing |service| account from the
    configuration file. Your |api| keys are like passwords. 
    Ensure that you secure the configuration file appropriately.
 
-To create a new |service| account or onboard an existing account that doesn't have any {+clusters+}, see :ref:`atlas-cli-onboarding`.
+To create a new |service| account or onboard an existing account that
+doesn't have any {+clusters+}, see :ref:`atlas-cli-onboarding`.
 
 Select a use case below to learn more about the available connection
 options:

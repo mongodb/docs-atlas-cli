@@ -21,7 +21,8 @@ This tutorial demonstrates how to use the ``atlas quickstart`` command to:
 #. Create a MongoDB user for your |service| cluster.
 #. Connect to your new cluster using the MongoDB Shell, {+mongosh+}.
 
-To create a new |service| account or onboard an existing account that doesn't have any {+clusters+}, see :ref:`atlas-cli-onboarding`.
+To create a new |service| account or onboard an existing account that
+doesn't have any {+clusters+}, see :ref:`atlas-cli-onboarding`.
 
 .. _atlas-cli-quick-start-reqs:
 
