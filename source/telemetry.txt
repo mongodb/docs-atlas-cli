@@ -40,10 +40,10 @@ When telemetry is enabled, {+atlas-cli+} tracks the following data:
        credentials are *not* tracked.
      - ``API key`` or ``Atlas username and password``    
 
-   * - Names, timestamps, and select arguments for
-       commands you run. Arguments are tracked only if they use pre-set allowable values, such as cluster regions.
-     - ``atlas cluster create --provider AWS --region US_EAST_1
-       --members 3 --tier M10 --mdbVersion 5.0 --diskSizeGB 10``
+   * - Names, timestamps, arguments, and select values for
+       commands you run. Values are tracked only if they use pre-set allowable values, such as cluster regions.
+     - ``atlas cluster create --provider AWS --region US_EAST_1``
+       ``--members 3 --tier M10 --mdbVersion 5.0 --diskSizeGB 10``
 
    * - Performance information, such as amount of time between running
        a command and returning the results.
@@ -56,9 +56,19 @@ When telemetry is enabled, {+atlas-cli+} tracks the following data:
 
 The {+atlas-cli+} *doesn't* track:
 
-- Personally-Identifiable Information (PII), including all user input
-  data such as custom names or database user names.
-- API key values or Atlas login credential values.
+.. list-table::
+   :header-rows: 1
+   :widths: 60 40
+
+   * - Data
+     - Example
+
+   * - Personally-Identifiable Information (PII), including all user
+       input data such as custom names or database user names.
+     - ``--clusterName MyCluster``
+
+   * - |api| key values or |service| login credentials.
+     - ``private_api_key abcdefghi123456789``
 
 
 
