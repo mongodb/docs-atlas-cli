@@ -1,0 +1,66 @@
+
+===================
+Configure Telemetry
+===================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+{+atlas-cli+}'s telemetry collects anonymous, aggregated usage data to
+help MongoDB focus on improvements with the greatest impact. The 
+{+atlas-cli+} enables telemetry by default.
+
+Understand the {+atlas-cli+} Tracks
+-----------------------------------
+
+When telemetry is enabled, {+atlas-cli+} tracks the following data:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 60 40
+
+   * - Data
+     - Example
+
+   * - {+atlas-cli+} version number
+     - ``1.0.0`` or ``1.1.0``
+  
+   * - Installation source
+     - ``Homebrew`` or ``Download Center``
+
+   * - Operating System (OS) and OS version
+     - ``Windows 11.5`` or ``Linux``
+
+   * - Authentication method. The values for the |api| keys and login
+       credentials are *not* tracked.
+     - ``API key`` or ``Atlas username and password``    
+
+   * - Names, timestamps, and select arguments for
+       commands you run. Arguments are tracked only if they use pre-set allowable values, such as cluster regions.
+     - ``atlas cluster create --provider AWS --region US_EAST_1
+       --members 3 --tier M10 --mdbVersion 5.0 --diskSizeGB 10``
+
+   * - Performance information, such as amount of time between running
+       a command and returning the results.
+     - ``2 seconds``
+
+   * - Errors you encounter, including the command you run and the
+       parameters you use.
+     - ``atlas rgister - Error: unknown command "rgister" for "atlas"``
+
+
+The {+atlas-cli+} *doesn't* track:
+
+- Personally-Identifiable Information (PII), including all user input
+  data such as custom names or database user names.
+- API key values or Atlas login credential values.
+
+
+
+
+
