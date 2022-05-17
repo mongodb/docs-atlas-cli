@@ -15,44 +15,48 @@ Configure Telemetry
 help MongoDB focus on improvements with the greatest impact. The 
 {+atlas-cli+} enables telemetry by default.
 
-Understand the {+atlas-cli+} Tracks
+Learn What the {+atlas-cli+} Tracks
 -----------------------------------
 
-When telemetry is enabled, {+atlas-cli+} tracks the following data:
+When telemetry is enabled, {+atlas-cli+} tracks non-Personally-Identifiable Information (PII), which includes but is not limited to:
 
 .. list-table::
    :header-rows: 1
    :widths: 60 40
 
    * - Data
-     - Example
+     - Example Value
 
    * - {+atlas-cli+} version number
-     - ``1.0.0`` or ``1.1.0``
+     - ``1.0.0``
   
    * - Installation source
-     - ``Homebrew`` or ``Download Center``
+     - ``Homebrew``
 
    * - Operating System (OS) and OS version
-     - ``Windows 11.5`` or ``Linux``
+     - ``Windows 11.5``
 
    * - Authentication method. The values for the |api| keys and login
        credentials are *not* tracked.
-     - ``API key`` or ``Atlas username and password``    
+     - ``API key``   
 
-   * - Names, timestamps, arguments, and select values for
-       commands you run. Values are tracked only if they use pre-set allowable values, such as cluster regions.
-     - ``atlas cluster create --provider AWS --region US_EAST_1``
-       ``--members 3 --tier M10 --mdbVersion 5.0 --diskSizeGB 10``
+   * - Select details for commands you run. Arguments are tracked only
+       if they use pre-set allowable values, such as cluster regions.
+     - ``timestamp: 2022-04-11T11:35:46.794119+01:00``
+       ``command: atlas cluster create``
+       ``--provider AWS --region US_EAST_1``
 
-   * - Performance information, such as amount of time between running
-       a command and returning the results.
-     - ``2 seconds``
+   * - Performance information, such as amount of time it takes for the
+       {+atlas-cli+} to execute a command.
+     - ``completion timestamp: 2022-04-11T11:35:49.456719+01:00``
 
    * - Errors you encounter, including the command you run and the
        parameters you use.
-     - ``atlas rgister - Error: unknown command "rgister" for "atlas"``
+     - ``atlas rgister``
+       ``Error: unknown command "rgister" for "atlas"``
 
+Learn What the {+atlas-cli+} Doesn't Track
+------------------------------------------
 
 The {+atlas-cli+} *doesn't* track:
 
@@ -63,12 +67,40 @@ The {+atlas-cli+} *doesn't* track:
    * - Data
      - Example
 
-   * - Personally-Identifiable Information (PII), including all user
-       input data such as custom names or database user names.
+   * - PII and values that could potentially contain PII, including all
+       free text-entry fields such as custom names or database user
+       names.
      - ``--clusterName MyCluster``
 
    * - |api| key values or |service| login credentials.
      - ``private_api_key abcdefghi123456789``
+
+
+Disable Telemetry for the {+atlas-cli+}
+---------------------------------------
+
+To disable telemetry for the {+atlas-cli+}, run the following command in the terminal:
+
+.. code-block:: sh
+
+   atlas config set telemetry_enabled false
+
+You can also disable telemetry using the :ref:`telemetry environment variable <atlas-cli-env-vars>`. 
+
+
+Enable Telemetry for the {+atlas-cli+}
+--------------------------------------
+
+The {+atlas-cli+} enables telemetry by default. If telemetry is currently disabled, you can enable telemetry by running the following command in the terminal:
+
+.. code-block:: sh
+
+   atlas config set telemetry_enabled true
+
+You can also enable telemetry using the :ref:`telemetry environment variable <atlas-cli-env-vars>`. 
+
+
+
 
 
 
