@@ -99,3 +99,7 @@ The {+atlas-cli+} supports the following environment variables:
    * - ``MONGODB_ATLAS_REFRESH_TOKEN``
      - String that allows |service| to automatically request a new
        access token when the current access token expires.
+
+   * - ``MONGODB_ATLAS_TELEMETRY_ENABLED``
+     - Flag that indicates whether telemetry is enabled for the 
+       {+atlas-cli+}. Set to ``false`` to disable telemetry.
