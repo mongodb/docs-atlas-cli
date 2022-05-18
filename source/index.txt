@@ -11,13 +11,14 @@ What is the {+atlas-cli+}?
 .. introduction::
 
    The {+atlas-cli+} is a command line interface built specifically for 
-   |service|. It lets you interact with your |service| 
-   {+database-deployments+} from the terminal with short, intuitive commands, so you can accomplish database management tasks in seconds.
+   |service-fullname|. It lets you interact with your |service| 
+   {+database-deployments+} and Atlas Search from the terminal with
+   short, intuitive commands, so you can accomplish complex database management tasks in seconds.
 
    .. button:: Install the {+atlas-cli+}
       :uri: https://www.mongodb.com/docs/atlas/cli/stable/install-atlas-cli/
 
-   Then, run ``atlas auth login``
+   Then, run ``atlas setup``
 
 .. image:: /images/hero.png
    :alt: Homepage hero image
@@ -27,92 +28,83 @@ What is the {+atlas-cli+}?
 Manage Atlas from the Command Line
 ----------------------------------
 
-After you install and :ref:`connect from the {+atlas-cli+} <connect-atlas-cli>`, you can skip the Atlas UI and take action with a single command:
+You can install the {+atlas-cli+} or manage your |service| deployments
+with a single command:
 
 .. tabs::
 
-   .. tab:: Sign Up for Atlas with ``atlas onboard``
-      :tabid: onboard
+   .. tab:: Install the {+atlas-cli+}
+      :tabid: install
 
       .. procedure::
 
-         .. step:: Run ``atlas onboard``
-
+         .. step:: Run ``brew install mongodb-atlas-cli``
             
-         .. step:: Create a Profile
+            See our :ref:`documentation <install-atlas-cli>` for more
+            ways to install the {+atlas-cli+}.
 
-            Store your API keys, organization and project IDs, and other
-            settings in a profile to easily access your MongoDB deployments.
+      .. image:: /images/install.gif
+         :alt: brew install mongodb-atlas-cli command
 
-            To learn more, see NEW PAGE.
-
-      .. image:: /images/config.gif
-         :alt: MongoDB CLI config command
-
-   .. tab:: Create a Cluster with ``atlas quickstart``
-      :tabid: create-cluster
+   .. tab:: Configure Atlas
+      :tabid: setup
 
       .. procedure::
 
-         .. step:: Quick Start
+         .. step:: Run ``atlas setup``
 
-            Create, configure and connect to an |service| cluster in one command.
+            ``atlas setup`` does all of the following with one command:
 
-            :doc:`To learn more, see Set Up Atlas with atlas quickstart <atlas-cli-quickstart>`
+            1. Signs up for an |service| account.
+            #. Authenticates with the new |service| account.
+            #. Creates one free database.
+            #. Loads :atlas:`sample data 
+               </sample-data/available-sample-datasets/>` 
+               into your |service| database.
+            #. Adds your IP address to your project's IP access list.
+            #. Creates a MongoDB user for your |service| 
+               {+database-deployment+}.
+            #. Connect to your new {+database-deployment+} using the
+               MongoDB Shell, {+mongosh+}.
 
-      .. image:: /images/quickstart.gif
-         :alt: MongoDB CLI quickstart command
+      .. image:: /images/setup.gif
+         :alt: atlas setup command
 
-   .. tab:: Create Profiles with ``atlas config init``
-      :tabid: create-profile
-
-      .. procedure::
-
-         .. step:: Create a Profile
-
-            Store your API keys, organization and project IDs, and other
-            settings in a profile to easily access your MongoDB deployments.
-
-            :doc:`To learn more, see Save Connection Settings <atlas-cli-save-connection-settings>`
-
-      .. image:: /images/quickstart.gif
-         :alt: MongoDB CLI quickstart command
 
 .. kicker:: Related Products & Resources
 
 Go Further with the {+atlas-cli+}
 ---------------------------------
 
-Explore advanced features of the {+atlas-cli+} and the MongoDB services
-you can interact with.
+Learn the {+atlas-cli+} commands and optimize your workflow with advanced tutorials and more.
 
 .. card-group::
    :columns: 3
    :style: compact
 
    .. card::
-      :cta: Read Atlas docs
-      :url: https://www.mongodb.com/docs/atlas/getting-started/
+      :cta: See All Commands
+      :url: https://www.mongodb.com/docs/atlas/cli/stable/command/atlas/
       :icon: /images/icons/atlas.svg
       :icon-alt: MongoDB Atlas icon
 
-      Interact with your cloud deployments through a GUI
+      Discover new {+atlas-cli+} commands
 
    .. card::
-      :cta: Read Reference Docs
-      :url: https://www.mongodb.com/docs/mongocli/stable/command/mongocli/
+      :cta: View All Tutorials
+      :url: https://www.mongodb.com/docs/atlas/cli/stable/atlas-cli-tutorials/
       :icon: /images/icons/mcli.svg
       :icon-alt: MongoCLI icon
 
-      Explore more advanced {+mcli+} use cases
+      Explore {+atlas-cli+} workflows with guided tutorials
 
    .. card::
-      :cta: Read Troubleshooting Docs
+      :cta: Read Atlas Docs
       :url: https://www.mongodb.com/docs/mongocli/stable/troubleshooting/
-      :icon: /images/icons/mcli.svg
-      :icon-alt: MongoCLI icon
+      :icon: /images/icons/atlas.svg
+      :icon-alt: MongoCLI Atlas icon
 
-      Review common error messages and issues
+      Learn more about working in Atlas
 
 .. toctree::
    :titlesonly:
