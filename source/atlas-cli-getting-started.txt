@@ -19,12 +19,13 @@ This tutorial demonstrates how to use ``atlas setup`` to:
 
 1. Sign up for an |service| account.
 #. Authenticate with the new |service| account.
-#. Create one free {+cluster+}.
+#. Create one free database.
 #. Load :atlas:`sample data </sample-data/available-sample-datasets/>` 
-   into your |service| cluster.
+   into your |service| database.
 #. Add your IP address to your project's IP access list.
-#. Create a MongoDB user for your |service| cluster.
-#. Connect to your new cluster using the MongoDB Shell, {+mongosh+}.
+#. Create a MongoDB user for your |service| {+database-deployment+}.
+#. Connect to your new {+database-deployment+} using the MongoDB Shell,
+   {+mongosh+}.
 
 You can also run ``atlas setup`` if you have an |service| account and
 an organization/project but you haven't set up a {+cluster+}.
