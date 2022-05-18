@@ -85,7 +85,7 @@ Learn the {+atlas-cli+} commands and optimize your workflow with advanced tutori
    .. card::
       :cta: See All Commands
       :url: https://www.mongodb.com/docs/atlas/cli/stable/command/atlas/
-      :icon: /images/icons/atlas.svg
+      :icon: /images/icons/card1.svg
       :icon-alt: MongoDB Atlas icon
 
       Discover new {+atlas-cli+} commands
@@ -93,15 +93,15 @@ Learn the {+atlas-cli+} commands and optimize your workflow with advanced tutori
    .. card::
       :cta: View All Tutorials
       :url: https://www.mongodb.com/docs/atlas/cli/stable/atlas-cli-tutorials/
-      :icon: /images/icons/mcli.svg
+      :icon: /images/icons/card2.svg
       :icon-alt: MongoCLI icon
 
       Explore {+atlas-cli+} workflows with guided tutorials
 
    .. card::
       :cta: Read Atlas Docs
-      :url: https://www.mongodb.com/docs/mongocli/stable/troubleshooting/
-      :icon: /images/icons/atlas.svg
+      :url: https://www.mongodb.com/docs/atlas/
+      :icon: /images/icons/card3.svg
       :icon-alt: MongoCLI Atlas icon
 
       Learn more about working in Atlas
