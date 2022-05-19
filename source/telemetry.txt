@@ -21,7 +21,7 @@ Learn What the {+atlas-cli+} Tracks
 
 {+atlas-cli+} telemetry tracks 
 non-Personally-Identifiable Information (PII), which includes but is
-not limited to:
+not limited to the following information:
 
 .. list-table::
    :header-rows: 1
@@ -39,18 +39,19 @@ not limited to:
    * - Operating System (OS) and OS version
      - ``Windows 11.5``
 
-   * - Authentication method. The values for the |api| keys and login
-       credentials are *not* tracked.
+   * - Authentication method. {+atlas-cli+} telemetry does *not* track
+       the values for the |api| keys and login credentials.
      - ``API key``   
 
-   * - Select details for commands you run. Arguments are tracked only
-       if they use pre-set allowable values, such as cluster regions.
+   * - Details for commands you run. {+atlas-cli+} telemetry tracks 
+       arguments only if they use pre-set allowable values, such as 
+       {+cluster+} regions.
      - ``timestamp: 2022-04-11T11:35:46.794119+01:00``
        ``command: atlas cluster create``
        ``--provider AWS --region US_EAST_1``
 
-   * - Performance information, such as amount of time it takes for the
-       {+atlas-cli+} to execute a command.
+   * - Performance information, such as the amount of time it takes for
+       the {+atlas-cli+} to execute a command.
      - ``completion timestamp: 2022-04-11T11:35:49.456719+01:00``
 
    * - Errors you encounter, including the command you run and the
