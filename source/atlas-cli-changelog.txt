@@ -25,15 +25,16 @@ Changes
 - Adds two new commands for :ref:`Atlas onboarding
   <atlas-cli-onboarding>`:
 
-  - :ref:`atlas-register` for registering your |service| account and
-    authenticating from the {+atlas-cli+}.
-  - :ref:`atlas-setup` for registering your |service| account,
-    authenticating from the {+atlas-cli+}, and creating a free 
+  - :ref:`atlas-auth-register` registers your |service| account and
+    authenticates from the {+atlas-cli+}.
+  - :ref:`atlas-setup` registers your |service| account,
+    authenticates from the {+atlas-cli+}, and creates a free 
     {+cluster+}.
 
 - Adds :ref:`telemetry <telemetry>` to the {+atlas-cli+}.
 - Adds the ``--currentIp`` flag to the :ref:`atlas-quickstart` and
-  :ref:`atlas-setup` commands.
+  :ref:`atlas-setup` commands. ``--currentIp`` indicates whether to use
+  the IP address of the host that is currently executing the command.
 
 
 .. _atlas-cli-1.0.3:
