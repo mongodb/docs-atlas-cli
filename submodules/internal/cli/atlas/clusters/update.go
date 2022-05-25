@@ -16,17 +16,22 @@ package clusters
 
 import (
 	"context"
+	"fmt"
 
-	"github.com/mongodb/mongocli/internal/cli"
-	"github.com/mongodb/mongocli/internal/cli/require"
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/file"
-	"github.com/mongodb/mongocli/internal/flag"
-	"github.com/mongodb/mongocli/internal/store"
-	"github.com/mongodb/mongocli/internal/usage"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/require"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/file"
+	"github.com/mongodb/mongodb-atlas-cli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/store"
+	"github.com/mongodb/mongodb-atlas-cli/internal/usage"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	atlas "go.mongodb.org/atlas/mongodbatlas"
+)
+
+const (
+	updateTmpl = "Updating cluster '{{.Name}}'.\n"
 )
 
 type UpdateOpts struct {
@@ -48,8 +53,6 @@ func (opts *UpdateOpts) initStore(ctx context.Context) func() error {
 		return err
 	}
 }
-
-var updateTmpl = "Updating cluster '{{.Name}}'.\n"
 
 func (opts *UpdateOpts) Run() error {
 	cluster, err := opts.cluster()
@@ -117,16 +120,16 @@ func UpdateBuilder() *cobra.Command {
 	}
 	cmd := &cobra.Command{
 		Use:   "update [clusterName]",
-		Short: "Update a MongoDB cluster.",
-		Example: `
-  Update tier for a cluster
-  $ mongocli atlas cluster update <clusterName> --projectId <projectId> --tier M50
+		Short: "Update a MongoDB Atlas cluster.",
+		Example: fmt.Sprintf(`  Update tier for a cluster:
+  $ %[1]s cluster update <clusterName> --projectId <projectId> --tier M50
 
-  Update disk size for a cluster
-  $ mongocli atlas cluster update <clusterName> --projectId <projectId> --diskSizeGB 20
+  Update disk size for a cluster:
+  $ %[1]s cluster update <clusterName> --projectId <projectId> --diskSizeGB 20
 
-  Update MongoDB version for a cluster
-  $ mongocli atlas cluster update <clusterName> --projectId <projectId> --mdbVersion 4.2`,
+  Update MongoDB version for a cluster:
+  $ %[1]s cluster update <clusterName> --projectId <projectId> --mdbVersion 4.2`,
+			cli.ExampleAtlasEntryPoint()),
 		Args: require.MaximumNArgs(1),
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if len(args) != 0 {
@@ -150,7 +153,7 @@ func UpdateBuilder() *cobra.Command {
 	cmd.Flags().StringVar(&opts.tier, flag.Tier, "", usage.Tier)
 	cmd.Flags().Float64Var(&opts.diskSizeGB, flag.DiskSizeGB, 0, usage.DiskSizeGB)
 	cmd.Flags().StringVar(&opts.mdbVersion, flag.MDBVersion, "", usage.MDBVersion)
-	cmd.Flags().StringVarP(&opts.filename, flag.File, flag.FileShort, "", usage.Filename)
+	cmd.Flags().StringVarP(&opts.filename, flag.File, flag.FileShort, "", usage.ClusterFilename)
 
 	cmd.Flags().StringVar(&opts.ProjectID, flag.ProjectID, "", usage.ProjectID)
 	cmd.Flags().StringVarP(&opts.Output, flag.Output, flag.OutputShort, "", usage.FormatOut)

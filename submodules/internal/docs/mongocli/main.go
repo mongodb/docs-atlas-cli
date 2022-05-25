@@ -19,7 +19,7 @@ import (
 	"os"
 
 	"github.com/mongodb-labs/cobra2snooty"
-	"github.com/mongodb/mongocli/internal/cli/root/mongocli"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/root/mongocli"
 	"github.com/spf13/cobra"
 )
 
@@ -42,6 +42,7 @@ func main() {
 	}
 
 	mongocliBuilder := mongocli.Builder(&profile, []string{})
+	removeDeprecateStringAtlasCommand(mongocliBuilder)
 
 	// init completion command indirectly
 	// See: https://github.com/spf13/cobra/issues/1464
@@ -51,5 +52,14 @@ func main() {
 
 	if err := cobra2snooty.GenTreeDocs(mongocliBuilder, "./docs/mongocli/command"); err != nil {
 		log.Fatal(err)
+	}
+}
+
+func removeDeprecateStringAtlasCommand(cmd *cobra.Command) {
+	for _, c := range cmd.Commands() {
+		if c.Use == "atlas" {
+			c.Long = ""
+			return
+		}
 	}
 }

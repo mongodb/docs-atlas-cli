@@ -18,7 +18,7 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
-	"github.com/mongodb/mongocli/internal/mocks"
+	"github.com/mongodb/mongodb-atlas-cli/internal/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	atlas "go.mongodb.org/atlas/mongodbatlas"
@@ -38,14 +38,14 @@ func TestDefaultOpts_DefaultQuestions(t *testing.T) {
 			fields: fields{
 				Service: "cloud",
 			},
-			want: 2,
+			want: 1,
 		},
 		{
 			name: "cloud gov",
 			fields: fields{
 				Service: "cloudgov",
 			},
-			want: 2,
+			want: 1,
 		},
 		{
 			name: "cloud manager",

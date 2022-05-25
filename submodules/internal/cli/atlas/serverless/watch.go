@@ -16,13 +16,14 @@ package serverless
 
 import (
 	"context"
+	"fmt"
 
-	"github.com/mongodb/mongocli/internal/cli"
-	"github.com/mongodb/mongocli/internal/cli/require"
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/flag"
-	"github.com/mongodb/mongocli/internal/store"
-	"github.com/mongodb/mongocli/internal/usage"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/require"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/store"
+	"github.com/mongodb/mongodb-atlas-cli/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -68,7 +69,7 @@ This command checks the serverless instance's state periodically until the insta
 Once the instance reaches the expected state, the command prints "Instance available."
 If you run the command in the terminal, it blocks the terminal session until the resource becomes idle.
 You can interrupt the command's polling at any time with CTRL-C.`,
-		Example: `$ mongocli atlas serverless watch instanceNameSample`,
+		Example: fmt.Sprintf(`  $ %s serverless watch instanceNameSample`, cli.ExampleAtlasEntryPoint()),
 		Args:    require.ExactArgs(1),
 		Annotations: map[string]string{
 			"args":             "instanceName",

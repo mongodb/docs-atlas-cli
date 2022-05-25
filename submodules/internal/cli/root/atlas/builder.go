@@ -21,44 +21,47 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mongodb/mongocli/internal/cli"
-	"github.com/mongodb/mongocli/internal/cli/alerts"
-	"github.com/mongodb/mongocli/internal/cli/atlas/accesslists"
-	"github.com/mongodb/mongocli/internal/cli/atlas/accesslogs"
-	"github.com/mongodb/mongocli/internal/cli/atlas/backup"
-	"github.com/mongodb/mongocli/internal/cli/atlas/cloudproviders"
-	"github.com/mongodb/mongocli/internal/cli/atlas/clusters"
-	atlasConfig "github.com/mongodb/mongocli/internal/cli/atlas/config"
-	"github.com/mongodb/mongocli/internal/cli/atlas/customdbroles"
-	"github.com/mongodb/mongocli/internal/cli/atlas/customdns"
-	"github.com/mongodb/mongocli/internal/cli/atlas/datalake"
-	"github.com/mongodb/mongocli/internal/cli/atlas/dbusers"
-	"github.com/mongodb/mongocli/internal/cli/atlas/integrations"
-	"github.com/mongodb/mongocli/internal/cli/atlas/livemigrations"
-	"github.com/mongodb/mongocli/internal/cli/atlas/logs"
-	"github.com/mongodb/mongocli/internal/cli/atlas/maintenance"
-	"github.com/mongodb/mongocli/internal/cli/atlas/metrics"
-	"github.com/mongodb/mongocli/internal/cli/atlas/networking"
-	"github.com/mongodb/mongocli/internal/cli/atlas/privateendpoints"
-	"github.com/mongodb/mongocli/internal/cli/atlas/processes"
-	"github.com/mongodb/mongocli/internal/cli/atlas/quickstart"
-	"github.com/mongodb/mongocli/internal/cli/atlas/security"
-	"github.com/mongodb/mongocli/internal/cli/atlas/serverless"
-	"github.com/mongodb/mongocli/internal/cli/auth"
-	"github.com/mongodb/mongocli/internal/cli/events"
-	"github.com/mongodb/mongocli/internal/cli/figautocomplete"
-	"github.com/mongodb/mongocli/internal/cli/iam/organizations"
-	"github.com/mongodb/mongocli/internal/cli/iam/projects"
-	"github.com/mongodb/mongocli/internal/cli/iam/teams"
-	"github.com/mongodb/mongocli/internal/cli/iam/users"
-	"github.com/mongodb/mongocli/internal/cli/performanceadvisor"
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/flag"
-	"github.com/mongodb/mongocli/internal/homebrew"
-	"github.com/mongodb/mongocli/internal/latestrelease"
-	"github.com/mongodb/mongocli/internal/usage"
-	"github.com/mongodb/mongocli/internal/validate"
-	"github.com/mongodb/mongocli/internal/version"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/alerts"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/accesslists"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/accesslogs"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/backup"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/cloudproviders"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/clusters"
+	atlasConfig "github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/customdbroles"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/customdns"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/datalake"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/dbusers"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/integrations"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/livemigrations"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/logs"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/maintenance"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/metrics"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/networking"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/privateendpoints"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/processes"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/quickstart"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/security"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/serverless"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/setup"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/auth"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/events"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/figautocomplete"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/iam/organizations"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/iam/projects"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/iam/teams"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/iam/users"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/performanceadvisor"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/homebrew"
+	"github.com/mongodb/mongodb-atlas-cli/internal/latestrelease"
+	"github.com/mongodb/mongodb-atlas-cli/internal/telemetry"
+	"github.com/mongodb/mongodb-atlas-cli/internal/terminal"
+	"github.com/mongodb/mongodb-atlas-cli/internal/usage"
+	"github.com/mongodb/mongodb-atlas-cli/internal/validate"
+	"github.com/mongodb/mongodb-atlas-cli/internal/version"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 )
@@ -88,27 +91,19 @@ func Builder(profile *string) *cobra.Command {
 			"toc": "true",
 		},
 		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
-			if config.Service() == "" {
+			if shouldSetService(cmd) {
 				config.SetService(config.CloudService)
 			}
 
-			if cmd.Name() == figautocomplete.CmdUse { // figautocomplete command does not require credentials
-				return nil
+			if shouldCheckCredentials(cmd) {
+				err := cli.RefreshToken(cmd.Context())
+				if err != nil {
+					return err
+				}
+				return validate.Credentials()
 			}
 
-			if cmd.Name() == "quickstart" { // quickstart has its own check
-				return nil
-			}
-
-			if strings.HasPrefix(cmd.CommandPath(), fmt.Sprintf("%s %s", atlas, "config")) { // user wants to set credentials
-				return nil
-			}
-
-			if strings.HasPrefix(cmd.CommandPath(), fmt.Sprintf("%s %s", atlas, "auth")) { // user wants to set credentials
-				return nil
-			}
-
-			return validate.Credentials()
+			return nil
 		},
 		PersistentPostRun: func(cmd *cobra.Command, args []string) {
 			// we don't run the release alert feature on the completion command
@@ -130,6 +125,9 @@ func Builder(profile *string) *cobra.Command {
 			if check, isHb := notifier.shouldCheck(); check {
 				_ = notifier.notifyIfApplicable(isHb)
 			}
+			telemetry.TrackCommand(telemetry.TrackOptions{
+				Cmd: cmd,
+			}, args...)
 		},
 	}
 	rootCmd.SetVersionTemplate(formattedVersion())
@@ -141,11 +139,14 @@ func Builder(profile *string) *cobra.Command {
 	logoutCmd.Hidden = true
 	whoCmd := auth.WhoAmIBuilder()
 	whoCmd.Hidden = true
+	registerCmd := auth.RegisterBuilder()
+	registerCmd.Hidden = true
 
 	rootCmd.AddCommand(
 		atlasConfig.Builder(),
 		auth.Builder(),
 		quickstart.Builder(),
+		setup.Builder(),
 		projects.Builder(),
 		organizations.AtlasCLIBuilder(),
 		users.Builder(),
@@ -175,6 +176,7 @@ func Builder(profile *string) *cobra.Command {
 		loginCmd,
 		logoutCmd,
 		whoCmd,
+		registerCmd,
 		figautocomplete.Builder(),
 	)
 
@@ -191,6 +193,49 @@ Go version: %s
    compiler: %s
 `
 
+func shouldSetService(cmd *cobra.Command) bool {
+	if config.Service() != "" {
+		return false
+	}
+
+	if strings.HasPrefix(cmd.CommandPath(), fmt.Sprintf("%s %s", atlas, "config")) { // user wants to set credentials
+		return false
+	}
+
+	if strings.HasPrefix(cmd.CommandPath(), fmt.Sprintf("%s %s", atlas, "completion")) {
+		return false
+	}
+
+	return true
+}
+
+func shouldCheckCredentials(cmd *cobra.Command) bool {
+	searchByName := []string{
+		"__complete",
+		"help",
+		figautocomplete.CmdUse,
+	}
+	for _, n := range searchByName {
+		if cmd.Name() == n {
+			return false
+		}
+	}
+	searchByPath := []string{
+		fmt.Sprintf("%s %s", atlas, "completion"), // completion commands do not require credentials
+		fmt.Sprintf("%s %s", atlas, "config"),     // user wants to set credentials
+		fmt.Sprintf("%s %s", atlas, "auth"),       // user wants to set credentials
+		fmt.Sprintf("%s %s", atlas, "login"),      // user wants to set credentials
+		fmt.Sprintf("%s %s", atlas, "setup"),      // user wants to set credentials
+		fmt.Sprintf("%s %s", atlas, "register"),   // user wants to set credentials
+	}
+	for _, p := range searchByPath {
+		if strings.HasPrefix(cmd.CommandPath(), p) {
+			return false
+		}
+	}
+	return true
+}
+
 func formattedVersion() string {
 	return fmt.Sprintf(verTemplate,
 		config.ToolName,
@@ -203,7 +248,7 @@ func formattedVersion() string {
 }
 
 func (n *Notifier) shouldCheck() (shouldCheck, isHb bool) {
-	shouldCheck = !config.SkipUpdateCheck() && cli.IsTerminal(n.writer)
+	shouldCheck = !config.SkipUpdateCheck() && terminal.IsTerminal(n.writer)
 	isHb = false
 
 	if !shouldCheck {
@@ -231,7 +276,7 @@ func (n *Notifier) notifyIfApplicable(isHb bool) error {
 	if isHb {
 		upgradeInstructions = fmt.Sprintf(`To upgrade, run "brew update && brew upgrade %s".`, homebrew.FormulaName(config.ToolName))
 	} else {
-		upgradeInstructions = fmt.Sprintf(`To upgrade, see: https://dochub.mongodb.org/core/%s-install.`, config.ToolName)
+		upgradeInstructions = "To upgrade, see: https://dochub.mongodb.org/core/install-atlas-cli."
 	}
 
 	newVersionTemplate := `

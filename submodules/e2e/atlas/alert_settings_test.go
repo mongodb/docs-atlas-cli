@@ -18,14 +18,14 @@ package atlas_test
 import (
 	"encoding/json"
 	"os"
-	"os/exec"
 	"strconv"
 	"testing"
 
 	"github.com/go-test/deep"
-	"github.com/mongodb/mongocli/e2e"
+	"github.com/mongodb/mongodb-atlas-cli/e2e"
 	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/atlas/mongodbatlas"
+	exec "golang.org/x/sys/execabs"
 )
 
 const (
@@ -157,6 +157,7 @@ func TestAlertConfig(t *testing.T) {
 			"REPLICA_SET_NAME",
 			"SHARD_NAME",
 			"CLUSTER_NAME",
+			"APPLICATION_ID",
 		}
 		if diff := deep.Equal(fields, expected); diff != nil {
 			t.Error(diff)

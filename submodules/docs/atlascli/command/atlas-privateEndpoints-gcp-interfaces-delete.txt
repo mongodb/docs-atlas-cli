@@ -55,7 +55,7 @@ Options
    * - --force
      - 
      - false
-     - If specified, skips asking for confirmation before proceeding with a requsted action.
+     - If specified, skips asking for confirmation before proceeding with a requested action.
    * - -h, --help
      - 
      - false
@@ -86,5 +86,6 @@ Examples
 
 .. code-block::
 
- $ mongocli atlas privateEndpoints gcp interfaces delete endpoint-1 --endpointServiceId 61eaca605af86411903de1dd
+   $ atlas privateEndpoints gcp interfaces delete endpoint-1 \
+   --endpointServiceId 61eaca605af86411903de1dd
 

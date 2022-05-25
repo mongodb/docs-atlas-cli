@@ -16,13 +16,14 @@ package disks
 
 import (
 	"context"
+	"fmt"
 
-	"github.com/mongodb/mongocli/internal/cli"
-	"github.com/mongodb/mongocli/internal/cli/require"
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/flag"
-	"github.com/mongodb/mongocli/internal/store"
-	"github.com/mongodb/mongocli/internal/usage"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/require"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/store"
+	"github.com/mongodb/mongodb-atlas-cli/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -72,8 +73,9 @@ func ListBuilder() *cobra.Command {
 			"requiredArgs":      "hostname:port",
 			"hostname:portDesc": "Hostname and port number of the instance running the Atlas MongoDB process.",
 		},
-		Example: `This example lists the available disks for the host "atlas-lnmtkm-shard-00-00.ajlj3.mongodb.net:27017"
-  $ mongocli atlas metrics disk ls atlas-lnmtkm-shard-00-00.ajlj3.mongodb.net:27017`,
+		Example: fmt.Sprintf(
+			`  This example lists the available disks for the host "atlas-lnmtkm-shard-00-00.ajlj3.mongodb.net:27017"
+  $ %s metrics disk ls atlas-lnmtkm-shard-00-00.ajlj3.mongodb.net:27017`, cli.ExampleAtlasEntryPoint()),
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			return opts.PreRunE(
 				opts.ValidateProjectID,

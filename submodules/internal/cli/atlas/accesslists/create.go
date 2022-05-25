@@ -19,12 +19,12 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/mongodb/mongocli/internal/cli"
-	"github.com/mongodb/mongocli/internal/cli/require"
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/flag"
-	"github.com/mongodb/mongocli/internal/store"
-	"github.com/mongodb/mongocli/internal/usage"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/require"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/store"
+	"github.com/mongodb/mongodb-atlas-cli/internal/usage"
 	"github.com/spf13/cobra"
 	atlas "go.mongodb.org/atlas/mongodbatlas"
 )
@@ -139,9 +139,8 @@ func CreateBuilder() *cobra.Command {
 			"args":      "entry",
 			"entryDesc": "The IP address, CIDR address, or AWS security group ID of the access list entry to create.",
 		},
-		Example: `  Create IP address access list with the current IP address. Entry is not needed in this case.
-  $ mongocli atlas accessList create --currentIP
-		`,
+		Example: fmt.Sprintf(`  Create IP address access list with the current IP address. Entry is not needed in this case.
+  $ %s accessList create --currentIP`, cli.ExampleAtlasEntryPoint()),
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			return opts.PreRunE(
 				opts.ValidateProjectID,
@@ -166,7 +165,7 @@ func CreateBuilder() *cobra.Command {
 		},
 	}
 
-	cmd.Flags().StringVar(&opts.entryType, flag.Type, ipAddress, usage.AccessListType)
+	cmd.Flags().StringVar(&opts.entryType, flag.TypeFlag, ipAddress, usage.AccessListType)
 	cmd.Flags().StringVar(&opts.comment, flag.Comment, "", usage.Comment)
 	cmd.Flags().StringVar(&opts.deleteAfter, flag.DeleteAfter, "", usage.AccessListsDeleteAfter)
 	cmd.Flags().BoolVar(&opts.currentIP, flag.CurrentIP, false, usage.CurrentIP)

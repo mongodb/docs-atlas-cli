@@ -19,8 +19,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/oauth"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/oauth"
 	atlasauth "go.mongodb.org/atlas/auth"
 	atlas "go.mongodb.org/atlas/mongodbatlas"
 )
@@ -64,4 +64,13 @@ func (opts *RefresherOpts) RefreshAccessToken(ctx context.Context) error {
 	config.SetAccessToken(t.AccessToken)
 	config.SetRefreshToken(t.RefreshToken)
 	return config.Save()
+}
+
+// RefreshToken a token from the current configuration.
+func RefreshToken(ctx context.Context) error {
+	opts := &RefresherOpts{}
+	if err := opts.InitFlow(); err != nil {
+		return err
+	}
+	return opts.RefreshAccessToken(ctx)
 }

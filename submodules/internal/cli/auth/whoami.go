@@ -19,8 +19,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/mongodb/mongocli/internal/cli/require"
-	"github.com/mongodb/mongocli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/require"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
 	"github.com/spf13/cobra"
 )
 
@@ -35,27 +35,32 @@ func (opts *whoOpts) Run() error {
 	return nil
 }
 
+var ErrUnauthenticated = errors.New("not logged in")
+
+func AccountWithAccessToken() (string, error) {
+	if config.AccessToken() == "" {
+		return "", ErrUnauthenticated
+	}
+	return config.AccessTokenSubject()
+}
+
 func WhoAmIBuilder() *cobra.Command {
 	opts := &whoOpts{}
 
 	cmd := &cobra.Command{
 		Use:   "whoami",
 		Short: "Verifies and displays information about your authentication state.",
-		Example: `  See the logged account:
-  $ mongocli auth whoami
-`,
+		Example: fmt.Sprintf(`  See the logged account:
+  $ %s auth whoami
+`, config.BinName()),
 		PreRun: func(cmd *cobra.Command, args []string) {
 			opts.OutWriter = cmd.OutOrStdout()
 		},
 		RunE: func(cmd *cobra.Command, args []string) error {
-			if config.AccessToken() == "" {
-				return errors.New("not logged in")
-			}
-			s, err := config.AccessTokenSubject()
-			if err != nil {
+			var err error
+			if opts.account, err = AccountWithAccessToken(); err != nil {
 				return err
 			}
-			opts.account = s
 
 			return opts.Run()
 		},

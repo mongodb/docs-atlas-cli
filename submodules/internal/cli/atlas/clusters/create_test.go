@@ -21,9 +21,9 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
-	"github.com/mongodb/mongocli/internal/flag"
-	"github.com/mongodb/mongocli/internal/mocks"
-	"github.com/mongodb/mongocli/internal/test"
+	"github.com/mongodb/mongodb-atlas-cli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/mocks"
+	"github.com/mongodb/mongodb-atlas-cli/internal/test"
 	"github.com/spf13/afero"
 	"go.mongodb.org/atlas/mongodbatlas"
 )
@@ -114,6 +114,6 @@ func TestCreateBuilder(t *testing.T) {
 		CreateBuilder(),
 		0,
 		[]string{flag.Provider, flag.Region, flag.Members, flag.Tier, flag.DiskSizeGB, flag.MDBVersion, flag.Backup,
-			flag.File, flag.Type, flag.Shards, flag.ProjectID, flag.Output},
+			flag.File, flag.TypeFlag, flag.Shards, flag.ProjectID, flag.Output},
 	)
 }

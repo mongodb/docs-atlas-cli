@@ -16,13 +16,14 @@ package settings
 
 import (
 	"context"
+	"fmt"
 
-	"github.com/mongodb/mongocli/internal/cli"
-	"github.com/mongodb/mongocli/internal/cli/require"
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/flag"
-	"github.com/mongodb/mongocli/internal/store"
-	"github.com/mongodb/mongocli/internal/usage"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/require"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/store"
+	"github.com/mongodb/mongodb-atlas-cli/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -61,9 +62,8 @@ func ListBuilder() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "Returns alert configurations for the specified project.",
-		Example: `  
-  This example uses the profile named "myprofile" for accessing Atlas.
-  $ mongocli atlas alerts settings list --projectId 5df90590f10fab5e33de2305 -o json --profile myprofile`,
+		Example: fmt.Sprintf(`  This example uses the profile named "myprofile" for accessing Atlas.
+  $ %s alerts settings list --projectId 5df90590f10fab5e33de2305 -o json --profile myprofile`, cli.ExampleAtlasEntryPoint()),
 		Annotations: map[string]string{},
 		Aliases:     []string{"ls"},
 		Args:        require.NoArgs,

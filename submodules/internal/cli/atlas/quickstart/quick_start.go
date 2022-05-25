@@ -16,7 +16,9 @@ package quickstart
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"io"
 	"os"
 	"os/signal"
 	"strconv"
@@ -25,30 +27,35 @@ import (
 	"time"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/mongodb/mongocli/internal/cli"
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/flag"
-	"github.com/mongodb/mongocli/internal/mongosh"
-	"github.com/mongodb/mongocli/internal/store"
-	"github.com/mongodb/mongocli/internal/usage"
-	"github.com/mongodb/mongocli/internal/validate"
-	"github.com/pkg/browser"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/mongosh"
+	"github.com/mongodb/mongodb-atlas-cli/internal/store"
+	"github.com/mongodb/mongodb-atlas-cli/internal/telemetry"
+	"github.com/mongodb/mongodb-atlas-cli/internal/usage"
+	"github.com/mongodb/mongodb-atlas-cli/internal/validate"
 	"github.com/spf13/cobra"
+	atlas "go.mongodb.org/atlas/mongodbatlas"
 )
+
+//go:generate mockgen -destination=../../../mocks/mock_quick_start.go -package=mocks github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas/quickstart Flow
 
 const quickstartTemplate = `
 Now you can connect to your Atlas cluster with: mongosh -u %s -p %s %s
 
 `
 const quickstartTemplateCloseHandler = `
-You can connect to your Atlas cluster with the following user: 
-username: %s 
-password: %s
+Enter 'atlas cluster watch %s' to learn when your cluster is available.
 `
 
-const quickstartTemplateIntro = `You are creating a new Atlas cluster and enabling access to it.
+const quickstartTemplateStoreWarning = `
+Please store your database authentication access details in a secure location: 
+Database User Username: %s
+Database User Password: %s
+`
 
-Press [Enter] to use the default values.
+const quickstartTemplateIntro = `Press [Enter] to use the default values.
 
 Enter [?] on any option to get help.
 `
@@ -58,16 +65,18 @@ Creating your cluster... [It's safe to 'Ctrl + C']
 `
 const quickstartTemplateIPNotFound = `
 We could not find your public IP address. To add your IP address run:
-  mongocli atlas accesslist create`
+  %s accesslist create
+
+`
+
+var ErrFreeClusterAlreadyExists = errors.New("this project already has another free cluster")
 
 const (
 	replicaSet          = "REPLICASET"
-	defaultAtlasTier    = "M0"
+	DefaultAtlasTier    = "M0"
 	defaultAtlasGovTier = "M30"
 	atlasAdmin          = "atlasAdmin"
 	mongoshURL          = "https://www.mongodb.com/try/download/shell"
-	atlasAccountURL     = "https://docs.atlas.mongodb.com/tutorial/create-atlas-account/?utm_campaign=atlas_quickstart&utm_source=mongocli&utm_medium=product/"
-	profileDocURL       = "https://docs.mongodb.com/mongocli/stable/configure/?utm_campaign=atlas_quickstart&utm_source=mongocli&utm_medium=product#std-label-mcli-configure"
 	defaultProvider     = "AWS"
 	defaultRegion       = "US_EAST_1"
 	defaultRegionGov    = "US_GOV_EAST_1"
@@ -78,7 +87,7 @@ type Opts struct {
 	cli.WatchOpts
 	defaultName         string
 	ClusterName         string
-	tier                string
+	Tier                string
 	Provider            string
 	Region              string
 	IPAddresses         []string
@@ -92,7 +101,24 @@ type Opts struct {
 	mongoShellInstalled bool
 	defaultValue        bool
 	Confirm             bool
+	CurrentIP           bool
 	store               store.AtlasClusterQuickStarter
+}
+
+type quickstart struct {
+	ClusterName    string
+	Provider       string
+	Region         string
+	DBUsername     string
+	DBUserPassword string
+	IPAddresses    []string
+	SkipSampleData bool
+	SkipMongosh    bool
+}
+
+type Flow interface {
+	PreRun(ctx context.Context, outWriter io.Writer) error
+	Run() error
 }
 
 func (opts *Opts) initStore(ctx context.Context) func() error {
@@ -103,38 +129,58 @@ func (opts *Opts) initStore(ctx context.Context) func() error {
 	}
 }
 
+func (opts *Opts) PreRun(ctx context.Context, outWriter io.Writer) error {
+	opts.setTier()
+
+	if opts.CurrentIP && len(opts.IPAddresses) > 0 {
+		return fmt.Errorf("cannot use %s and %s, please use only one of the flags", flag.CurrentIP, flag.AccessListIP)
+	}
+
+	return opts.PreRunE(
+		opts.ValidateProjectID,
+		opts.initStore(ctx),
+		opts.InitOutput(outWriter, ""),
+	)
+}
+
 func (opts *Opts) Run() error {
-	fmt.Print(quickstartTemplateIntro)
+	const base10 = 10
+	opts.defaultName = "Cluster" + strconv.FormatInt(time.Now().Unix(), base10)[5:]
+	opts.providerAndRegionToConstant()
 
-	if err := opts.askClusterOptions(); err != nil {
+	if opts.CurrentIP {
+		if publicIP := store.IPAddress(); publicIP != "" {
+			opts.IPAddresses = []string{publicIP}
+		} else {
+			_, _ = fmt.Fprintf(os.Stderr, quickstartTemplateIPNotFound, cli.ExampleAtlasEntryPoint())
+		}
+	}
+
+	values, dErr := opts.newDefaultValues()
+	if dErr != nil {
+		return dErr
+	}
+
+	if err := opts.askConfirmDefaultQuestion(values); err != nil || !opts.Confirm {
+		fmt.Print(quickstartTemplateIntro)
+
+		err = opts.interactiveSetup()
+		if err != nil {
+			return err
+		}
+	} else {
+		opts.replaceWithDefaultSettings(values)
+	}
+
+	// Create db user, access list and cluster
+	if err := opts.createResources(); err != nil {
 		return err
 	}
 
-	if err := opts.askSampleDataQuestion(); err != nil {
-		return err
-	}
+	fmt.Printf(`We are deploying %s...
+`, opts.ClusterName)
 
-	if err := opts.createDatabaseUser(); err != nil {
-		return err
-	}
-
-	if err := opts.createAccessList(); err != nil {
-		return err
-	}
-
-	if err := opts.askMongoShellQuestion(); err != nil {
-		return err
-	}
-
-	if err := opts.askConfirmConfigQuestion(); err != nil {
-		return err
-	}
-
-	fmt.Printf(`We are deploying %s...`, opts.ClusterName)
-	if err := opts.createCluster(); err != nil {
-		return err
-	}
-
+	fmt.Printf(quickstartTemplateStoreWarning, opts.DBUsername, opts.DBUserPassword)
 	opts.setupCloseHandler()
 
 	fmt.Print(quickstartTemplateCluster)
@@ -144,10 +190,20 @@ func (opts *Opts) Run() error {
 		return er
 	}
 
+	fmt.Print("Cluster created.")
+
 	if err := opts.loadSampleData(); err != nil {
 		return err
 	}
 
+	if err := opts.askMongoShellQuestion(); err != nil {
+		return err
+	}
+
+	// If user does not want to open MongoShell, skip everything below
+	if !opts.runMongoShell {
+		return nil
+	}
 	// Get cluster's connection string
 	cluster, err := opts.store.AtlasCluster(opts.ConfigProjectID(), opts.ClusterName)
 	if err != nil {
@@ -156,10 +212,29 @@ func (opts *Opts) Run() error {
 
 	fmt.Printf(quickstartTemplate, opts.DBUsername, opts.DBUserPassword, cluster.ConnectionStrings.StandardSrv)
 
-	if opts.runMongoShell {
+	if opts.runMongoShell && config.MongoShellPath() != "" {
 		return mongosh.Run(config.MongoShellPath(), opts.DBUsername, opts.DBUserPassword, cluster.ConnectionStrings.StandardSrv)
 	}
 
+	return nil
+}
+
+func (opts *Opts) createResources() error {
+	if err := opts.createDatabaseUser(); err != nil {
+		return err
+	}
+
+	if err := opts.createAccessList(); err != nil {
+		return err
+	}
+
+	if err := opts.createCluster(); err != nil {
+		var target *atlas.ErrorResponse
+		if errors.As(err, &target) && target.ErrorCode == "CANNOT_CREATE_FREE_CLUSTER_VIA_PUBLIC_API" && strings.Contains(strings.ToLower(target.Detail), ErrFreeClusterAlreadyExists.Error()) {
+			return ErrFreeClusterAlreadyExists
+		}
+		return err
+	}
 	return nil
 }
 
@@ -208,7 +283,7 @@ func (opts *Opts) askSampleDataQuestion() error {
 
 	q := newSampleDataQuestion(opts.ClusterName)
 	var addSampleData bool
-	if err := survey.AskOne(q, &addSampleData); err != nil {
+	if err := telemetry.TrackAskOne(q, &addSampleData); err != nil {
 		return err
 	}
 	opts.SkipSampleData = !addSampleData
@@ -219,46 +294,12 @@ func (opts *Opts) askSampleDataQuestion() error {
 func askMongoShellAndSetConfig() error {
 	var mongoShellPath string
 	q := newMongoShellPathInput()
-	if err := survey.AskOne(q, &mongoShellPath, survey.WithValidator(validate.Path)); err != nil {
+	if err := telemetry.TrackAskOne(q, &mongoShellPath, survey.WithValidator(validate.Path)); err != nil {
 		return err
 	}
 
 	config.SetMongoShellPath(mongoShellPath)
 	return config.Save()
-}
-
-func askAtlasAccountAndProfile() error {
-	_, _ = fmt.Fprintln(os.Stderr, "No API credentials set.")
-
-	if err := openBrowserAtlasAccount(); err != nil {
-		return err
-	}
-
-	if err := openBrowserProfile(); err != nil {
-		return err
-	}
-
-	return validate.Credentials()
-}
-
-func openBrowserProfile() error {
-	openBrowserProfileDoc := false
-	q := newProfileDocQuestionOpenBrowser()
-	if err := survey.AskOne(q, &openBrowserProfileDoc); !openBrowserProfileDoc || err != nil {
-		return err
-	}
-
-	return browser.OpenURL(profileDocURL)
-}
-
-func openBrowserAtlasAccount() error {
-	q := newAtlasAccountQuestionOpenBrowser()
-	var openBrowserAtlasAccount bool
-	if err := survey.AskOne(q, &openBrowserAtlasAccount); !openBrowserAtlasAccount || err != nil {
-		return err
-	}
-
-	return browser.OpenURL(atlasAccountURL)
 }
 
 // setupCloseHandler creates a 'listener' on a new goroutine which will notify the
@@ -269,7 +310,7 @@ func (opts *Opts) setupCloseHandler() {
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 	go func() {
 		<-c
-		fmt.Printf(quickstartTemplateCloseHandler, opts.DBUsername, opts.DBUserPassword)
+		fmt.Printf(quickstartTemplateCloseHandler, opts.ClusterName)
 		os.Exit(0)
 	}()
 }
@@ -280,55 +321,107 @@ func (opts *Opts) providerAndRegionToConstant() {
 }
 
 func (opts *Opts) setTier() {
-	if config.CloudGovService == config.Service() && opts.tier == defaultAtlasTier {
-		opts.tier = defaultAtlasGovTier
+	if config.CloudGovService == config.Service() && opts.Tier == DefaultAtlasTier {
+		opts.Tier = defaultAtlasGovTier
 	}
 }
 
-func (opts *Opts) defaultValues() error {
-	if !opts.defaultValue {
-		return nil
-	}
+func (opts *Opts) newDefaultValues() (*quickstart, error) {
+	values := &quickstart{}
+	values.SkipMongosh = opts.SkipMongosh
+	values.SkipSampleData = opts.SkipSampleData
 
-	opts.SkipSampleData = true
-	opts.SkipMongosh = true
-
+	values.ClusterName = opts.ClusterName
 	if opts.ClusterName == "" {
-		opts.ClusterName = opts.defaultName
+		values.ClusterName = opts.defaultName
 	}
 
+	values.Provider = opts.Provider
 	if opts.Provider == "" {
-		opts.Provider = defaultProvider
+		values.Provider = defaultProvider
 	}
 
+	values.Region = opts.Region
 	if opts.Region == "" {
-		opts.Region = defaultRegion
+		values.Region = defaultRegion
 		if config.CloudGovService == config.Service() {
-			opts.Region = defaultRegionGov
+			values.Region = defaultRegionGov
 		}
 	}
 
+	values.DBUsername = opts.DBUsername
 	if opts.DBUsername == "" {
-		opts.DBUsername = opts.defaultName
+		values.DBUsername = opts.defaultName
 	}
 
+	values.DBUserPassword = opts.DBUserPassword
 	if opts.DBUserPassword == "" {
 		pwd, err := generatePassword()
 		if err != nil {
-			return err
+			return nil, err
 		}
-		opts.DBUserPassword = pwd
+		values.DBUserPassword = pwd
 	}
 
+	values.IPAddresses = opts.IPAddresses
 	if len(opts.IPAddresses) == 0 {
 		if publicIP := store.IPAddress(); publicIP != "" {
-			opts.IPAddresses = []string{publicIP}
+			values.IPAddresses = []string{publicIP}
 		} else {
-			_, _ = fmt.Fprintln(os.Stderr, quickstartTemplateIPNotFound)
+			_, _ = fmt.Fprintf(os.Stderr, quickstartTemplateIPNotFound, cli.ExampleAtlasEntryPoint())
 		}
 	}
 
-	return nil
+	return values, nil
+}
+
+func (opts *Opts) replaceWithDefaultSettings(values *quickstart) {
+	if values.ClusterName != "" {
+		opts.ClusterName = values.ClusterName
+	}
+
+	if values.Provider != "" {
+		opts.Provider = values.Provider
+	}
+
+	if values.Region != "" {
+		opts.Region = values.Region
+	}
+
+	if values.DBUsername != "" {
+		opts.DBUsername = values.DBUsername
+	}
+
+	if values.DBUserPassword != "" {
+		opts.DBUserPassword = values.DBUserPassword
+	}
+
+	if values.IPAddresses != nil {
+		opts.IPAddresses = values.IPAddresses
+	}
+
+	opts.SkipSampleData = values.SkipSampleData
+	opts.SkipMongosh = values.SkipMongosh
+}
+
+func (opts *Opts) interactiveSetup() error {
+	if err := opts.askClusterOptions(); err != nil {
+		return err
+	}
+
+	if err := opts.askSampleDataQuestion(); err != nil {
+		return err
+	}
+
+	if err := opts.askDBUserOptions(); err != nil {
+		return err
+	}
+
+	if err := opts.askAccessListOptions(); err != nil {
+		return err
+	}
+
+	return opts.askConfirmConfigQuestion()
 }
 
 // Builder
@@ -344,38 +437,21 @@ func (opts *Opts) defaultValues() error {
 func Builder() *cobra.Command {
 	opts := &Opts{}
 	cmd := &cobra.Command{
-		Use: "quickstart",
-		Example: `Skip setting cluster name, provider or database username by using the command options
-  $ mongocli atlas quickstart --clusterName Test --provider GCP --username dbuserTest
-`,
+		Use:   "quickstart",
 		Short: "Create and access an Atlas Cluster.",
 		Long:  "This command creates a new cluster, adds your public IP to the atlas access list and creates a db user to access your new MongoDB instance.",
+		Example: fmt.Sprintf(`  Skip setting cluster name, provider or database username by using the command options:
+  $ %s quickstart --clusterName Test --provider GCP --username dbuserTest`, cli.ExampleAtlasEntryPoint()),
 		PreRunE: func(cmd *cobra.Command, args []string) error {
-			if config.PublicAPIKey() == "" || config.PrivateAPIKey() == "" {
-				// no profile set
-				return askAtlasAccountAndProfile()
-			}
-			opts.setTier()
-			return opts.PreRunE(
-				opts.ValidateProjectID,
-				opts.initStore(cmd.Context()),
-				opts.InitOutput(cmd.OutOrStdout(), ""),
-			)
+			return opts.PreRun(cmd.Context(), cmd.OutOrStdout())
 		},
 		RunE: func(cmd *cobra.Command, args []string) error {
-			const base10 = 10
-			opts.defaultName = "Quickstart-" + strconv.FormatInt(time.Now().Unix(), base10)
-			opts.providerAndRegionToConstant()
-
-			if err := opts.defaultValues(); err != nil {
-				return err
-			}
 			return opts.Run()
 		},
 	}
 
 	cmd.Flags().StringVar(&opts.ClusterName, flag.ClusterName, "", usage.ClusterName)
-	cmd.Flags().StringVar(&opts.tier, flag.Tier, defaultAtlasTier, usage.Tier)
+	cmd.Flags().StringVar(&opts.Tier, flag.Tier, DefaultAtlasTier, usage.Tier)
 	cmd.Flags().StringVar(&opts.Provider, flag.Provider, "", usage.Provider)
 	cmd.Flags().StringVarP(&opts.Region, flag.Region, flag.RegionShort, "", usage.Region)
 	cmd.Flags().StringSliceVar(&opts.IPAddresses, flag.AccessListIP, []string{}, usage.NetworkAccessListIPEntry)
@@ -385,6 +461,7 @@ func Builder() *cobra.Command {
 	cmd.Flags().BoolVar(&opts.SkipMongosh, flag.SkipMongosh, false, usage.SkipMongosh)
 	cmd.Flags().BoolVarP(&opts.defaultValue, flag.Default, "Y", false, usage.QuickstartDefault)
 	cmd.Flags().BoolVar(&opts.Confirm, flag.Force, false, usage.Force)
+	cmd.Flags().BoolVar(&opts.CurrentIP, flag.CurrentIP, false, usage.CurrentIPSimplified)
 
 	cmd.Flags().StringVar(&opts.ProjectID, flag.ProjectID, "", usage.ProjectID)
 

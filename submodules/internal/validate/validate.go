@@ -23,8 +23,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/search"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/search"
 )
 
 const minPasswordLength = 10
@@ -93,7 +93,7 @@ func ObjectID(s string) error {
 	return nil
 }
 
-var ErrMissingCredentials = errors.New("missing credentials")
+var ErrMissingCredentials = errors.New("this action requires authentication")
 
 // Credentials validates public and private API keys have been set.
 func Credentials() error {
@@ -109,11 +109,20 @@ func Credentials() error {
 		configCMD += " init"
 	}
 	return fmt.Errorf(
-		"%w\n\nTo set credentials, run: %s %s",
+		"%w\n\nTo log in using your Atlas username and password, run: %s auth login\nTo set credentials using API keys, run: %s %s",
 		ErrMissingCredentials,
+		config.BinName(),
 		config.BinName(),
 		configCMD,
 	)
+}
+
+func Token() error {
+	if t, err := config.Token(); t != nil {
+		return err
+	}
+
+	return ErrMissingCredentials
 }
 
 func FlagInSlice(value, flag string, validValues []string) error {

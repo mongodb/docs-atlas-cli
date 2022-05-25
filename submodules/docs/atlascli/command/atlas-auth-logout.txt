@@ -35,7 +35,7 @@ Options
    * - --force
      - 
      - false
-     - If specified, skips asking for confirmation before proceeding with a requsted action.
+     - If specified, skips asking for confirmation before proceeding with a requested action.
    * - -h, --help
      - 
      - false
@@ -63,6 +63,6 @@ Examples
 .. code-block::
 
    To log out from the CLI:
-   $ mongocli auth logout
+   $ atlas auth logout
 
 

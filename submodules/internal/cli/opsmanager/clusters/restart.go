@@ -20,13 +20,14 @@ import (
 	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/mongodb/mongocli/internal/cli"
-	"github.com/mongodb/mongocli/internal/cli/require"
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/flag"
-	"github.com/mongodb/mongocli/internal/search"
-	"github.com/mongodb/mongocli/internal/store"
-	"github.com/mongodb/mongocli/internal/usage"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/require"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/search"
+	"github.com/mongodb/mongodb-atlas-cli/internal/store"
+	"github.com/mongodb/mongodb-atlas-cli/internal/telemetry"
+	"github.com/mongodb/mongodb-atlas-cli/internal/usage"
 	"github.com/spf13/cobra"
 	"go.mongodb.org/ops-manager/atmcfg"
 )
@@ -89,7 +90,7 @@ func (opts *RestartOpts) Confirm() error {
 	prompt := &survey.Confirm{
 		Message: fmt.Sprintf("Are you sure you want to restart: %s", startupProcess),
 	}
-	return survey.AskOne(prompt, &opts.confirm)
+	return telemetry.TrackAskOne(prompt, &opts.confirm)
 }
 
 // mongocli cloud-manager cluster(s) restart <clusterName> --process hostname:port,hostname2:port2 --projectId projectId [--force].

@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path"
 	"path/filepath"
 	"runtime"
 	"sort"
@@ -27,15 +28,15 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/mongodb/mongocli/internal/search"
-	"github.com/mongodb/mongocli/internal/version"
+	"github.com/mongodb/mongodb-atlas-cli/internal/search"
+	"github.com/mongodb/mongodb-atlas-cli/internal/version"
 	"github.com/pelletier/go-toml"
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"
 	"go.mongodb.org/atlas/auth"
 )
 
-//go:generate mockgen -destination=../mocks/mock_profile.go -package=mocks github.com/mongodb/mongocli/internal/config SetSaver
+//go:generate mockgen -destination=../mocks/mock_profile.go -package=mocks github.com/mongodb/mongodb-atlas-cli/internal/config SetSaver
 
 const (
 	MongoCLIEnvPrefix            = "MCLI"          // MongoCLIEnvPrefix prefix for MongoCLI ENV variables
@@ -66,6 +67,7 @@ const (
 	configPerm                   = 0600
 	defaultPermissions           = 0700
 	skipUpdateCheck              = "skip_update_check"
+	telemetryEnabled             = "telemetry_enabled"
 	MongoCLI                     = "mongocli"
 	AtlasCLI                     = "atlascli"
 )
@@ -122,6 +124,7 @@ func Properties() []string {
 		opsManagerSkipVerify,
 		mongoShellPath,
 		skipUpdateCheck,
+		telemetryEnabled,
 		AccessTokenField,
 		RefreshTokenField,
 	}
@@ -130,17 +133,20 @@ func Properties() []string {
 func BooleanProperties() []string {
 	return []string{
 		skipUpdateCheck,
+		telemetryEnabled,
 	}
 }
 
 func GlobalProperties() []string {
 	return []string{
 		skipUpdateCheck,
+		telemetryEnabled,
+		mongoShellPath,
 	}
 }
 
 func IsTrue(s string) bool {
-	return search.StringInSlice([]string{"true", "True", "TRUE", "y", "Y", "yes", "Yes", "YES"}, s)
+	return search.StringInSlice([]string{"t", "T", "true", "True", "TRUE", "y", "Y", "yes", "Yes", "YES", "1"}, s)
 }
 
 func Default() *Profile {
@@ -218,7 +224,7 @@ func (p *Profile) Set(name string, value interface{}) {
 }
 
 func SetGlobal(name string, value interface{}) { viper.Set(name, value) }
-func (p *Profile) SetGlobal(name string, value interface{}) {
+func (*Profile) SetGlobal(name string, value interface{}) {
 	SetGlobal(name, value)
 }
 
@@ -242,6 +248,9 @@ func (p *Profile) GetString(name string) string {
 
 func GetBool(name string) bool { return Default().GetBool(name) }
 func (p *Profile) GetBool(name string) bool {
+	return p.GetBoolWithDefault(name, false)
+}
+func (p *Profile) GetBoolWithDefault(name string, defaultValue bool) bool {
 	value := p.Get(name)
 	switch v := value.(type) {
 	case bool:
@@ -249,7 +258,7 @@ func (p *Profile) GetBool(name string) bool {
 	case string:
 		return IsTrue(v)
 	default:
-		return false
+		return defaultValue
 	}
 }
 
@@ -426,7 +435,7 @@ func (p *Profile) MongoShellPath() string {
 
 // SetMongoShellPath sets the global MongoDB Shell path.
 func SetMongoShellPath(v string) { Default().SetMongoShellPath(v) }
-func (p *Profile) SetMongoShellPath(v string) {
+func (*Profile) SetMongoShellPath(v string) {
 	SetGlobal(mongoShellPath, v)
 }
 
@@ -438,8 +447,41 @@ func (p *Profile) SkipUpdateCheck() bool {
 
 // SetSkipUpdateCheck sets the global skip update check.
 func SetSkipUpdateCheck(v bool) { Default().SetSkipUpdateCheck(v) }
-func (p *Profile) SetSkipUpdateCheck(v bool) {
+func (*Profile) SetSkipUpdateCheck(v bool) {
 	SetGlobal(skipUpdateCheck, v)
+}
+
+// IsTelemetryEnabledSet return true if telemetry_enabled has been set.
+func IsTelemetryEnabledSet() bool { return Default().IsTelemetryEnabledSet() }
+func (*Profile) IsTelemetryEnabledSet() bool {
+	return viper.IsSet(telemetryEnabled)
+}
+
+// TelemetryEnabled get the configured telemetry enabled value.
+func TelemetryEnabled() bool { return Default().TelemetryEnabled() }
+func (p *Profile) TelemetryEnabled() bool {
+	return isTelemetryFeatureAllowed() && p.GetBoolWithDefault(telemetryEnabled, true)
+}
+
+// SetTelemetryEnabled sets the telemetry enabled value.
+func SetTelemetryEnabled(v bool) { Default().SetTelemetryEnabled(v) }
+
+func (*Profile) SetTelemetryEnabled(v bool) {
+	if !isTelemetryFeatureAllowed() {
+		return
+	}
+	SetGlobal(telemetryEnabled, v)
+}
+
+func boolEnv(key string) bool {
+	value, ok := os.LookupEnv(key)
+	return ok && IsTrue(value)
+}
+
+func isTelemetryFeatureAllowed() bool {
+	tool := ToolName == AtlasCLI
+	doNotTrack := boolEnv("DO_NOT_TRACK")
+	return tool && !doNotTrack
 }
 
 // Output get configured output format.
@@ -536,6 +578,10 @@ func (p *Profile) Delete() error {
 
 func (p *Profile) Filename() string {
 	return filepath.Join(p.configDir, "config.toml")
+}
+
+func Filename() string {
+	return Default().Filename()
 }
 
 // Rename replaces the Profile to a new Profile name, overwriting any Profile that existed before.
@@ -643,6 +689,7 @@ func (p *Profile) Save() error {
 }
 
 // OldMongoCLIConfigHome retrieves configHome path based used by MongoCLI.
+//
 // Deprecated: MongoCLI versions below v1.24.0 use this path.
 func OldMongoCLIConfigHome() (string, error) {
 	if home := os.Getenv("XDG_CONFIG_HOME"); home != "" {
@@ -654,7 +701,7 @@ func OldMongoCLIConfigHome() (string, error) {
 		return "", err
 	}
 
-	return fmt.Sprintf("%s/.config", home), nil
+	return path.Join(home, ".config"), nil
 }
 
 // MongoCLIConfigHome retrieves configHome path based used by MongoCLI.
@@ -664,7 +711,7 @@ func MongoCLIConfigHome() (string, error) {
 		return "", err
 	}
 
-	return fmt.Sprintf("%s/mongocli", home), nil
+	return path.Join(home, "mongocli"), nil
 }
 
 // AtlasCLIConfigHome retrieves configHome path based used by AtlasCLI.
@@ -674,24 +721,24 @@ func AtlasCLIConfigHome() (string, error) {
 		return "", err
 	}
 
-	return fmt.Sprintf("%s/atlascli", home), nil
+	return path.Join(home, "atlascli"), nil
 }
 
-func Path(fileName string) (string, error) {
-	var path bytes.Buffer
-	var home string
+func Path(f string) (string, error) {
+	var p bytes.Buffer
+	var h string
 	var err error
 
 	if ToolName == AtlasCLI {
-		home, err = AtlasCLIConfigHome()
+		h, err = AtlasCLIConfigHome()
 	} else {
-		home, err = MongoCLIConfigHome()
+		h, err = MongoCLIConfigHome()
 	}
 	if err != nil {
 		return "", err
 	}
 
-	path.WriteString(home)
-	path.WriteString(fileName)
-	return path.String(), nil
+	p.WriteString(h)
+	p.WriteString(f)
+	return p.String(), nil
 }

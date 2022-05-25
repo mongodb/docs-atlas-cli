@@ -16,13 +16,14 @@ package databases
 
 import (
 	"context"
+	"fmt"
 
-	"github.com/mongodb/mongocli/internal/cli"
-	"github.com/mongodb/mongocli/internal/cli/require"
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/flag"
-	"github.com/mongodb/mongocli/internal/store"
-	"github.com/mongodb/mongocli/internal/usage"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/require"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/store"
+	"github.com/mongodb/mongodb-atlas-cli/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -74,8 +75,10 @@ func DescribeBuilder() *cobra.Command {
 			"hostname:portDesc": "Hostname and port number of the instance running the Atlas MongoDB process.",
 			"databaseNameDesc":  "Label that identifies the database from which you want to retrieve metrics.",
 		},
-		Example: `This example retrieves database metrics for the database "testDB" in the host "atlas-lnmtkm-shard-00-00.ajlj3.mongodb.net:27017" 
-  $ mongocli atlas metrics database describe atlas-lnmtkm-shard-00-00.ajlj3.mongodb.net:27017 testDB --granularity PT1M --period P1DT12H`,
+		Example: fmt.Sprintf(
+			`  This example retrieves database metrics for the database "testDB" in the host "atlas-lnmtkm-shard-00-00.ajlj3.mongodb.net:27017" 
+  $ %s metrics database describe atlas-lnmtkm-shard-00-00.ajlj3.mongodb.net:27017 testDB --granularity PT1M --period P1DT12H`,
+			cli.ExampleAtlasEntryPoint()),
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			return opts.PreRunE(
 				opts.ValidateProjectID,
@@ -103,7 +106,7 @@ func DescribeBuilder() *cobra.Command {
 	cmd.Flags().StringVar(&opts.Period, flag.Period, "", usage.Period)
 	cmd.Flags().StringVar(&opts.Start, flag.Start, "", usage.MeasurementStart)
 	cmd.Flags().StringVar(&opts.End, flag.End, "", usage.MeasurementEnd)
-	cmd.Flags().StringSliceVar(&opts.MeasurementType, flag.Type, nil, usage.MeasurementType)
+	cmd.Flags().StringSliceVar(&opts.MeasurementType, flag.TypeFlag, nil, usage.MeasurementType)
 
 	cmd.Flags().StringVar(&opts.ProjectID, flag.ProjectID, "", usage.ProjectID)
 	cmd.Flags().StringVarP(&opts.Output, flag.Output, flag.OutputShort, "", usage.FormatOut)

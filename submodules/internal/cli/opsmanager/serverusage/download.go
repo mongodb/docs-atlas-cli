@@ -18,11 +18,11 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/mongodb/mongocli/internal/cli"
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/flag"
-	"github.com/mongodb/mongocli/internal/store"
-	"github.com/mongodb/mongocli/internal/usage"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/store"
+	"github.com/mongodb/mongodb-atlas-cli/internal/usage"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	"go.mongodb.org/ops-manager/opsmngr"
@@ -56,7 +56,7 @@ func (opts *DownloadOpts) Run() error {
 		_ = opts.OnError(f)
 		return err
 	}
-	if opts.Out != "/dev/stdout" {
+	if !opts.ShouldDownloadToStdout() {
 		fmt.Printf(downloadMessage, opts.Out)
 	}
 	return f.Close()

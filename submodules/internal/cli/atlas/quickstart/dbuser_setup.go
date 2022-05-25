@@ -18,17 +18,16 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/telemetry"
+
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/mongodb/mongocli/internal/convert"
-	"github.com/mongodb/mongocli/internal/randgen"
+	"github.com/mongodb/mongodb-atlas-cli/internal/convert"
+	"github.com/mongodb/mongodb-atlas-cli/internal/randgen"
 	atlas "go.mongodb.org/atlas/mongodbatlas"
 )
 
 func (opts *Opts) createDatabaseUser() error {
-	if err := opts.askDBUserOptions(); err != nil {
-		return err
-	}
-
 	if _, err := opts.store.CreateDatabaseUser(opts.newDatabaseUser()); err != nil {
 		return err
 	}
@@ -51,7 +50,11 @@ func (opts *Opts) askDBUserOptions() error {
 			return err
 		}
 		opts.DBUserPassword = pwd
-		message := fmt.Sprintf(" [Press Enter to use an auto-generated password '%s']", pwd)
+		minLength := 10
+		if config.Service() == config.CloudGovService {
+			minLength = 12
+		}
+		message := fmt.Sprintf(" [Must be >%d characters. Press Enter to use an auto-generated password]", minLength)
 
 		qs = append(qs, newDBUserPasswordQuestion(pwd, message))
 	}
@@ -61,9 +64,9 @@ func (opts *Opts) askDBUserOptions() error {
 	}
 
 	fmt.Print(`
-[Set up your database authentication access details]
+[Set up your database authentication access details. Store them in a secure location.]
 `)
-	return survey.Ask(qs, opts)
+	return telemetry.TrackAsk(qs, opts)
 }
 
 func (opts *Opts) validateUniqueUsername(val interface{}) error {

@@ -19,18 +19,13 @@ import (
 	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/mongodb/mongocli/internal/store"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli"
+	"github.com/mongodb/mongodb-atlas-cli/internal/store"
+	"github.com/mongodb/mongodb-atlas-cli/internal/telemetry"
 	atlas "go.mongodb.org/atlas/mongodbatlas"
 )
 
 func (opts *Opts) createAccessList() error {
-	if err := opts.askAccessListOptions(); err != nil {
-		return err
-	}
-	if opts.IPAddressesResponse != "" {
-		ips := strings.Split(opts.IPAddressesResponse, ",")
-		opts.IPAddresses = append(opts.IPAddresses, ips...)
-	}
 	entries := opts.newProjectIPAccessList()
 	if _, err := opts.store.CreateProjectIPAccessList(entries); err != nil {
 		return err
@@ -52,15 +47,22 @@ func (opts *Opts) askAccessListOptions() error {
 	if publicIP != "" {
 		message = fmt.Sprintf(" [Press Enter to use your public IP address '%s']", publicIP)
 	}
-	return survey.AskOne(
+	err := telemetry.TrackAskOne(
 		newAccessListQuestion(publicIP, message),
 		&opts.IPAddressesResponse,
 		survey.WithValidator(survey.Required),
 	)
+
+	if err == nil && opts.IPAddressesResponse != "" {
+		ips := strings.Split(opts.IPAddressesResponse, ",")
+		opts.IPAddresses = append(opts.IPAddresses, ips...)
+	}
+	return err
 }
 
 func (opts *Opts) newProjectIPAccessList() []*atlas.ProjectIPAccessList {
-	const accessListComment = "IP added with mongocli atlas quickstart"
+	var accessListComment = fmt.Sprintf("IP added with %s quickstart", cli.ExampleAtlasEntryPoint())
+
 	accessListArray := make([]*atlas.ProjectIPAccessList, len(opts.IPAddresses))
 	for i, addr := range opts.IPAddresses {
 		accessList := &atlas.ProjectIPAccessList{

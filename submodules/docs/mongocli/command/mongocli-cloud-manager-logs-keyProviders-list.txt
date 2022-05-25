@@ -1,8 +1,8 @@
-.. _atlas-alerts-global-list:
+.. _mongocli-cloud-manager-logs-keyProviders-list:
 
-========================
-atlas alerts global list
-========================
+=============================================
+mongocli cloud-manager logs keyProviders list
+=============================================
 
 .. default-domain:: mongodb
 
@@ -12,14 +12,14 @@ atlas alerts global list
    :depth: 1
    :class: singlecol
 
-Returns all global alerts for the specified Ops Manager project.
+Lists all key provider configurations found in the encrypted audit log file.
 
 Syntax
 ------
 
 .. code-block::
 
-   atlas alerts global list [options]
+   mongocli cloud-manager logs keyProviders list [options]
 
 Options
 -------
@@ -32,26 +32,18 @@ Options
      - Type
      - Required
      - Description
+   * - -f, --file
+     - string
+     - true
+     - Path to the file that contains encrypted audit logs.
    * - -h, --help
      - 
      - false
      - help for list
-   * - --limit
-     - int
-     - false
-     - Number of items per page.
    * - -o, --output
      - string
      - false
      - Output format. Valid values are json, json-path, go-template, or go-template-file.
-   * - --page
-     - int
-     - false
-     - Page number.
-   * - --status
-     - string
-     - false
-     - Alert's status. The values are TRACKING, OPEN, CLOSED, and CANCELED.
 
 Inherited Options
 -----------------
@@ -68,4 +60,12 @@ Inherited Options
      - string
      - false
      - Profile to use from your configuration file.
+
+Examples
+--------
+
+.. code-block::
+
+
+   $ mongocli ops-manager listKeyProvider --file log.gz
 

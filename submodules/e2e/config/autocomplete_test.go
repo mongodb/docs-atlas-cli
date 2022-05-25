@@ -17,16 +17,33 @@ package config_test
 
 import (
 	"os"
-	"os/exec"
 	"testing"
 
-	"github.com/mongodb/mongocli/e2e"
+	"github.com/mongodb/mongodb-atlas-cli/e2e"
+	exec "golang.org/x/sys/execabs"
 )
 
 const completionEntity = "completion"
 
 func TestAutocomplete(t *testing.T) {
 	cliPath, err := e2e.Bin()
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	options := []string{"zsh", "bash", "fish", "powershell"}
+	for _, option := range options {
+		t.Run(option, func(t *testing.T) {
+			cmd := exec.Command(cliPath, completionEntity, option)
+			cmd.Env = os.Environ()
+			if resp, err := cmd.CombinedOutput(); err != nil {
+				t.Fatalf("unexpected error: %v, resp: %v", err, string(resp))
+			}
+		})
+	}
+}
+
+func TestAtlasCLIAutocomplete(t *testing.T) {
+	cliPath, err := e2e.AtlasCLIBin()
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}

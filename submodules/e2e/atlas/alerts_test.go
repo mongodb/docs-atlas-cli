@@ -18,18 +18,17 @@ package atlas_test
 import (
 	"encoding/json"
 	"os"
-	"os/exec"
 	"testing"
 	"time"
 
-	"github.com/mongodb/mongocli/e2e"
+	"github.com/mongodb/mongodb-atlas-cli/e2e"
 	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/atlas/mongodbatlas"
+	exec "golang.org/x/sys/execabs"
 )
 
 const (
-	open                        = "OPEN"
-	usersWithoutMultiFactorAuth = "USERS_WITHOUT_MULTI_FACTOR_AUTH"
+	closed = "CLOSED"
 )
 
 func TestAlerts(t *testing.T) {
@@ -39,11 +38,13 @@ func TestAlerts(t *testing.T) {
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	// This test should be run before all other tests to grab an alert ID for all other tests
-	t.Run("List with no status", func(t *testing.T) {
+	// This test should be run before all other tests to grab an alert ID for all others tests
+	t.Run("List with status CLOSED", func(t *testing.T) {
 		cmd := exec.Command(cliPath,
 			alertsEntity,
 			"list",
+			"--status",
+			closed,
 			"-o=json",
 		)
 
@@ -73,18 +74,15 @@ func TestAlerts(t *testing.T) {
 		assert.NoError(t, err, string(resp))
 	})
 
-	t.Run("List with status CLOSED", func(t *testing.T) {
+	t.Run("List with no status", func(t *testing.T) {
 		cmd := exec.Command(cliPath,
 			alertsEntity,
 			"list",
-			"--status",
-			"CLOSED",
 			"-o=json",
 		)
 
 		cmd.Env = os.Environ()
 		resp, err := cmd.CombinedOutput()
-
 		assert.NoError(t, err, string(resp))
 	})
 
@@ -104,8 +102,7 @@ func TestAlerts(t *testing.T) {
 			err := json.Unmarshal(resp, &alert)
 			a.NoError(err)
 			a.Equal(alertID, alert.ID)
-			a.Equal(open, alert.Status)
-			a.Equal(usersWithoutMultiFactorAuth, alert.EventTypeName)
+			a.Equal(closed, alert.Status)
 		}
 	})
 

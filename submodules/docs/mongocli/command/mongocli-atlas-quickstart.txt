@@ -42,6 +42,10 @@ Options
      - string
      - false
      - Name of the cluster.
+   * - --currentIp
+     - 
+     - false
+     - Flag that indicates whether to use the IP Address from the host that is currently executing the command.
    * - -Y, --default
      - 
      - false
@@ -49,7 +53,7 @@ Options
    * - --force
      - 
      - false
-     - If specified, skips asking for confirmation before proceeding with a requsted action.
+     - If specified, skips asking for confirmation before proceeding with a requested action.
    * - -h, --help
      - 
      - false
@@ -77,7 +81,7 @@ Options
    * - --skipSampleData
      - 
      - false
-     - Indicates whether to skip loading sample data into your Atlas Cluster.
+     - Indicates whether to skip loading sample data into your Atlas cluster.
    * - --tier
      - string
      - false
@@ -108,7 +112,6 @@ Examples
 
 .. code-block::
 
- Skip setting cluster name, provider or database username by using the command options
+   Skip setting cluster name, provider or database username by using the command options:
    $ mongocli atlas quickstart --clusterName Test --provider GCP --username dbuserTest
-
 

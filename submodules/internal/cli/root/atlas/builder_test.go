@@ -23,11 +23,11 @@ import (
 
 	"github.com/golang/mock/gomock"
 	"github.com/google/go-github/v42/github"
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/latestrelease"
-	"github.com/mongodb/mongocli/internal/mocks"
-	"github.com/mongodb/mongocli/internal/test"
-	"github.com/mongodb/mongocli/internal/version"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/latestrelease"
+	"github.com/mongodb/mongodb-atlas-cli/internal/mocks"
+	"github.com/mongodb/mongodb-atlas-cli/internal/test"
+	"github.com/mongodb/mongodb-atlas-cli/internal/version"
 	"github.com/spf13/afero"
 )
 
@@ -36,7 +36,7 @@ func TestBuilder(t *testing.T) {
 	test.CmdValidator(
 		t,
 		Builder(&profile),
-		33,
+		35,
 		[]string{},
 	)
 }
@@ -86,10 +86,10 @@ func TestOutputOpts_notifyIfApplicable(t *testing.T) {
 			if tt.expectNewVersion {
 				want = fmt.Sprintf(`
 A new version of %s is available '%v'!
-To upgrade, see: https://dochub.mongodb.org/core/%s-install.
+To upgrade, see: https://dochub.mongodb.org/core/install-atlas-cli.
 
 To disable this alert, run "%s config set skip_update_check true".
-`, config.ToolName, v, config.ToolName, config.BinName())
+`, config.ToolName, v, config.BinName())
 			}
 
 			if got := bufOut.String(); got != want {

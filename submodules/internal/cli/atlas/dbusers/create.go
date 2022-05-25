@@ -20,13 +20,14 @@ import (
 	"fmt"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/mongodb/mongocli/internal/cli"
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/convert"
-	"github.com/mongodb/mongocli/internal/flag"
-	"github.com/mongodb/mongocli/internal/store"
-	"github.com/mongodb/mongocli/internal/usage"
-	"github.com/mongodb/mongocli/internal/validate"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/convert"
+	"github.com/mongodb/mongodb-atlas-cli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/store"
+	"github.com/mongodb/mongodb-atlas-cli/internal/telemetry"
+	"github.com/mongodb/mongodb-atlas-cli/internal/usage"
+	"github.com/mongodb/mongodb-atlas-cli/internal/validate"
 	"github.com/spf13/cobra"
 	atlas "go.mongodb.org/atlas/mongodbatlas"
 )
@@ -131,7 +132,7 @@ func (opts *CreateOpts) Prompt() error {
 	prompt := &survey.Password{
 		Message: "Password:",
 	}
-	return survey.AskOne(prompt, &opts.password)
+	return telemetry.TrackAskOne(prompt, &opts.password)
 }
 
 func (opts *CreateOpts) validate() error {
@@ -157,6 +158,7 @@ func (opts *CreateOpts) validate() error {
 	return validate.FlagInSlice(opts.ldapType, flag.LDAPType, validLDAPFlags)
 }
 
+// CreateBuilder
 // mongocli atlas dbuser(s) create
 //		--username username --password password
 //		--role roleName@dbName
@@ -170,19 +172,18 @@ func CreateBuilder() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "create",
 		Short: "Create a database user for your project.",
-		Example: `  
-  Create an Atlas admin user
-  $ mongocli atlas dbuser create atlasAdmin --username <username>  --projectId <projectId>
+		Example: fmt.Sprintf(`  Create an Atlas database admin user:
+  $ %[1]s dbuser create atlasAdmin --username <username>  --projectId <projectId>
 
-  Create user with read/write access to any database
-  $ mongocli atlas dbuser create readWriteAnyDatabase --username <username> --projectId <projectId>
+  Create a database user with read/write access to any database:
+  $ %[1]s dbuser create readWriteAnyDatabase --username <username> --projectId <projectId>
 
-  Create user with multiple roles 
-  $ mongocli atlas dbuser create --username <username> --role clusterMonitor,backup --projectId <projectId>
+  Create a database user with multiple roles:
+  $ %[1]s dbuser create --username <username> --role clusterMonitor,backup --projectId <projectId>
 
-  Create user with multiple scopes 
-  $ mongocli atlas dbuser create --username <username> --role clusterMonitor --scope clusterName:CLUSTER,DataLakeName:DATA_LAKE --projectId <projectId>
-`,
+  Create a database user with multiple scopes:
+  $ %[1]s dbuser create --username <username> --role clusterMonitor --scope clusterName:CLUSTER,DataLakeName:DATA_LAKE --projectId <projectId>`,
+			cli.ExampleAtlasEntryPoint()),
 		Args:      cobra.OnlyValidArgs,
 		ValidArgs: []string{"atlasAdmin", "readWriteAnyDatabase", "readAnyDatabase", "clusterMonitor", "backup", "dbAdminAnyDatabase", "enableSharding"},
 		PreRunE: func(cmd *cobra.Command, args []string) error {

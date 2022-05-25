@@ -17,18 +17,18 @@ package homebrew
 import (
 	"bytes"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"strings"
 	"time"
 
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/file"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/file"
 	"github.com/spf13/afero"
+	exec "golang.org/x/sys/execabs"
 )
 
 const (
-	atlasFormulaName = "mongodb-atlas"
+	atlasFormulaName = "mongodb-atlas-cli"
 	brewFileSubPath  = "/brew.yaml"
 )
 

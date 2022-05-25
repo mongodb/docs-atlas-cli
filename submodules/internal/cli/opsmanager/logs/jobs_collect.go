@@ -19,12 +19,12 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/mongodb/mongocli/internal/cli"
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/flag"
-	"github.com/mongodb/mongocli/internal/search"
-	"github.com/mongodb/mongocli/internal/store"
-	"github.com/mongodb/mongocli/internal/usage"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/search"
+	"github.com/mongodb/mongodb-atlas-cli/internal/store"
+	"github.com/mongodb/mongodb-atlas-cli/internal/usage"
 	"github.com/spf13/cobra"
 	"go.mongodb.org/ops-manager/opsmngr"
 )
@@ -101,12 +101,12 @@ func JobsCollectOptsBuilder() *cobra.Command {
 		},
 	}
 
-	cmd.Flags().StringSliceVar(&opts.logTypes, flag.Type, []string{}, usage.LogTypes)
+	cmd.Flags().StringSliceVar(&opts.logTypes, flag.TypeFlag, []string{}, usage.LogTypes)
 	cmd.Flags().Int64Var(&opts.sizeRequestedPerFileBytes, flag.SizeRequestedPerFileBytes, 0, usage.SizeRequestedPerFileBytes)
 	cmd.Flags().BoolVar(&opts.redacted, flag.Redacted, false, usage.LogRedacted)
 
 	_ = cmd.MarkFlagRequired(flag.SizeRequestedPerFileBytes)
-	_ = cmd.MarkFlagRequired(flag.Type)
+	_ = cmd.MarkFlagRequired(flag.TypeFlag)
 
 	cmd.Flags().StringVar(&opts.ProjectID, flag.ProjectID, "", usage.ProjectID)
 	cmd.Flags().StringVarP(&opts.Output, flag.Output, flag.OutputShort, "", usage.FormatOut)

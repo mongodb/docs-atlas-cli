@@ -13,7 +13,6 @@
 // limitations under the License.
 
 //go:build unit
-// +build unit
 
 package snapshots
 
@@ -21,7 +20,7 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
-	"github.com/mongodb/mongocli/internal/mocks"
+	"github.com/mongodb/mongodb-atlas-cli/internal/mocks"
 	"go.mongodb.org/atlas/mongodbatlas"
 )
 

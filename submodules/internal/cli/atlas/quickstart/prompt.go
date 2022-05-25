@@ -18,9 +18,9 @@ import (
 	"fmt"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/mongodb/mongocli/internal/mongosh"
-	"github.com/mongodb/mongocli/internal/usage"
-	"github.com/mongodb/mongocli/internal/validate"
+	"github.com/mongodb/mongodb-atlas-cli/internal/mongosh"
+	"github.com/mongodb/mongodb-atlas-cli/internal/usage"
+	"github.com/mongodb/mongodb-atlas-cli/internal/validate"
 )
 
 func newClusterNameQuestion(clusterName string) *survey.Question {
@@ -48,9 +48,10 @@ func newClusterProviderQuestion() *survey.Question {
 }
 
 func newAccessListQuestion(publicIP, message string) survey.Prompt {
+	extraInfo := "  Set to 0.0.0.0/0 if you want to enable connection from anywhere; use comma (,) to separate multiple entries."
 	return &survey.Input{
-		Message: fmt.Sprintf("Access List Entry%s", message),
-		Help:    usage.NetworkAccessListIPEntry,
+		Message: fmt.Sprintf("IP Access List Entry%s", message),
+		Help:    usage.NetworkAccessListIPEntry + extraInfo,
 		Default: publicIP,
 	}
 }
@@ -90,7 +91,7 @@ func newSampleDataQuestion(clusterName string) survey.Prompt {
 
 func newMongoShellQuestionAccessDeployment(clusterName string) survey.Prompt {
 	return &survey.Confirm{
-		Message: fmt.Sprintf("Do you want to access %s with MongoDB Shell?", clusterName),
+		Message: fmt.Sprintf("Do you want to connect to %s with MongoDB Shell?", clusterName),
 		Help:    "MongoDB CLI will use your installed version of MongoDB Shell to access your deployments.",
 		Default: true,
 	}
@@ -126,23 +127,16 @@ func newMongoShellQuestionOpenBrowser() survey.Prompt {
 	}
 }
 
-func newAtlasAccountQuestionOpenBrowser() survey.Prompt {
+func newClusterCreateConfirm() survey.Prompt {
 	return &survey.Confirm{
-		Message: "Do you want to create an Atlas account [This will open www.mongodb.com on your browser]?",
+		Message: "Are you ready to create your Atlas cluster with the above settings?",
 		Default: true,
 	}
 }
 
-func newProfileDocQuestionOpenBrowser() survey.Prompt {
+func newClusterDefaultConfirm() survey.Prompt {
 	return &survey.Confirm{
-		Message: "Do you want more information to set up your profile [This will open www.mongodb.com on your browser]?",
-		Default: true,
-	}
-}
-
-func newClusterCreateConfirm(clusterName string) survey.Prompt {
-	return &survey.Confirm{
-		Message: fmt.Sprintf("Do you want to create a new cluster %s with the following settings?", clusterName),
+		Message: "Do you want to set up your first free database in Atlas with default settings (it's free forever)?",
 		Default: true,
 	}
 }

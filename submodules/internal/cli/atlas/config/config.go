@@ -15,8 +15,8 @@
 package config
 
 import (
-	"github.com/mongodb/mongocli/internal/cli/config"
-	"github.com/mongodb/mongocli/internal/cli/require"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/require"
 	"github.com/spf13/cobra"
 )
 
@@ -29,7 +29,7 @@ All settings are optional. You can specify settings individually by running:
 $ atlas config set --help 
 
 You can also use environment variables (MONGODB_ATLAS_*) when running the tool.
-To find out more, see the documentation: https://docs.mongodb.com/mongocli/stable/configure/environment-variables/.`,
+To find out more, see the documentation: https://dochub.mongodb.org/core/atlas-cli-env-variables.`,
 		Annotations: map[string]string{
 			"toc": "true",
 		},
@@ -43,6 +43,7 @@ To find out more, see the documentation: https://docs.mongodb.com/mongocli/stabl
 		config.DescribeBuilder(),
 		config.RenameBuilder(),
 		config.DeleteBuilder(),
+		config.EditBuilder(),
 	)
 
 	return cmd

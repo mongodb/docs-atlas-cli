@@ -26,7 +26,7 @@ import (
 	"time"
 
 	"github.com/mongodb-forks/digest"
-	"github.com/mongodb/mongocli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
 	atlasauth "go.mongodb.org/atlas/auth"
 	atlas "go.mongodb.org/atlas/mongodbatlas"
 	"go.mongodb.org/ops-manager/opsmngr"
@@ -35,6 +35,7 @@ import (
 const (
 	yes                       = "yes"
 	responseHeaderTimeout     = 1 * time.Minute
+	telemetryTimeout          = 1 * time.Second
 	tlsHandshakeTimeout       = 5 * time.Second
 	timeout                   = 5 * time.Second
 	keepAlive                 = 30 * time.Second
@@ -53,6 +54,7 @@ type Store struct {
 	baseURL       string
 	caCertificate string
 	skipVerify    bool
+	telemetry     bool
 	username      string
 	password      string
 	accessToken   *atlasauth.Token
@@ -85,6 +87,18 @@ var skipVerifyTransport = &http.Transport{
 	IdleConnTimeout:       idleConnTimeout,
 	ExpectContinueTimeout: expectContinueTimeout,
 	TLSClientConfig:       &tls.Config{InsecureSkipVerify: true}, //nolint:gosec // this is optional for some users,
+}
+
+var telemetryTransport = &http.Transport{
+	DialContext: (&net.Dialer{
+		Timeout:   telemetryTimeout,
+		KeepAlive: keepAlive,
+	}).DialContext,
+	MaxIdleConns:          maxIdleConns,
+	MaxIdleConnsPerHost:   maxIdleConnsPerHost,
+	Proxy:                 http.ProxyFromEnvironment,
+	IdleConnTimeout:       idleConnTimeout,
+	ExpectContinueTimeout: expectContinueTimeout,
 }
 
 func customCATransport(ca []byte) *http.Transport {
@@ -148,6 +162,8 @@ func (s *Store) transport() (*http.Transport, error) {
 			return nil, err
 		}
 		return customCATransport(dat), nil
+	case s.telemetry:
+		return telemetryTransport, nil
 	case s.skipVerify:
 		return skipVerifyTransport, nil
 	default:
@@ -207,6 +223,13 @@ func SkipVerify() Option {
 	}
 }
 
+func Telemetry() Option {
+	return func(s *Store) error {
+		s.telemetry = true
+		return nil
+	}
+}
+
 // CredentialsGetter interface for how to get credentials when Store must be authenticated.
 type CredentialsGetter interface {
 	PublicAPIKey() string
@@ -219,11 +242,14 @@ func WithAuthentication(c CredentialsGetter) Option {
 	return func(s *Store) error {
 		s.username = c.PublicAPIKey()
 		s.password = c.PrivateAPIKey()
-		t, err := c.Token()
-		if err != nil {
-			return err
+
+		if s.username == "" && s.password == "" {
+			t, err := c.Token()
+			if err != nil {
+				return err
+			}
+			s.accessToken = t
 		}
-		s.accessToken = t
 		return nil
 	}
 }
@@ -367,7 +393,7 @@ func New(opts ...Option) (*Store, error) {
 	case config.CloudManagerService, config.OpsManagerService:
 		err = store.setOpsManagerClient(client)
 	default:
-		return nil, fmt.Errorf("unsupported service: %s", store.service)
+		return nil, fmt.Errorf("%w: %s", errUnsupportedService, store.service)
 	}
 	if err != nil {
 		return nil, err

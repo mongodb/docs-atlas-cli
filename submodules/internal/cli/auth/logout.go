@@ -16,15 +16,15 @@ package auth
 
 import (
 	"context"
-	"errors"
+	"fmt"
 	"io"
 
-	"github.com/mongodb/mongocli/internal/cli"
-	"github.com/mongodb/mongocli/internal/cli/require"
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/flag"
-	"github.com/mongodb/mongocli/internal/oauth"
-	"github.com/mongodb/mongocli/internal/usage"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/require"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/oauth"
+	"github.com/mongodb/mongodb-atlas-cli/internal/usage"
 	"github.com/spf13/cobra"
 	atlas "go.mongodb.org/atlas/mongodbatlas"
 )
@@ -36,7 +36,7 @@ type logoutOpts struct {
 	flow      Revoker
 }
 
-//go:generate mockgen -destination=../../mocks/mock_logout.go -package=mocks github.com/mongodb/mongocli/internal/cli/auth Revoker,ConfigDeleter
+//go:generate mockgen -destination=../../mocks/mock_logout.go -package=mocks github.com/mongodb/mongodb-atlas-cli/internal/cli/auth Revoker,ConfigDeleter
 
 type ConfigDeleter interface {
 	Delete() error
@@ -69,9 +69,9 @@ func LogoutBuilder() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "logout",
 		Short: "Log out of the CLI.",
-		Example: `  To log out from the CLI:
-  $ mongocli auth logout
-`,
+		Example: fmt.Sprintf(`  To log out from the CLI:
+  $ %s auth logout
+`, config.BinName()),
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			opts.OutWriter = cmd.OutOrStdout()
 			opts.config = config.Default()
@@ -79,14 +79,14 @@ func LogoutBuilder() *cobra.Command {
 		},
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if config.RefreshToken() == "" {
-				return errors.New("not logged in")
+				return ErrUnauthenticated
 			}
 			s, err := config.AccessTokenSubject()
 			if err != nil {
 				return err
 			}
 			opts.Entry = s
-			if err := opts.PromptWithMessage("Are you sure you want to log out of account %s?"); err != nil {
+			if err := opts.PromptWithMessage("Are you sure you want to log out of account %s?"); err != nil || !opts.Confirm {
 				return err
 			}
 			return opts.Run(cmd.Context())

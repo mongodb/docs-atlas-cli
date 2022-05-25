@@ -17,14 +17,13 @@ package atlas_test
 
 import (
 	"encoding/json"
-	"fmt"
 	"os"
-	"os/exec"
 	"testing"
 	"time"
 
-	"github.com/mongodb/mongocli/e2e"
+	"github.com/mongodb/mongodb-atlas-cli/e2e"
 	"go.mongodb.org/atlas/mongodbatlas"
+	exec "golang.org/x/sys/execabs"
 )
 
 const (
@@ -204,7 +203,7 @@ func (g *atlasE2ETestGenerator) getProcesses() ([]*mongodbatlas.Process, error) 
 	}
 
 	if len(processes) == 0 {
-		return nil, fmt.Errorf("got=%#v\nwant=%#v", 0, "len(processes) > 0")
+		g.t.Fatalf("got=%#v\nwant=%#v", 0, "len(processes) > 0")
 	}
 
 	return processes, nil

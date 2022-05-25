@@ -1,8 +1,8 @@
-.. _atlas-users-delete:
+.. _mongocli-cloud-manager-logs-keyProviders:
 
-==================
-atlas users delete
-==================
+========================================
+mongocli cloud-manager logs keyProviders
+========================================
 
 .. default-domain:: mongodb
 
@@ -12,14 +12,7 @@ atlas users delete
    :depth: 1
    :class: singlecol
 
-Delete an Ops Manager user.
-
-Syntax
-------
-
-.. code-block::
-
-   atlas users delete <UserID> [options]
+Manage your key collections.
 
 Options
 -------
@@ -32,14 +25,10 @@ Options
      - Type
      - Required
      - Description
-   * - --force
-     - 
-     - false
-     - If specified, skips asking for confirmation before proceeding with a requsted action.
    * - -h, --help
      - 
      - false
-     - help for delete
+     - help for keyProviders
 
 Inherited Options
 -----------------
@@ -56,4 +45,15 @@ Inherited Options
      - string
      - false
      - Profile to use from your configuration file.
+
+Related Commands
+----------------
+
+* :ref:`mongocli-cloud-manager-logs-keyProviders-list` - Lists all key provider configurations found in the encrypted audit log file.
+
+
+.. toctree::
+   :titlesonly:
+
+   list </command/mongocli-cloud-manager-logs-keyProviders-list>
 

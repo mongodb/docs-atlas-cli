@@ -20,9 +20,10 @@ import (
 	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/mongodb/mongocli/internal/cli"
-	"github.com/mongodb/mongocli/internal/search"
-	"github.com/mongodb/mongocli/internal/usage"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli"
+	"github.com/mongodb/mongodb-atlas-cli/internal/search"
+	"github.com/mongodb/mongodb-atlas-cli/internal/telemetry"
+	"github.com/mongodb/mongodb-atlas-cli/internal/usage"
 	atlas "go.mongodb.org/atlas/mongodbatlas"
 )
 
@@ -52,7 +53,7 @@ func (opts *Opts) askClusterOptions() error {
 `)
 	}
 
-	if err := survey.Ask(qs, opts); err != nil {
+	if err := telemetry.TrackAsk(qs, opts); err != nil {
 		return err
 	}
 
@@ -69,7 +70,7 @@ func (opts *Opts) askClusterRegion() error {
 		return err
 	}
 	regionQ := newRegionQuestions(regions)
-	return survey.AskOne(regionQ, &opts.Region, survey.WithValidator(survey.Required))
+	return telemetry.TrackAskOne(regionQ, &opts.Region, survey.WithValidator(survey.Required))
 }
 
 func newRegionQuestions(defaultRegions []string) survey.Prompt {
@@ -95,7 +96,7 @@ func (opts *Opts) newCluster() *atlas.AdvancedCluster {
 	}
 
 	if opts.providerName() != tenant {
-		diskSizeGB := atlas.DefaultDiskSizeGB[strings.ToUpper(opts.providerName())][opts.tier]
+		diskSizeGB := atlas.DefaultDiskSizeGB[strings.ToUpper(opts.providerName())][opts.Tier]
 		mdbVersion, _ := cli.DefaultMongoDBMajorVersion()
 		cluster.DiskSizeGB = &diskSizeGB
 		cluster.MongoDBMajorVersion = mdbVersion
@@ -133,7 +134,7 @@ func (opts *Opts) newAdvancedRegionConfig() *atlas.AdvancedRegionConfig {
 
 	regionConfig.ProviderName = providerName
 	regionConfig.ElectableSpecs = &atlas.Specs{
-		InstanceSize: opts.tier,
+		InstanceSize: opts.Tier,
 	}
 
 	members := 3
@@ -147,7 +148,7 @@ func (opts *Opts) newAdvancedRegionConfig() *atlas.AdvancedRegionConfig {
 }
 
 func (opts *Opts) providerName() string {
-	if opts.tier == defaultAtlasTier || opts.tier == atlasM5 {
+	if opts.Tier == DefaultAtlasTier || opts.Tier == atlasM5 {
 		return tenant
 	}
 	return strings.ToUpper(opts.Provider)
@@ -156,7 +157,7 @@ func (opts *Opts) providerName() string {
 func (opts *Opts) defaultRegions() ([]string, error) {
 	cloudProviders, err := opts.store.CloudProviderRegions(
 		opts.ConfigProjectID(),
-		opts.tier,
+		opts.Tier,
 		[]*string{&opts.Provider},
 	)
 

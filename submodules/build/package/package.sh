@@ -26,14 +26,11 @@ export VERSION_GIT
 
 VERSION_GIT="$(git tag --list "${tool_name:?}/v*" --sort=taggerdate | tail -1 | cut -d "v" -f 2)"
 
-if [[ -z "${VERSION_GIT}" ]]; then
-   VERSION_GIT=$(git describe --abbrev=0 | cut -d "v" -f 2)
-fi
 
 if [[ "${unstable-}" == "-unstable" ]]; then
   # avoid race conditions on the notarization step by using `-p 1`
   ./bin/goreleaser --config "${goreleaser_config:?}" --rm-dist --snapshot -p 1
 else
   # avoid race conditions on the notarization step by using `-p 1`
-  ./bin/goreleaser --config "${goreleaser_config:?}" --rm-dist --release-notes CHANGELOG.md -p 1
+  ./bin/goreleaser --config "${goreleaser_config:?}" --rm-dist --release-notes "${changelog_file:?}" -p 1
 fi

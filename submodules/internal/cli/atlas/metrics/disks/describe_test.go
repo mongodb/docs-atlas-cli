@@ -21,9 +21,9 @@ import (
 	"testing"
 
 	"github.com/golang/mock/gomock"
-	"github.com/mongodb/mongocli/internal/flag"
-	"github.com/mongodb/mongocli/internal/mocks"
-	"github.com/mongodb/mongocli/internal/test"
+	"github.com/mongodb/mongodb-atlas-cli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/mocks"
+	"github.com/mongodb/mongodb-atlas-cli/internal/test"
 	"go.mongodb.org/atlas/mongodbatlas"
 )
 
@@ -59,6 +59,6 @@ func TestDescribeBuilder(t *testing.T) {
 		0,
 		[]string{
 			flag.Page, flag.Limit, flag.Granularity, flag.Period, flag.Start,
-			flag.End, flag.Type, flag.ProjectID, flag.Output},
+			flag.End, flag.TypeFlag, flag.ProjectID, flag.Output},
 	)
 }

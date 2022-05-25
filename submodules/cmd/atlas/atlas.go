@@ -15,15 +15,16 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"io"
 	"log"
 	"os"
+	"path"
 
-	"github.com/mongodb/mongocli/internal/cli/root/atlas"
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/root/atlas"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/telemetry"
 	"github.com/spf13/cobra"
 )
 
@@ -33,19 +34,26 @@ var (
 
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute(ctx context.Context) {
+func Execute() {
+	ctx := telemetry.NewContext()
 	rootCmd := atlas.Builder(&profile)
-	if err := rootCmd.ExecuteContext(ctx); err != nil {
+	if cmd, err := rootCmd.ExecuteContextC(ctx); err != nil {
+		telemetry.TrackCommand(telemetry.TrackOptions{
+			Cmd: cmd,
+			Err: err,
+		})
 		os.Exit(1)
 	}
 }
 
-// initConfig reads in config file and ENV variables if set.
-func initConfig() {
+// loadConfig reads in config file and ENV variables if set.
+func loadConfig() {
 	if err := config.LoadAtlasCLIConfig(); err != nil {
 		log.Fatalf("Error loading config: %v", err)
 	}
+}
 
+func initProfile() {
 	if profile != "" {
 		config.SetName(profile)
 	} else if profile = config.GetString(flag.Profile); profile != "" {
@@ -62,25 +70,25 @@ func createConfigFromMongoCLIConfig() {
 		return
 	}
 
-	atlasConfigPath := fmt.Sprintf("%s/%s", atlasConfigHomePath, "config.toml")
+	atlasConfigPath := path.Join(atlasConfigHomePath, "config.toml")
 	f, err := os.Open(atlasConfigPath) // if config.toml is already there, exit
 	if err == nil {
 		f.Close()
 		return
 	}
 
-	path, err := mongoCLIConfigFilePath()
+	p, err := mongoCLIConfigFilePath()
 	if err != nil {
 		return
 	}
 
-	in, err := os.Open(path)
+	in, err := os.Open(p)
 	if err != nil {
 		return
 	}
 	defer in.Close()
 
-	_, _ = fmt.Fprintf(os.Stderr, `AtlasCLI has found an existing MongoCLI configuration file, copying its content to: %s
+	_, _ = fmt.Fprintf(os.Stderr, `Atlas CLI has found an existing MongoDB CLI configuration file, copying its content to: %s
 `, atlasConfigPath)
 	_, err = os.Stat(atlasConfigHomePath) // check if the dir is already there
 	if err != nil {
@@ -97,7 +105,7 @@ func createConfigFromMongoCLIConfig() {
 	defer out.Close()
 
 	if _, err = io.Copy(out, in); err != nil {
-		log.Printf("There was an error generating %s: %v", atlasConfigPath, err)
+		_, _ = fmt.Fprintf(os.Stderr, "There was an error generating %s: %v", atlasConfigPath, err)
 		return
 	}
 
@@ -108,7 +116,7 @@ func createConfigFromMongoCLIConfig() {
 
 func mongoCLIConfigFilePath() (configPath string, err error) {
 	if configDir, err := config.MongoCLIConfigHome(); err == nil {
-		configPath = fmt.Sprintf("%s/config.toml", configDir)
+		configPath = path.Join(configDir, "config.toml")
 	}
 
 	// Check if file exists, if any error is detected try to get older file
@@ -116,7 +124,7 @@ func mongoCLIConfigFilePath() (configPath string, err error) {
 		return configPath, nil
 	}
 
-	if configDir, err := config.OldMongoCLIConfigHome(); err == nil {
+	if configDir, err := config.OldMongoCLIConfigHome(); err == nil { //nolint:staticcheck // Deprecated before fully removing support in the future
 		configPath = fmt.Sprintf("%s/mongocli.toml", configDir)
 	}
 
@@ -128,7 +136,11 @@ func mongoCLIConfigFilePath() (configPath string, err error) {
 
 func main() {
 	cobra.EnableCommandSorting = false
-	cobra.OnInitialize(createConfigFromMongoCLIConfig, initConfig)
 
-	Execute(context.Background())
+	createConfigFromMongoCLIConfig()
+	loadConfig()
+
+	cobra.OnInitialize(initProfile)
+
+	Execute()
 }

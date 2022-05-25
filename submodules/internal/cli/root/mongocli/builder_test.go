@@ -23,10 +23,10 @@ import (
 
 	"github.com/golang/mock/gomock"
 	"github.com/google/go-github/v42/github"
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/latestrelease"
-	"github.com/mongodb/mongocli/internal/mocks"
-	"github.com/mongodb/mongocli/internal/version"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/latestrelease"
+	"github.com/mongodb/mongodb-atlas-cli/internal/mocks"
+	"github.com/mongodb/mongodb-atlas-cli/internal/version"
 	"github.com/spf13/afero"
 )
 
@@ -41,77 +41,77 @@ func TestBuilder(t *testing.T) {
 	}{
 		{
 			name: "atlas",
-			want: 10,
+			want: 9,
 			args: args{
 				argsWithoutProg: []string{"atlas"},
 			},
 		},
 		{
 			name: "ops-manager",
-			want: 9,
+			want: 8,
 			args: args{
 				argsWithoutProg: []string{"ops-manager"},
 			},
 		},
 		{
 			name: "cloud-manager",
-			want: 9,
+			want: 8,
 			args: args{
 				argsWithoutProg: []string{"cloud-manager"},
 			},
 		},
 		{
 			name: "ops-manager alias",
-			want: 9,
+			want: 8,
 			args: args{
 				argsWithoutProg: []string{"om"},
 			},
 		},
 		{
 			name: "cloud-manager alias",
-			want: 9,
+			want: 8,
 			args: args{
 				argsWithoutProg: []string{"cm"},
 			},
 		},
 		{
 			name: "iam",
-			want: 9,
+			want: 8,
 			args: args{
 				argsWithoutProg: []string{"iam"},
 			},
 		},
 		{
 			name: "empty",
-			want: 10,
+			want: 9,
 			args: args{
 				argsWithoutProg: []string{},
 			},
 		},
 		{
 			name: "autocomplete",
-			want: 10,
+			want: 9,
 			args: args{
 				argsWithoutProg: []string{"__complete"},
 			},
 		},
 		{
 			name: "completion",
-			want: 10,
+			want: 9,
 			args: args{
 				argsWithoutProg: []string{"completion"},
 			},
 		},
 		{
 			name: "fig-autocompletion",
-			want: 10,
+			want: 9,
 			args: args{
 				argsWithoutProg: []string{},
 			},
 		},
 		{
 			name: "--version",
-			want: 10,
+			want: 9,
 			args: args{
 				argsWithoutProg: []string{"completion"},
 			},

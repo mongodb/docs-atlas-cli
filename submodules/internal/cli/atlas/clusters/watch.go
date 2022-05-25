@@ -16,13 +16,14 @@ package clusters
 
 import (
 	"context"
+	"fmt"
 
-	"github.com/mongodb/mongocli/internal/cli"
-	"github.com/mongodb/mongocli/internal/cli/require"
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/flag"
-	"github.com/mongodb/mongocli/internal/store"
-	"github.com/mongodb/mongocli/internal/usage"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/require"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/store"
+	"github.com/mongodb/mongodb-atlas-cli/internal/usage"
 	"github.com/spf13/cobra"
 )
 
@@ -67,7 +68,7 @@ func WatchBuilder() *cobra.Command {
 Once the cluster reaches the expected state, the command prints "Cluster available."
 If you run the command in the terminal, it blocks the terminal session until the resource state changes to IDLE.
 You can interrupt the command's polling at any time with CTRL-C.`,
-		Example: `$ mongocli atlas cluster watch clusterNameSample`,
+		Example: fmt.Sprintf("  $ %s cluster watch clusterNameSample", cli.ExampleAtlasEntryPoint()),
 		Args:    require.ExactArgs(1),
 		Annotations: map[string]string{
 			"args":            "clusterName",

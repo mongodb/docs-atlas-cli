@@ -100,7 +100,7 @@ const (
 	Format                                   = "format"                          // Format flag
 	AlertType                                = "alertType"                       // AlertType flag
 	Mechanisms                               = "mechanisms"                      // Mechanisms flag
-	Type                                     = "type"                            // Type flag
+	TypeFlag                                 = "type"                            // TypeFlag flag
 	Comment                                  = "comment"                         // Comment flag
 	DeleteAfter                              = "deleteAfter"                     // DeleteAfter flag
 	ArchiveAfter                             = "archiveAfter"                    // ArchiveAfter flag
@@ -173,7 +173,6 @@ const (
 	Unique                                   = "unique"                          // Unique flag
 	RSName                                   = "rsName"                          // RSName flag
 	Sparse                                   = "sparse"                          // Sparse flag
-	Background                               = "background"                      // Background flag
 	Locale                                   = "locale"                          // Locale flag
 	CaseLevel                                = "caseLevel"                       // CaseLevel flag
 	CaseFirst                                = "caseFirst"                       // CaseFirst flag
@@ -271,4 +270,16 @@ const (
 	CurrentIP                                = "currentIp"                       // CurrentIP flag
 	Gov                                      = "gov"                             // Gov flag
 	Version                                  = "version"                         // Version flag
+	LocalKeyFile                             = "localKeyFile"                    // LocalKeyFile flag
+	KMIPServerCAFile                         = "kmipServerCAFile"                // KMIPServerCAFile flag
+	KMIPClientCertificateFile                = "kmipClientCertificateFile"       // KMIPClientCertificateFile flag
+	/* #nosec */
+	KMIPClientCertificatePassword = "kmipClientCertificatePassword" // KMIPClientCertificatePassword flag
+	KMIPUsername                  = "kmipUsername"                  // KMIPUsername flag
+	KMIPPassword                  = "kmipPassword"                  // KMIPPassword flag
+	GCPServiceAccountKey          = "gcpServiceAccountKey"          // GCPServiceAccountKey flag
+	AzureClientID                 = "azureClientId"                 // AzureClientID flag
+	AzureTenantID                 = "azureTenantId"                 // AzureTenantID flag
+	AzureSecret                   = "azureSecret"                   // AzureSecret flag
+	AWSSessionToken               = "awsSessionToken"               // AWSSessionToken flag
 )

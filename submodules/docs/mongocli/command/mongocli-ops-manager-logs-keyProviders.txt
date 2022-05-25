@@ -1,8 +1,8 @@
-.. _atlas-alerts-global:
+.. _mongocli-ops-manager-logs-keyProviders:
 
-===================
-atlas alerts global
-===================
+======================================
+mongocli ops-manager logs keyProviders
+======================================
 
 .. default-domain:: mongodb
 
@@ -12,7 +12,7 @@ atlas alerts global
    :depth: 1
    :class: singlecol
 
-Retrieves all the global alerts for the specified Ops Manager project.
+Manage your key collections.
 
 Options
 -------
@@ -28,7 +28,7 @@ Options
    * - -h, --help
      - 
      - false
-     - help for global
+     - help for keyProviders
 
 Inherited Options
 -----------------
@@ -49,11 +49,11 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-alerts-global-list` - Returns all global alerts for the specified Ops Manager project.
+* :ref:`mongocli-ops-manager-logs-keyProviders-list` - Lists all key provider configurations found in the encrypted audit log file.
 
 
 .. toctree::
    :titlesonly:
 
-   list </command/atlas-alerts-global-list>
+   list </command/mongocli-ops-manager-logs-keyProviders-list>
 

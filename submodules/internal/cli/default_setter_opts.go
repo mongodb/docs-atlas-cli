@@ -21,16 +21,17 @@ import (
 	"io"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/mongosh"
-	"github.com/mongodb/mongocli/internal/prompt"
-	"github.com/mongodb/mongocli/internal/store"
-	"github.com/mongodb/mongocli/internal/validate"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/mongosh"
+	"github.com/mongodb/mongodb-atlas-cli/internal/prompt"
+	"github.com/mongodb/mongodb-atlas-cli/internal/store"
+	"github.com/mongodb/mongodb-atlas-cli/internal/telemetry"
+	"github.com/mongodb/mongodb-atlas-cli/internal/validate"
 	atlas "go.mongodb.org/atlas/mongodbatlas"
 	"go.mongodb.org/ops-manager/opsmngr"
 )
 
-//go:generate mockgen -destination=../mocks/mock_default_opts.go -package=mocks github.com/mongodb/mongocli/internal/cli ProjectOrgsLister
+//go:generate mockgen -destination=../mocks/mock_default_opts.go -package=mocks github.com/mongodb/mongodb-atlas-cli/internal/cli ProjectOrgsLister
 
 type ProjectOrgsLister interface {
 	Projects(*atlas.ListOptions) (interface{}, error)
@@ -39,14 +40,15 @@ type ProjectOrgsLister interface {
 }
 
 type DefaultSetterOpts struct {
-	Service        string
-	OpsManagerURL  string
-	ProjectID      string
-	OrgID          string
-	MongoShellPath string
-	Output         string
-	Store          ProjectOrgsLister
-	OutWriter      io.Writer
+	Service          string
+	OpsManagerURL    string
+	ProjectID        string
+	OrgID            string
+	MongoShellPath   string
+	TelemetryEnabled bool
+	Output           string
+	Store            ProjectOrgsLister
+	OutWriter        io.Writer
 }
 
 func (opts *DefaultSetterOpts) InitStore(ctx context.Context) error {
@@ -136,7 +138,16 @@ func (opts *DefaultSetterOpts) orgs() (oMap map[string]string, oSlice []string, 
 
 // AskProject will try to construct a select based on fetched projects.
 // If it fails or there are no projects to show we fallback to ask for project by ID.
+// If only one project, select it by default without prompting the user.
 func (opts *DefaultSetterOpts) AskProject() error {
+	return opts.AskProjectIfCurrentNotAvailable("")
+}
+
+// AskProjectIfCurrentNotAvailable checks if the currentProjectID is still available for current account.
+// If it's not, it will try to construct a select based on fetched projects.
+// If it fails or there are no projects to show we fallback to ask for project by ID.
+// If only one project, select it by default without prompting the user.
+func (opts *DefaultSetterOpts) AskProjectIfCurrentNotAvailable(currentProjectID string) error {
 	pMap, pSlice, err := opts.projects()
 	if err != nil {
 		var target *atlas.ErrorResponse
@@ -144,6 +155,10 @@ func (opts *DefaultSetterOpts) AskProject() error {
 		case errors.Is(err, errNoResults):
 			_, _ = fmt.Fprintln(opts.OutWriter, "You don't seem to have access to any project")
 		case errors.Is(err, errTooManyResults):
+			if currentProjectID != "" {
+				opts.ProjectID = currentProjectID
+				return nil
+			}
 			_, _ = fmt.Fprintf(opts.OutWriter, "You have access to more than %d projects\n", resultsLimit)
 		case errors.As(err, &target):
 			_, _ = fmt.Fprintf(opts.OutWriter, "There was an error fetching your projects: %s\n", target.Detail)
@@ -154,29 +169,52 @@ func (opts *DefaultSetterOpts) AskProject() error {
 			Message: "Do you want to enter the Project ID manually?",
 		}
 		manually := true
-		if err2 := survey.AskOne(p, &manually); err2 != nil {
+		if err2 := telemetry.TrackAskOne(p, &manually); err2 != nil {
 			return err2
 		}
 		if manually {
 			p := prompt.NewProjectIDInput()
-			return survey.AskOne(p, &opts.ProjectID, survey.WithValidator(validate.OptionalObjectID))
+			return telemetry.TrackAskOne(p, &opts.ProjectID, survey.WithValidator(validate.OptionalObjectID))
 		}
 		_, _ = fmt.Fprint(opts.OutWriter, "Skipping default project setting\n")
 		return nil
 	}
 
-	p := prompt.NewProjectSelect(pSlice)
-	var projectID string
-	if err := survey.AskOne(p, &projectID); err != nil {
-		return err
+	if currentProjectID != "" {
+		for _, pID := range pMap {
+			if pID == currentProjectID {
+				opts.ProjectID = currentProjectID
+				return nil
+			}
+		}
 	}
-	opts.ProjectID = pMap[projectID]
+
+	if len(pSlice) == 1 {
+		opts.ProjectID = pMap[pSlice[0]]
+	} else {
+		p := prompt.NewProjectSelect(pSlice)
+		var projectID string
+		if err := telemetry.TrackAskOne(p, &projectID); err != nil {
+			return err
+		}
+		opts.ProjectID = pMap[projectID]
+	}
+
 	return nil
 }
 
 // AskOrg will try to construct a select based on fetched organizations.
 // If it fails or there are no organizations to show we fallback to ask for org by ID.
+// If only one organization, select it by default without prompting the user.
 func (opts *DefaultSetterOpts) AskOrg() error {
+	return opts.AskOrgIfCurrentNotAvailable("")
+}
+
+// AskOrgIfCurrentNotAvailable checks if the currentOrgID is still available for current account.
+// If it's not, it will try to construct a select based on fetched organizations.
+// If it fails or there are no organizations to show we fallback to ask for org by ID.
+// If only one organization, select it by default without prompting the user.
+func (opts *DefaultSetterOpts) AskOrgIfCurrentNotAvailable(currentOrgID string) error {
 	oMap, oSlice, err := opts.orgs()
 	if err != nil {
 		var target *atlas.ErrorResponse
@@ -184,6 +222,10 @@ func (opts *DefaultSetterOpts) AskOrg() error {
 		case errors.Is(err, errNoResults):
 			_, _ = fmt.Fprintln(opts.OutWriter, "You don't seem to have access to any organization")
 		case errors.Is(err, errTooManyResults):
+			if currentOrgID != "" {
+				opts.OrgID = currentOrgID
+				return nil
+			}
 			_, _ = fmt.Fprintf(opts.OutWriter, "You have access to more than %d organizations\n", resultsLimit)
 		case errors.As(err, &target):
 			_, _ = fmt.Fprintf(opts.OutWriter, "There was an error fetching your organizations: %s\n", target.Detail)
@@ -194,22 +236,37 @@ func (opts *DefaultSetterOpts) AskOrg() error {
 			Message: "Do you want to enter the Org ID manually?",
 		}
 		manually := true
-		if err2 := survey.AskOne(p, &manually); err2 != nil {
+		if err2 := telemetry.TrackAskOne(p, &manually); err2 != nil {
 			return err2
 		}
 		if manually {
 			p := prompt.NewOrgIDInput()
-			return survey.AskOne(p, &opts.OrgID, survey.WithValidator(validate.OptionalObjectID))
+			return telemetry.TrackAskOne(p, &opts.OrgID, survey.WithValidator(validate.OptionalObjectID))
 		}
 		_, _ = fmt.Fprint(opts.OutWriter, "Skipping default organization setting\n")
 		return nil
 	}
-	p := prompt.NewOrgSelect(oSlice)
-	var orgID string
-	if err := survey.AskOne(p, &orgID); err != nil {
-		return err
+
+	if currentOrgID != "" {
+		for _, oID := range oMap {
+			if oID == currentOrgID {
+				opts.OrgID = currentOrgID
+				return nil
+			}
+		}
 	}
-	opts.OrgID = oMap[orgID]
+
+	if len(oSlice) == 1 {
+		opts.OrgID = oMap[oSlice[0]]
+	} else {
+		p := prompt.NewOrgSelect(oSlice)
+		var orgID string
+		if err := telemetry.TrackAskOne(p, &orgID); err != nil {
+			return err
+		}
+		opts.OrgID = oMap[orgID]
+	}
+
 	return nil
 }
 
@@ -226,9 +283,16 @@ func (opts *DefaultSetterOpts) SetUpOrg() {
 }
 
 func (opts *DefaultSetterOpts) SetUpMongoSHPath() {
-	if opts.MongoShellPath != "" {
-		config.SetMongoShellPath(opts.MongoShellPath)
+	if !opts.IsCloud() {
+		return
 	}
+
+	defaultPath := config.MongoShellPath()
+	if defaultPath == "" {
+		defaultPath = mongosh.Path()
+	}
+
+	config.SetMongoShellPath(defaultPath)
 }
 
 func (opts *DefaultSetterOpts) SetUpOutput() {
@@ -263,7 +327,7 @@ func omProjects(projects []*opsmngr.Project) (pMap map[string]string, pSlice []s
 	return pMap, pSlice
 }
 
-func (opts *DefaultSetterOpts) DefaultQuestions() []*survey.Question {
+func (*DefaultSetterOpts) DefaultQuestions() []*survey.Question {
 	q := []*survey.Question{
 		{
 			Name: "output",
@@ -273,22 +337,6 @@ func (opts *DefaultSetterOpts) DefaultQuestions() []*survey.Question {
 				Default: config.Output(),
 			},
 		},
-	}
-	if opts.IsCloud() {
-		defaultPath := config.MongoShellPath()
-		if defaultPath == "" {
-			defaultPath = mongosh.Path()
-		}
-		atlasQuestion := &survey.Question{
-			Name: "mongoShellPath",
-			Prompt: &survey.Input{
-				Message: "Default MongoDB Shell Path:",
-				Help:    "MongoDB CLI will use the MongoDB shell version provided to allow you to access your deployments.",
-				Default: defaultPath,
-			},
-			Validate: validate.OptionalPath,
-		}
-		q = append(q, atlasQuestion)
 	}
 	return q
 }

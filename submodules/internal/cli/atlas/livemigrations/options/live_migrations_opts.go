@@ -19,10 +19,11 @@ import (
 	"fmt"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/mongodb/mongocli/internal/cli"
-	"github.com/mongodb/mongocli/internal/flag"
-	"github.com/mongodb/mongocli/internal/prompt"
-	"github.com/mongodb/mongocli/internal/usage"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli"
+	"github.com/mongodb/mongodb-atlas-cli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/prompt"
+	"github.com/mongodb/mongodb-atlas-cli/internal/telemetry"
+	"github.com/mongodb/mongodb-atlas-cli/internal/usage"
 	"github.com/spf13/cobra"
 	"go.mongodb.org/atlas/mongodbatlas"
 )
@@ -70,7 +71,7 @@ func (opts *LiveMigrationsOpts) askDestinationDropConfirm() error {
 	confirmDrop := false
 	p := prompt.NewConfirm("Are you sure you want to drop the destination collections?")
 
-	if err := survey.AskOne(p, &confirmDrop); err != nil {
+	if err := telemetry.TrackAskOne(p, &confirmDrop); err != nil {
 		return err
 	}
 
@@ -96,7 +97,7 @@ func (opts *LiveMigrationsOpts) askPassword() error {
 		p := &survey.Password{
 			Message: "Password:",
 		}
-		if err := survey.AskOne(p, &opts.SourcePassword); err != nil {
+		if err := telemetry.TrackAskOne(p, &opts.SourcePassword); err != nil {
 			return err
 		}
 	}

@@ -21,21 +21,20 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mongodb/mongocli/internal/cli"
-	"github.com/mongodb/mongocli/internal/cli/atlas"
-	"github.com/mongodb/mongocli/internal/cli/auth"
-	"github.com/mongodb/mongocli/internal/cli/cloudmanager"
-	cliconfig "github.com/mongodb/mongocli/internal/cli/config"
-	"github.com/mongodb/mongocli/internal/cli/figautocomplete"
-	"github.com/mongodb/mongocli/internal/cli/iam"
-	"github.com/mongodb/mongocli/internal/cli/opsmanager"
-	"github.com/mongodb/mongocli/internal/config"
-	"github.com/mongodb/mongocli/internal/flag"
-	"github.com/mongodb/mongocli/internal/homebrew"
-	"github.com/mongodb/mongocli/internal/latestrelease"
-	"github.com/mongodb/mongocli/internal/search"
-	"github.com/mongodb/mongocli/internal/usage"
-	"github.com/mongodb/mongocli/internal/version"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/atlas"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/auth"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/cloudmanager"
+	cliconfig "github.com/mongodb/mongodb-atlas-cli/internal/cli/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/iam"
+	"github.com/mongodb/mongodb-atlas-cli/internal/cli/opsmanager"
+	"github.com/mongodb/mongodb-atlas-cli/internal/config"
+	"github.com/mongodb/mongodb-atlas-cli/internal/flag"
+	"github.com/mongodb/mongodb-atlas-cli/internal/homebrew"
+	"github.com/mongodb/mongodb-atlas-cli/internal/latestrelease"
+	"github.com/mongodb/mongodb-atlas-cli/internal/search"
+	"github.com/mongodb/mongodb-atlas-cli/internal/terminal"
+	"github.com/mongodb/mongodb-atlas-cli/internal/usage"
+	"github.com/mongodb/mongodb-atlas-cli/internal/version"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 )
@@ -100,7 +99,6 @@ func Builder(profile *string, argsWithoutProg []string) *cobra.Command {
 		"-h",
 		"completion",
 		"__complete",
-		"fig-autocomplete",
 	}
 	if !hasArgs || search.StringInSlice(shouldIncludeAtlas, argsWithoutProg[0]) {
 		rootCmd.AddCommand(atlas.Builder())
@@ -121,7 +119,6 @@ func Builder(profile *string, argsWithoutProg []string) *cobra.Command {
 		loginCmd,
 		logoutCmd,
 		whoCmd,
-		figautocomplete.Builder(),
 	)
 
 	rootCmd.PersistentFlags().StringVarP(profile, flag.Profile, flag.ProfileShort, "", usage.Profile)
@@ -149,7 +146,7 @@ func formattedVersion() string {
 }
 
 func (n *Notifier) shouldCheck() (shouldCheck, isHb bool) {
-	shouldCheck = !config.SkipUpdateCheck() && cli.IsTerminal(n.writer)
+	shouldCheck = !config.SkipUpdateCheck() && terminal.IsTerminal(n.writer)
 	isHb = false
 
 	if !shouldCheck {
