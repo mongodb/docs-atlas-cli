@@ -28,8 +28,7 @@ What is the {+atlas-cli+}?
 Manage Atlas from the Command Line
 ----------------------------------
 
-You can install the {+atlas-cli+} or manage your |service| deployments
-with a single command:
+Get started quickly with two commands:
 
 .. tabs::
 
@@ -46,7 +45,7 @@ with a single command:
       .. image:: /images/install.gif
          :alt: brew install mongodb-atlas-cli command
 
-   .. tab:: Configure Atlas
+   .. tab:: Set Up Atlas
       :tabid: setup
 
       .. procedure::
@@ -67,6 +66,8 @@ with a single command:
             #. Connect to your new {+database-deployment+} using the
                MongoDB Shell, {+mongosh+}.
 
+            To learn more, see the :doc:`atlas setup documentation </command/atlas-setup>`.
+
       .. image:: /images/setup.gif
          :alt: atlas setup command
 
@@ -86,7 +87,7 @@ Learn the {+atlas-cli+} commands and optimize your workflow with advanced tutori
       :cta: See All Commands
       :url: https://www.mongodb.com/docs/atlas/cli/stable/command/atlas/
       :icon: /images/icons/card1.svg
-      :icon-alt: MongoDB Atlas icon
+      :icon-alt: AtlasCLI Commands Icon
 
       Discover new {+atlas-cli+} commands
 
@@ -94,17 +95,17 @@ Learn the {+atlas-cli+} commands and optimize your workflow with advanced tutori
       :cta: View All Tutorials
       :url: https://www.mongodb.com/docs/atlas/cli/stable/atlas-cli-tutorials/
       :icon: /images/icons/card2.svg
-      :icon-alt: MongoCLI icon
+      :icon-alt: Tutorials Icon
 
       Explore {+atlas-cli+} workflows with guided tutorials
 
    .. card::
-      :cta: Read Atlas Docs
-      :url: https://www.mongodb.com/docs/atlas/
+      :cta: Read Release Notes
+      :url: https://www.mongodb.com/docs/atlas/cli/stable/atlas-cli-changelog/
       :icon: /images/icons/card3.svg
-      :icon-alt: MongoCLI Atlas icon
+      :icon-alt: Atlas Icon
 
-      Learn more about working in Atlas
+      Learn what's new in the {+atlas-cli+}
 
 .. toctree::
    :titlesonly:
