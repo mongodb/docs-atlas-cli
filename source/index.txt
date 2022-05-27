@@ -11,7 +11,7 @@ What is the {+atlas-cli+}?
 .. introduction::
 
    The {+atlas-cli+} is a command line interface built specifically for 
-   |service-fullname|. It lets you interact with your |service| 
+   |service-fullname|. Interact with your |service| 
    {+database-deployments+} and Atlas Search from the terminal with
    short, intuitive commands, so you can accomplish complex database management tasks in seconds.
 
