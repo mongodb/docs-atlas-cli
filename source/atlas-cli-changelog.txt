@@ -21,13 +21,13 @@ Released 13 June 2022
 
 - Improves the :ref:`atlas-quickstart` command:
 
-  - Prompts users to log in if they are not already logged in.
+  - Prompts you to log in if you aren't already logged in.
   - Clarifies an error message when no regions are found for a given cloud
     provider.
 
 - Improves :ref:`telemetry <telemetry>`:
 
-  - Tracks when users interrupt a running {+atlas-cli+} command by using
+  - Tracks when you interrupt a running {+atlas-cli+} command by using
     :kbd:`CTRL` + :kbd:`C`.
   - Tracks some previously untracked errors.
   - Enhances interactive input tracking.
