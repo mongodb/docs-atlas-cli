@@ -66,15 +66,22 @@ Follow These Steps
 
       .. procedure::
 
-        .. step:: Install the {+atlas-cli+}.
+         .. step:: Install the {+atlas-cli+} and {+mongosh+}.
 
-            Invoke the following ``brew`` command:
+            Invoke the following ``brew`` command to install both the 
+            {+atlas-cli+} and {+mongosh+}:
 
             .. code-block:: sh
 
-              brew install mongodb-atlas-cli
+               brew install mongodb-atlas
 
-        .. include:: /includes/steps-verify-atlas-cli.rst
+            .. note::
+
+               You can also use the ``brew install mongodb-atlas-cli`` command to install both the {+atlas-cli+} and 
+               {+mongosh+}. You can't install the {+atlas-cli+} alone
+               on Homebrew.
+
+         .. include:: /includes/steps-verify-atlas-cli.rst
 
    .. tab:: Yum
       :tabid: yum    
@@ -368,7 +375,16 @@ method you used to install the {+atlas-cli+}:
 
          .. step:: Update the {+atlas-cli+}.
 
-            Invoke the following ``brew`` command:
+            If you installed the {+atlas-cli+} and {+mongosh+} together using the ``mongodb-atlas`` package, invoke the following ``brew`` command:
+
+            .. code-block:: sh
+
+               brew update
+               brew upgrade mongodb-atlas
+
+            If you installed the {+atlas-cli+} and {+mongosh+} together
+            using the ``mongodb-atlas-cli`` package, invoke the
+            following ``brew`` command:
 
             .. code-block:: sh
 
