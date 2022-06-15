@@ -78,7 +78,7 @@ Follow These Steps
 
    .. tab:: Yum
       :tabid: yum    
-
+      
       .. procedure::
 
          .. step:: Configure ``yum`` for your edition of MongoDB. 
@@ -158,9 +158,18 @@ Follow These Steps
                            enabled=1
                            gpgkey=https://pgp.mongodb.com/server-5.0.asc
 
-         .. step:: Install the {+atlas-cli+}.
+         .. step:: Install the {+atlas-cli+} and {+mongosh+}.
+            
+            Invoke the following ``yum`` command to install both the 
+            {+atlas-cli+} and {+mongosh+}:
 
-            Invoke the following ``yum`` command:
+            .. code-block:: sh
+
+               sudo yum install -y mongodb-atlas
+
+            If you don't want to install {+mongosh+}, invoke the
+            following ``yum`` command instead to install the 
+            {+atlas-cli+} only:
 
             .. code-block:: sh
 
@@ -274,9 +283,18 @@ Follow These Steps
 
                sudo apt-get update
 
-         .. step:: Install the {+atlas-cli+}.
+         .. step:: Install the {+atlas-cli+} and {+mongosh+}.
+            
+            Invoke the following ``apt`` command to install both the 
+            {+atlas-cli+} and {+mongosh+}:
 
-            Invoke the following ``apt`` command:
+            .. code-block:: sh
+
+               sudo apt-get install -y mongodb-atlas
+
+            If you don't want to install {+mongosh+}, invoke the
+            following ``apt`` command instead to install the 
+            {+atlas-cli+} only:
 
             .. code-block:: sh
 
@@ -369,7 +387,15 @@ method you used to install the {+atlas-cli+}:
 
          .. step:: Update the {+atlas-cli+}.
 
-            Invoke the following ``yum`` command:
+            If you installed the {+atlas-cli+} and {+mongosh+} together using the ``mongodb-atlas`` package, invoke the following ``yum`` command:
+
+            .. code-block:: sh
+
+               yum update mongodb-atlas
+
+            If you installed the {+atlas-cli+} only using the
+            ``mongodb-atlas-cli`` package, invoke the following ``yum``
+            command:
 
             .. code-block:: sh
 
@@ -387,7 +413,16 @@ method you used to install the {+atlas-cli+}:
 
          .. step:: Update the {+atlas-cli+}.
 
-            Invoke the following command:
+            If you installed the {+atlas-cli+} and {+mongosh+} together
+            using the ``mongodb-atlas`` package, invoke the following
+            ``apt`` command:
+
+            .. code-block:: sh
+
+               sudo apt-get install --only-upgrade mongodb-atlas
+
+            If you installed the {+atlas-cli+} only using the
+            ``mongodb-atlas-cli`` package, invoke the following ``apt`` command:
 
             .. code-block:: sh
 
