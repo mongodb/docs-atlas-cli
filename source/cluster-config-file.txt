@@ -1,0 +1,143 @@
+.. _atlas-cli-cluster-config-file:
+
+==============================
+{+Cluster+} Configuration File
+==============================
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+You can use a {+cluster+} configuration file to specify the required settings when you create or update a {+cluster+} using the 
+{+atlas-cli+}. The {+atlas-cli+} accepts ``.yaml`` and ``.json``
+{+cluster+} configuration files.
+
+Use the resources below to:
+
+- Learn the :ref:`required settings <required-cluster-settings>` and
+  :ref:`optional settings <optional-cluster-settings>` you can specify
+  in the {+cluster+} configuration file.
+- View and copy :ref:`sample configuration files
+  <example-cluster-config-file>`.
+
+.. _required-cluster-settings:
+
+Required {+Cluster+} Settings
+-----------------------------
+
+|service| requires the following settings to create a {+cluster+} with
+the {+atlas-cli+}. You must specify these {+cluster+} settings either
+in the configuration file or as flags in the command:
+
+.. list-table:: 
+   :header-rows: 1 
+   :widths: 20 10 70 
+
+   * - Field 
+     - Type 
+     - Description 
+
+   * - ``name``
+     - string
+     - Name of the {+cluster+}.
+
+   * - ``provider``
+     - string
+     - Name of your cloud service provider. Valid values are ``AWS``,
+       ``AZURE``, or ``GCP``.
+
+   * - ``region``
+     - string
+     - Physical location of your MongoDB {+cluster+}. 
+     
+       For a complete
+       list of supported |aws| regions, see `AWS regions <https://docs.atlas.mongodb.com/reference/amazon-aws/#amazon-aws>`__. 
+       
+       For a complete list of supported |azure| regions, see `Azure regions <https://docs.atlas.mongodb.com/reference/microsoft-azure/#microsoft-azure>`__. 
+       
+       For a complete list of supported |gcp| regions, see `Google Cloud regions <https://docs.atlas.mongodb.com/reference/google-gcp/#google-gcp>`__.
+
+.. _optional-cluster-settings:
+
+Optional {+Cluster+} Settings
+-----------------------------
+
+Your {+cluster+} configuration file may contain these optional 
+{+cluster+} settings:
+
+.. list-table:: 
+   :header-rows: 1 
+   :widths: 20 10 70 
+
+   * - Field 
+     - Type 
+     - Description 
+
+   * - ``backup``
+     - boolean
+     - Flag that indicates whether |service| enables Continuous Cloud
+       Backup for your deployment.
+
+   * - ``biConnector``
+     - boolean
+     - Flag that indicates whether |service| enables the BI Connector
+       for |service| on the deployment.
+
+   * - ``diskSizeGB``
+     - float
+     - Capacity, in gigabytes, of the host's root volume. This value
+       defaults to 2.
+
+   * - ``mdbVersion``
+     - string
+     - MongoDB version of the {+cluster+}.
+
+   * - ``m`` or ``members``
+     - int
+     - Number of members in the replica set. This value defaults to 3.
+
+   * - ``s`` or ``shards``
+     - int
+     - Number of shards in the {+cluster+}. This value defaults to 1.
+
+   * - ``tier``
+     - string
+     - Tier for each data-bearing server in the {+cluster+}. This value
+       defaults to ``M2``.
+
+   * - ``type``
+     - string
+     - Type of {+cluster+}. Valid values are ``REPLICASET`` or ``SHARDED``. This value defaults to ``REPLICASET``.
+
+.. _example-cluster-config-file:
+
+Example Cluster Configuration File
+----------------------------------
+
+.. tabs:: 
+
+   .. tab:: YAML Configuration File
+      :tabid: yaml 
+
+      .. code-block:: text 
+
+         name: "myCluster"
+         provider: "AWS"
+         region: "US_EAST_1"
+         backup: false
+         biConnector: false
+         diskSizeGB: 2
+         mdbVersion: "4.4"
+         members: 3
+         shards: 1
+         tier: "M2"
+         type: "REPLICASET"
+
+   .. tab:: JSON Configuration File
+      :tabid: json 
+
+      .. code-block:: json
+
+         text
