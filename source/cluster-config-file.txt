@@ -80,7 +80,8 @@ in the configuration file or as flags in the command:
        ``regionConfigs.``
        ``electableSpecs.instanceSize``
      - string
-     - Hardware specification for the instance sizes in this region. To learn more, see :ref:`scale-cluster-instance`.
+     - Hardware specification for the instance sizes in this region. To
+       learn more, see :ref:`scale-cluster-instance`.
 
    * - ``replicationSpecs``
        ``.regionConfigs.``
@@ -111,6 +112,11 @@ in the configuration file or as flags in the command:
      - Name of your cloud service provider. Valid values are ``AWS``,
        ``AZURE``, or ``GCP``.
 
+       To create a multi-cloud {+cluster+}, specify more than one
+       service provider for your ``regionConfigs`` objects. To
+       learn more, see the :ref:`multi-cloud example configuration file
+       <multi-cloud-example-cluster-config-file>`
+
    * - ``replicationSpecs.``
        ``regionConfigs.regionName``
      - string
@@ -140,6 +146,8 @@ settings, see the API documentation for
 Example Cluster Configuration File
 ----------------------------------
 
+To create a {+cluster+} using a single cloud provider, specify the same service provider for your ``regionConfigs`` objects as shown in the following example files:
+
 .. tabs:: 
 
    .. tab:: YAML Configuration File
@@ -151,3 +159,23 @@ Example Cluster Configuration File
       :tabid: json 
 
       .. literalinclude:: /includes/json-cluster-config-file.json
+
+.. _multi-cloud-example-cluster-config-file:
+
+Multi-Cloud Example Cluster Configuration File
+----------------------------------------------
+
+To create a multi-cloud {+cluster+}, specify more than one
+service provider for your ``regionConfigs`` objects as shown in the following example files:
+
+.. tabs:: 
+
+   .. tab:: YAML Configuration File
+      :tabid: yaml 
+
+      .. literalinclude:: /includes/yaml-cluster-config-file-multi.yaml
+
+   .. tab:: JSON Configuration File
+      :tabid: json 
+
+      .. literalinclude:: /includes/json-cluster-config-file-multi.json
