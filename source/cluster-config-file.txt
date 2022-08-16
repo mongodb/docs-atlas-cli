@@ -63,8 +63,9 @@ in the configuration file or as flags in the command:
        number and type of MongoDB nodes that |service| deploys to the
        region.
        
-       Each regionConfigs object must have either an ``analyticsSpecs``
-       object, ``electableSpecs`` object, or ``readOnlySpecs`` object.
+       Each ``regionConfigs`` object must have either an
+       ``analyticsSpecs`` object, ``electableSpecs`` object, or
+       ``readOnlySpecs`` object.
 
        - Shared {+clusters+} require only ``electableSpecs``.
        - Dedicated {+clusters+} can specify any of these
