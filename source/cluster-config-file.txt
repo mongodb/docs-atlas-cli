@@ -77,7 +77,8 @@ in the configuration file or as flags in the command:
        ``regionConfigs.electableSpecs``
      - object
      - Hardware specifications for electable nodes in the region.
-       Electable nodes can become the :term:`primary` and can enable
+       Electable nodes can become the 
+       :manual:`primary </core/replica-set-members/#std-label-replica-set-primary-member>` and can enable
        local reads.
 
    * - ``replicationSpecs.``
@@ -85,14 +86,15 @@ in the configuration file or as flags in the command:
        ``electableSpecs.instanceSize``
      - string
      - Hardware specification for the instance sizes in this region. To
-       learn more, see :ref:`scale-cluster-instance`.
+       learn more, see :ref:`create-cluster-instance`.
 
    * - ``replicationSpecs``
        ``.regionConfigs.``
        ``electableSpecs.nodeCount``
      - number
      - Number of electable nodes for |service| to deploy to the region.
-       Electable nodes can become the :term:`primary` and can enable
+       Electable nodes can become the 
+       :manual:`primary </core/replica-set-members/#std-label-replica-set-primary-member>` and can enable
        local reads.
 
        The combined electableSpecs.nodeCount across all 
@@ -112,7 +114,8 @@ in the configuration file or as flags in the command:
        ``7``. The lowest possible priority is ``1``.
 
        The priority ``7`` region identifies the preferred region of the
-       {+cluster+}. |service| places the :term:`primary` node in the
+       {+cluster+}. |service| places the 
+       :manual:`primary </core/replica-set-members/#std-label-replica-set-primary-member>` node in the
        preferred region.
 
    * - ``replicationSpecs.``
