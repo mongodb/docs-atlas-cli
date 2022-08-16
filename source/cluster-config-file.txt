@@ -11,7 +11,7 @@
    :class: singlecol
 
 You can use a {+cluster+} configuration file to specify the required settings when you create or update a {+cluster+} using the 
-{+atlas-cli+}. The {+atlas-cli+} accepts ``.yaml`` and ``.json``
+{+atlas-cli+}. The {+atlas-cli+} accepts ``.json``
 {+cluster+} configuration files.
 
 Use the resources below to:
@@ -146,19 +146,9 @@ settings, see the API documentation for
 Example Cluster Configuration File
 ----------------------------------
 
-To create a {+cluster+} using a single cloud provider, specify the same service provider for your ``regionConfigs`` objects as shown in the following example files:
+To create a {+cluster+} using a single cloud provider, specify the same service provider for your ``regionConfigs`` objects as shown in the following example file:
 
-.. tabs:: 
-
-   .. tab:: YAML Configuration File
-      :tabid: yaml 
-
-      .. literalinclude:: /includes/yaml-cluster-config-file.yaml
-
-   .. tab:: JSON Configuration File
-      :tabid: json 
-
-      .. literalinclude:: /includes/json-cluster-config-file.json
+.. literalinclude:: /includes/json-cluster-config-file.json
 
 .. _multi-cloud-example-cluster-config-file:
 
@@ -166,16 +156,6 @@ Multi-Cloud Example Cluster Configuration File
 ----------------------------------------------
 
 To create a multi-cloud {+cluster+}, specify more than one
-service provider for your ``regionConfigs`` objects as shown in the following example files:
+service provider for your ``regionConfigs`` objects as shown in the following example file:
 
-.. tabs:: 
-
-   .. tab:: YAML Configuration File
-      :tabid: yaml 
-
-      .. literalinclude:: /includes/yaml-cluster-config-file-multi.yaml
-
-   .. tab:: JSON Configuration File
-      :tabid: json 
-
-      .. literalinclude:: /includes/json-cluster-config-file-multi.json
+.. literalinclude:: /includes/json-cluster-config-file-multi.json
