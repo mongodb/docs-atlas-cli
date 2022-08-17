@@ -218,8 +218,8 @@ Follow These Steps
                         :tabid: ubuntu
 
                         Create the list file 
-                        ``/etc/apt/sources.list.d/mongodb-org-
-                        {+mdbVersion+}.list`` for your version of
+                        ``/etc/apt/sources.list.d/mongodb-org-{+mdbVersion+}.list`` 
+                        for your version of
                         Ubuntu. Replace ``{+mdbVersion+}`` with your
                         edition of MongoDB.
 
@@ -250,8 +250,8 @@ Follow These Steps
                         :tabid: debian
 
                         Create the list file 
-                        ``/etc/apt/sources.list.d/mongodb-org-
-                        {+mdbVersion+}.list`` for your version of
+                        ``/etc/apt/sources.list.d/mongodb-org-{+mdbVersion+}.list`` 
+                        for your version of
                         Debian. Replace ``{+mdbVersion+}`` with your
                         edition of MongoDB.
 
