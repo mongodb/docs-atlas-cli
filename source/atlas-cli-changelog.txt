@@ -22,7 +22,7 @@ Released 18 August 2022
 - Adds support for the following platforms:
 
   - RHEL 9
-  - Ubuntu 22.04 (Jammy)
+  - Ubuntu 22.04
   - ``yum`` and ``apt`` using MongoDB version 6.0
 
   To learn more, see :ref:`install-atlas-cli`.
