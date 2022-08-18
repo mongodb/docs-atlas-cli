@@ -34,8 +34,8 @@ Released 18 August 2022
 
 Released 18 August 2022
 
-- Adds digital signatures for ``.exe`` binaries for Windows
-- Adds digital signatures for ``.msi`` packages
+- Adds digital signatures for ``.exe`` binaries for Windows.
+- Adds digital signatures for ``.msi`` packages.
 
 .. _atlas-cli-1.1.5:
 
