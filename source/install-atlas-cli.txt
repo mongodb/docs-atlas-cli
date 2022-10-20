@@ -283,14 +283,8 @@ Follow These Steps
 
                               .. code-block:: sh
 
-                                 echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/{+mdbVersion+} main" | sudo tee /etc/apt/sources.list.d/mongodb-org-{+mdbVersion+}.list
+                                 echo "deb http://repo.mongodb.org/apt/debian/dists/buster/mongodb-org/{+mdbVersion+} main" | sudo tee /etc/apt/sources.list.d/mongodb-org-{+mdbVersion+}.list
 
-                           .. tab:: Debian 9 (Stretch)
-                              :tabid: comm-deb-9
-
-                              .. code-block:: sh
-
-                                 echo "deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/{+mdbVersion+} main" | sudo tee /etc/apt/sources.list.d/mongodb-org-{+mdbVersion+}.list
 
                .. tab:: MongoDB Enterprise Edition
                   :tabid: mdb-ent
