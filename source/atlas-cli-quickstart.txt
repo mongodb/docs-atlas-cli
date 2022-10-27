@@ -26,8 +26,8 @@ account, see :ref:`atlas-cli-onboarding`.
 
 To create a {+cluster+} using a configuration file, run the
 :ref:`atlas-clusters-create` command with the ``--file`` option instead
-of ``atlas quickstart``. To learn more about configuration files, see
-:ref:`atlas-cli-cluster-config-file`.
+of ``atlas quickstart``. To learn more about the configuration file
+for an |service| {+cluster+}, see :ref:`atlas-cli-cluster-config-file`.
 
 .. _atlas-cli-quick-start-reqs:
 
