@@ -12,6 +12,20 @@
    :depth: 1
    :class: singlecol
 
+.. _atlas-cli-1.3.0:
+
+{+atlas-cli+} 1.3.0
+-------------------
+
+Released 17 November 2022
+
+- Adds an :ref:`atlas-clusters-advancedSettings-update` command, which 
+  updates advanced settings for your {+cluster+}. 
+- Adds an :ref:`atlas-availableRegions-list` command to list all
+  available regions for creating {+clusters+}.
+- Enhances telemetry by detecting whether your operating system is
+  Debian, RPM, MSI, or Chocolatey.
+
 .. _atlas-cli-1.2.1:
 
 {+atlas-cli+} 1.2.1
