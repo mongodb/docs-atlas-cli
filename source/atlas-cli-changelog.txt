@@ -19,10 +19,14 @@
 
 Released 17 November 2022
 
-- Adds an :ref:`atlas-clusters-advancedSettings-update` command, which 
-  updates advanced settings for your {+cluster+}. 
-- Adds an :ref:`atlas-availableRegions-list` command to list all
-  available regions for creating {+clusters+}.
+- Adds new ``atlas clusters`` commands:
+
+  - :ref:`atlas-clusters-advancedSettings-update` updates advanced
+    settings for your {+cluster+}. 
+
+  - :ref:`atlas-clusters-availableRegions-list` lists all
+    available regions where you can create {+clusters+}.
+    
 - Enhances telemetry by detecting whether your operating system is
   Debian, RPM, MSI, or Chocolatey.
 
