@@ -27,6 +27,16 @@ When you connect to an existing |service| account from the
 To create a new |service| account or onboard an existing account that
 doesn't have any {+clusters+}, see :ref:`atlas-cli-onboarding`.
 
+.. note::
+
+   If you have configured :ref:`API keys <atlas-admin-api-access>`
+   to access |service|, you can set :ref:`environment variables 
+   <atlas-cli-env-vars>` instead of authenticating using the 
+   commands listed above.
+
+   You can run any {+atlas-cli+} command without passing arguments
+   or options that you define in environment variables.
+
 Select a use case below to learn more about the available connection
 options:
 
