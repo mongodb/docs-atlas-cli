@@ -34,8 +34,8 @@ doesn't have any {+clusters+}, see :ref:`atlas-cli-onboarding`.
    <atlas-cli-env-vars>` instead of authenticating using the 
    commands listed above.
 
-   You can run any {+atlas-cli+} command without passing arguments
-   or options that you define in environment variables.
+   If you defined :ref:`environment variables <atlas-cli-env-vars>`, you can run any {+atlas-cli+} command 
+   without passing arguments or options that you have defined in your environment variables.
 
 Select a use case below to learn more about the available connection
 options:
