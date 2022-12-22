@@ -186,8 +186,9 @@ in the configuration file or as flags in the command:
 
 For a full list of available
 settings, see the API documentation for 
-:atlas:`Create One Multi-Cloud Cluster from One Project 
-</reference/api-resources-spec/#operation/createOneAdvancedClusterFromOneProject>`.
+:oas-atlas-op:`Create One Cluster </createOneCluster>` and 
+:oas-atlas-op:`Create One Multi-Cloud Cluster from One Project 
+</createCluster>`.
 
 .. _example-cluster-config-file:
 
