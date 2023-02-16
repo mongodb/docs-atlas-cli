@@ -1,12 +1,12 @@
 .. _go-template-output: 
 
 =============================
-Customize the {+mcli+} Output
+Customize the {+atlas-cli+} Output
 =============================
 
 .. default-domain:: mongodb
 
-You can customize the {+mcli+} output fields and format using a ``Go`` 
+You can customize the {+atlas-cli+} output fields and format using a ``Go`` 
 template or a JSON path.
                     
 Go templates
@@ -18,8 +18,6 @@ template, see `Package template <https://golang.org/pkg/text/template/>`__.
 For information on the types and properties available for each response, see: 
 
 - `Atlas types <https://go.mongodb.org/atlas/mongodbatlas/>`__
-- `Cloud Manager types <https://go.mongodb.org/ops-manager/opsmngr/>`__
-- `Ops Manager types <https://go.mongodb.org/ops-manager/opsmngr/>`__
 
 Syntax
 ~~~~~~
@@ -57,7 +55,7 @@ Examples
 
       .. code-block:: shell 
        
-         mongocli iam projects ls --orgId 5ab5cedf5g5h5i5j5kl12mn4 -o go-template="Count: {{.TotalCount}}"
+         mongocli  projects ls --orgId 5ab5cedf5g5h5i5j5kl12mn4 -o go-template="Count: {{.TotalCount}}"
 
       The preceding command returns the following output: 
 
@@ -118,7 +116,7 @@ Examples
 
       .. code-block:: shell 
        
-         mongocli iam projects ls --orgId 5ab5cedf5g5h5i5j5kl12mn4 -o go-template-file="template.tmpl"
+         mongocli  projects ls --orgId 5ab5cedf5g5h5i5j5kl12mn4 -o go-template-file="template.tmpl"
 
       The preceding command returns the following output: 
 
@@ -248,5 +246,5 @@ element.
 .. code-block:: shell
    :copyable: false 
 
-   mongocli atlas privateendpoint aws describe 601a4044da900269480a2533 --output json-path='$.status'
+   mongocli atlas privateendpoints aws describe 601a4044da900269480a2533 --output json-path='$.status'
    > WAITING_FOR_USER
