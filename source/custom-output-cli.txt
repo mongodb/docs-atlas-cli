@@ -1,23 +1,23 @@
 .. _go-template-output: 
 
-=============================
+==================================
 Customize the {+atlas-cli+} Output
-=============================
+==================================
 
 .. default-domain:: mongodb
 
-You can customize the {+atlas-cli+} output fields and format using a ``Go`` 
-template or a JSON path.
+You can customize the {+atlas-cli+} output fields and format using a Go
+template or a JSON path, which makes it easier to automate processes based on the 
+output from the {+atlas-cli+}.
                     
 Go templates
 ------------
                     
-You can specify the Go template with the command for a simple output 
-or through a separate file for a complex output. For information on the 
-template, see `Package template <https://golang.org/pkg/text/template/>`__. 
-For information on the types and properties available for each response, see: 
-
-- `Atlas types <https://go.mongodb.org/atlas/mongodbatlas/>`__
+You can specify a Go template within any {+atlas-cli+} command 
+or through a separate file. To learn more about 
+Go templates, see `Package template <https://golang.org/pkg/text/template/>`__. 
+To learn the types and properties available for each response, see 
+`Atlas types <https://go.mongodb.org/atlas/mongodbatlas/>`__.
 
 Syntax
 ~~~~~~
@@ -30,7 +30,7 @@ You can specify a template with the command using the ``--output`` or
 
    --output|-o go-template="{{<template>}}"
 
-You can specify a template using a file using the ``--output`` or 
+Alternatively, you can specify a template through a file using the ``--output`` or 
 ``-o`` option: 
 
 .. code-block:: shell 
@@ -49,9 +49,8 @@ Examples
       Retrieve the Number of Projects
       ```````````````````````````````
 
-      The following command uses the template to retrieve a count of 
-      the number of projects in the specified organization using the 
-      {+default-profile+}:
+      The following command uses a template to retrieve a count of 
+      the number of projects in the specified organization:
 
       .. code-block:: shell 
        
@@ -70,7 +69,7 @@ Examples
       `````````````````````````````````````````````````
       
 
-      The following :ref:`atlas-atlas-clusters-describe` command 
+      The following :ref:`atlas-clusters-describe` command 
       uses the template to retrieve the connection string for an 
       |service| cluster named ``getStarted``. It uses the default 
       profile for accessing |service|. 
@@ -91,17 +90,14 @@ Examples
       cluster with the ``srvAddress`` and the :manual:`connection 
       string  
       </reference/connection-string/#connection-string-options>`. This 
-      example uses the following to connect to the |service| cluster: 
-      
-      - The connection string returned by the previous command 
-      - The username and password created in this :ref:`tutorial 
-        <mcli-quick-start-atlas>` 
+      example uses the connection string returned by the previous command
+      for a user with the username ``User1``.
 
       .. code-block:: 
 
          mongo "mongodb+srv://getstarted.example.mongodb.net" --username User1 --password ChangeThisPasswordToSomethingSecure  
    
-   .. tab:: Specify Template Using a File
+   .. tab:: Specify Template Through a File
       :tabid: template-file
 
       For example, consider the following file named ``template.tmpl``: 
@@ -111,8 +107,7 @@ Examples
          Projects: {{range .Results}}{{.ID}} {{end}}
       
       The following command uses the ``template.tmpl`` file to retrieve 
-      the IDs of the projects in the specified organization using the 
-      {+default-profile+}:
+      the IDs of the projects in the specified organization:
 
       .. code-block:: shell 
        
@@ -157,7 +152,7 @@ Syntax
 
    <command> --output|-o json-path='$<expression>'
 
-``json-path`` expressions refer to the |json| element that a {+mcli+} 
+``json-path`` expressions refer to the |json| element that an {+atlas-cli+} 
 command returns. The ``$`` character represents the root element, which 
 is usually an object or an array.
 
@@ -170,14 +165,14 @@ Return the description of the first |api| key in a list
 ```````````````````````````````````````````````````````
 
 In the following example, a user retrieves their |api| keys with 
-:ref:`atlas-iam-organizations-apiKeys-list`. The ``json-path`` 
+:ref:`atlas-organizations-apiKeys-list`. The ``json-path`` 
 expression limits the output to the ``desc`` field of the first key, 
 rather than returning the entire list of keys.
 
 .. code-block:: shell
    :copyable: false 
 
-   atlas iam organization apikeys list --output json-path='$[0].desc'
+   atlas organizations apikeys list --output json-path='$[0].desc'
    > owner_key
 
 Running the same command with ``--output json`` returns the full |json| 
@@ -224,14 +219,14 @@ Return the description of a specific |api| key in a list
 ````````````````````````````````````````````````````````
 
 In the following example, a user retrieves their |api| keys with 
-:ref:`atlas-iam-organizations-apiKeys-list`. The ``json-path`` 
+:ref:`atlas-organizations-apiKeys-list`. The ``json-path`` 
 expression limits the output to the ``desc`` field of the specific 
 |json| object with ``id`` ``d2c9ccf2d1960e736a95d585``.
 
 .. code-block:: shell
    :copyable: false 
    
-   atlas iam organization apikeys list --output json-path='$[? @.id=="d2c9ccf2d1960e736a95d585"].desc'
+   atlas organizations apikeys list --output json-path='$[? @.id=="d2c9ccf2d1960e736a95d585"].desc'
    > member_key
 
 Return the status of a private endpoint
@@ -239,7 +234,7 @@ Return the status of a private endpoint
 
 In the following example, a user retrieves information for a 
 private endpoint with 
-:ref:`atlas-atlas-privateEndpoints-aws-describe`. The ``json-path`` 
+:ref:`atlas-privateEndpoints-aws-describe`. The ``json-path`` 
 expression limits the output to the ``status`` field of the root 
 element.
 
