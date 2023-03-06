@@ -38,4 +38,5 @@ Follow these steps to get started using the {+atlas-cli+}:
    /atlas-cli-quickstart
    Atlas CLI Commands </command/atlas>
    /reference
+   /troubleshooting
    /atlas-cli-changelog
