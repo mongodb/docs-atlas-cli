@@ -35,10 +35,10 @@ To learn more, see :ref:`connect-atlas-cli`.
 atlas: command not found
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``atlas`` executable might be in a directory which is not in your
-path. You can either add the directory to your path, move the executable
-to a directory which is in your path, or run the executable directly
-from its location.
+The ``atlas`` executable might be in a directory that isn't in your
+$PATH. You can either add the directory to your $PATH, move the
+executable to a directory which is in your $PATH, or run the executable
+directly from its location.
 
 400 (request "TENANT_ATTRIBUTE_READ_ONLY") The attribute pitEnabled is read-only for tenant clusters and cannot be changed by the user.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -120,5 +120,5 @@ directory.
 HOMEDRIVE, HOMEPATH, or USERPROFILE are blank
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This error might appear if the {+atlas-cli+} cannot access your home
+This error might appear if the {+atlas-cli+} can't access your home
 directory.
