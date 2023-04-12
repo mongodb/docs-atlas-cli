@@ -14,4 +14,4 @@ raw: docs/atlas/cli/stablecommand/atlas-privateEndpoints-onlineArchive-aws-descr
 
 # Atlas CLI Version 1.6 and later
 
-[v1.6-*]: ${bucket_prefix}/${version}/cluster-config-file -> ${base}/${version}/reference/json/cluster-config-file
+[v1.6-*]: docs/atlas/cli/${version}/cluster-config-file -> ${base}/${version}/reference/json/cluster-config-file
