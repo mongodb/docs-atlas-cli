@@ -16,9 +16,9 @@ This tutorial demonstrates how to use {+atlas-cli+} commands to create
 a new |service| cluster from a configuration file. Specifically, it
 demonstrates how to:
 
-1. Get the configuration settings of an existing |service| {+cluster+}
-   and save the settings to a configuration file using the
-   :ref:`atlas-clusters-describe` command. 
+1. Get the configuration settings of an :ref:`existing Atlas cluster
+   <atlas-clusters-create>` and save the settings to a
+   configuration file using the :ref:`atlas-clusters-describe` command. 
 #. Create an |service| {+cluster+} from the configuration file using the
    :ref:`atlas-clusters-create` command.
 
@@ -29,7 +29,7 @@ Prerequisites
 
 Before you begin, you must have the following: 
 
-- An |service| {+cluster+} 
+- :ref:`An Atlas cluster <atlas-clusters-create>` 
 - :ref:`Atlas CLI <install-atlas-cli>` 
 - :ref:`A profile <atlas-cli-profiles>` that contains the following: 
 
@@ -54,7 +54,7 @@ Export Existing Cluster Configuration Settings to a File
 .. procedure:: 
    :style: normal
 
-   .. step:: Connect to your |service| account for programmatic access. 
+   .. step:: Connect to your |service| account for programmatic access if you haven't connected yet. 
 
       To learn more, see :ref:`connect-atlas-cli`.
 
@@ -174,14 +174,7 @@ Create the Configuration File for the new Cluster
                  "terminationProtectionEnabled": false
                }
 
-   .. step:: Remove the following settings in the configuration file.
-
-      - ``connectionStrings``
-      - ``id``
-      - ``replicationSpecs.id``
-      - ``createDate``
-
-   .. step:: Modify the cluster name (``name``) setting in the configuration file.
+   .. step:: (Optional) Make changes to the settings in the configuration file as needed.
 
       To learn more about the optional and required settings, see
       :ref:`atlas-cli-cluster-config-file`. 
@@ -206,9 +199,7 @@ Create a New Cluster Using the Configuration File
          atlas clusters create <new-cluster-name> -f myCluster.json
 
       Replace ``<new-cluster-name>`` in the preceding command with the
-      name of the new {+cluster+} you wish to create. Note that the 
-      {+cluster+} name that you provide with the command must match the
-      value for the ``name`` setting in the configuration file. 
+      name of the new {+cluster+} you wish to create. 
 
    .. step:: Run the following command to check the status of the {+cluster+}.
 
