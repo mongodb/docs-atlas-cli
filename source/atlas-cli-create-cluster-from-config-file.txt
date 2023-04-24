@@ -31,12 +31,10 @@ Before you begin, you must have the following:
 
 - :ref:`An Atlas cluster <atlas-clusters-create>` 
 - :ref:`Atlas CLI <install-atlas-cli>` 
-- :ref:`A profile <atlas-cli-profiles>` that contains the following: 
-
-  - IDs of the |service| organization and project from where you wish to
-    retrieve existing cluster settings and where you wish to create the
-    new {+cluster+}. 
-  - |api| keys for programmatic access.
+- :ref:`A profile <atlas-cli-profiles>` that contains the IDs of the
+  |service| organization and project from where you wish to retrieve
+  existing cluster settings and where you wish to create the new
+  {+cluster+}.  
 
 .. _atlas-cli-create-cluster-from-config-file-procedure:
 
@@ -45,8 +43,7 @@ Create an |service| Cluster From a Configuration File
 
 You can use the procedures in this section to easily create a new
 {+cluster+} by exporting settings from an existing {+cluster+} instead
-of manually creating a configuration file with necessary {+cluster+}
-configuration settings for creating a new {+cluster+}. 
+of manually creating a configuration file yourself. 
 
 Export Existing Cluster Configuration Settings to a File 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -68,8 +65,8 @@ Export Existing Cluster Configuration Settings to a File
       Replace <cluster-name> in the preceding command with the name of
       the existing {+cluster+} that you wish to clone.
 
-Create the Configuration File for the new Cluster
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(Optional) Edit the Configuration File for the new Cluster
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. procedure:: 
    :style: normal
