@@ -1,0 +1,41 @@
+.. _security:
+
+=======================================================================
+Best Security Practices for Storing an {+atlas-cli+} Configuration File
+=======================================================================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+{+atlas-cli+}, like most popular CLIs, enables you to store your configuration file in 
+a secure manner. The following methods are available for securely storing your |service| credentials 
+and configuration file. The configuration file is only accessible to the current user.
+
+Overriding the Private API Key Value by Using an Environment Variable
+---------------------------------------------------------------------
+
+You can specify configuration settings by using :ref:`environment variables <atlas-cli-env-vars>`. 
+When you run any command, each setting that you specify with an environment variable takes precedence 
+over the profile stored in the configuration file. 
+
+You can encrypt the value of your private API key by overriding your private API key value through 
+the :ref:`MONGODB_ATLAS_PRIVATE_API_KEY environment variable <atlas-cli-env-vars>`.
+
+Setting the Location of the Configuration File Within the Secure Store
+----------------------------------------------------------------------
+
+.. note::
+   You need to use MacOS, Linux, or Windows Subshell for Linux Systems to follow the instructions below. If 
+   you are using a different operating system, the following methods are available:
+   
+   - `Creating and modifying environment variables in PowerShell <https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-7.3>`__
+   - `Installing the ``platformdirs`` Python package to determine appropriate platform-specific directories <https://pypi.org/project/platformdirs/>`__
+
+You can set the location of the :ref:`configuration file <config-toml-location>` within the secure store using 
+the ``XDG_CONFIG_HOME`` variable. To learn more about modifying the ``XDG_CONFIG_HOME`` variable, see `XDG Base Directory 
+Specification <https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html>`__. 
