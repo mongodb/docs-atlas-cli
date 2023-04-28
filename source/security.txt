@@ -1,7 +1,7 @@
 .. _security:
 
 =======================================================================
-Best Security Practices for Storing an {+atlas-cli+} Configuration File
+Securely Store an {+atlas-cli+} Configuration File
 =======================================================================
 
 .. default-domain:: mongodb
@@ -34,7 +34,7 @@ Setting the Location of the Configuration File Within the Secure Store
    you are using a different operating system, the following methods are available:
    
    - `Creating and modifying environment variables in PowerShell <https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-7.3>`__
-   - `Installing the ``platformdirs`` Python package to determine appropriate platform-specific directories <https://pypi.org/project/platformdirs/>`__
+   - Installing the ``platformdirs`` `Python package <https://pypi.org/project/platformdirs/>`__ to determine appropriate platform-specific directories
 
 You can set the location of the :ref:`configuration file <config-toml-location>` within the secure store using 
 the ``XDG_CONFIG_HOME`` variable. To learn more about modifying the ``XDG_CONFIG_HOME`` variable, see `XDG Base Directory 
