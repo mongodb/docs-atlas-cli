@@ -12,7 +12,7 @@ Securely Store an {+atlas-cli+} Configuration File
    :depth: 1
    :class: singlecol
 
-{+atlas-cli+}, like most popular CLIs, enables you to store your configuration file in 
+The {+atlas-cli+}, like most popular CLIs, enables you to store your configuration file in 
 a secure manner. The following methods are available for securely storing your |service| credentials 
 and configuration file. The configuration file is only accessible to the current user.
 
