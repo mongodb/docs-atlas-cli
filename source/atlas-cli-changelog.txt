@@ -21,7 +21,7 @@
 
 Released 25 May 2023
 
-- Adds the following new commands to manage |adl| pipelines:
+- Adds the following new commands to manage {+data-lake+} pipelines:
 
   - :ref:`atlas-dataLakePipelines-create`
   - :ref:`atlas-dataLakePipelines-datasets-delete`
@@ -31,18 +31,18 @@ Released 25 May 2023
   - :ref:`atlas-dataLakePipelines-pause`
   - :ref:`atlas-dataLakePipelines-runs-describe`
   - :ref:`atlas-dataLakePipelines-runs-list`
-  - :ref:`atlas-datalakepipelines-runs-watch`
+  - :ref:`atlas-dataLakePipelines-runs-watch`
   - :ref:`atlas-dataLakePipelines-start`
   - :ref:`atlas-dataLakePipelines-trigger`
   - :ref:`atlas-dataLakePipelines-update`
-  - :ref:`atlas-datalakepipelines-watch`
+  - :ref:`atlas-dataLakePipelines-watch`
 
 - Adds the following new commands to load and manage sample data:
 
-  - :ref:`atlas cluster sampleData load`, which replaces ``atlas
+  - :ref:`atlas-clusters-sampleData-load`, which replaces ``atlas
     clusters loadSampleData``
-  - :ref:`atlas cluster sampleData describe`
-  - :ref`atlas cluster sampleData watch`
+  - :ref:`atlas-clusters-sampleData-describe`
+  - :ref:`atlas-clusters-sampleData-watch`
 
 - Fixes a bug where running :ref:`atlas-dbusers-update` indicated
   success prematurely, which made it possible for the command
