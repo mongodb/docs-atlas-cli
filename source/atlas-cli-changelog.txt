@@ -21,6 +21,9 @@
 
 Released 25 May 2023
 
+- Adds the :ref:`atlas-kubernetes-operator-install` command to install
+  the :atlas:`{+ak8so+} </atlas-operator>`.
+
 - Adds the following new commands to manage {+data-lake+} pipelines:
 
   - :ref:`atlas-dataLakePipelines-create`
