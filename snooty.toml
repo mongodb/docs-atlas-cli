@@ -21,6 +21,8 @@ toc_landing_pages = [
   "/telemetry"
   ]
 
+eol = true
+
 [constants]
 aagent = "Automation Agent"
 atlas-cli = "Atlas CLI"
