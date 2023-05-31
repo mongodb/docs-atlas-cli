@@ -1,5 +1,6 @@
 name = "atlas-cli"
 title = "Atlas Command Line Interface"
+eol = true
 
 intersphinx = [ "https://www.mongodb.com/docs/ops-manager/current/objects.inv",            
                 "https://www.mongodb.com/docs/manual/objects.inv",
@@ -20,8 +21,6 @@ toc_landing_pages = [
   "/migrate-to-atlas-cli",
   "/telemetry"
   ]
-
-eol = true
 
 [constants]
 aagent = "Automation Agent"
