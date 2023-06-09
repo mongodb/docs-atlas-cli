@@ -10,8 +10,8 @@ Atlas Search Index Configuration File
    :depth: 1
    :class: singlecol
 
-You can use an |fts| configuration file to specify the settings
-required when you :ref:`create a search index
+You can use an |fts| index configuration file to specify the required 
+settings for :ref:`creating a search index
 <atlas-clusters-search-indexes-create>` using the {+atlas-cli+}. The 
 {+atlas-cli+} accepts ``.json`` search index configuration files.
 
@@ -35,13 +35,13 @@ the request body schema in the API specification:
 
    * - ``collectionName``
      - string
-     - Label that identifies the collection that contains one or more
-       |fts| indexes.
+     - Label that identifies the collection for which you want to
+       create an |fts| index.
 
    * - ``database``
      - string
      - Label that identifies the database that contains the collection
-       with one or more |fts| indexes.
+       for which you want to create an |fts| index.
 
    * - ``name``
      - string
@@ -55,8 +55,9 @@ the request body schema in the API specification:
    * - ``mappings.dynamic``
      - boolean
      - Flag that indicates whether the index uses dynamic or static
-       mappings. Required if ``mappings.fields`` is omitted. To learn
-       more, see :atlas:`atlas-search/index-definitions`.
+       mappings. If omitted or if set to ``false``, ``mappings.fields`` is required. To learn more, see 
+       :atlas:`Atlas Search Index Syntax 
+       </atlas-search/index-definitions/>`.
 
 
 .. _example-search-index-config-file:
