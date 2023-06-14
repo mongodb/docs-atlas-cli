@@ -34,8 +34,15 @@ Released 7 June 2023
 
 - Introduces a breaking change to the :ref:`atlas-alerts-settings-list`
   command that modifies its ``--output json`` response structure.
+  
   Use the nested ``.results`` object to access the previous response
-  structure.
+  structure. Use the following ``jq`` template to migrate affected 
+  scripts:
+  
+  .. code-block:: sh
+    
+     jq '.' ...`` => ``jq '.results' ...
+
 - Fixes an issue that caused the :ref:`atlas-clusters-search-indexes-create` command to 
   incorrectly handle a multikey index.
 - Fixes an issue with the :ref:`atlas-performanceAdvisor-slowQueryLogs` command where the
@@ -72,7 +79,12 @@ Released 25 May 2023
   - :ref:`atlas-processes-list`
   
   Use the nested ``.results`` object to access the previous response
-  structure.
+  structure. Use the following ``jq`` template to migrate affected 
+  scripts:
+  
+  .. code-block:: sh
+    
+     jq '.' ...`` => ``jq '.results' ...
 
 - Adds the :ref:`atlas-kubernetes-operator-install` command to install
   the :atlas:`{+ak8so+} </atlas-operator>`.
