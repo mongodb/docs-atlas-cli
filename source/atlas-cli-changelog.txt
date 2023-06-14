@@ -34,7 +34,7 @@ Released 7 June 2023
 
 - Introduces a breaking change to the :ref:`atlas-alerts-settings-list`
   command that modifies its ``--output json`` response structure.
-  Use the nested ``.Results`` object to access the previous response
+  Use the nested ``.results`` object to access the previous response
   structure.
 - Fixes an issue that caused the :ref:`atlas-clusters-search-indexes-create` command to 
   incorrectly handle a multikey index.
@@ -71,7 +71,7 @@ Released 25 May 2023
   - :ref:`atlas-projects-users-list`
   - :ref:`atlas-processes-list`
   
-  Use the nested ``.Results`` object to access the previous response
+  Use the nested ``.results`` object to access the previous response
   structure.
 
 - Adds the :ref:`atlas-kubernetes-operator-install` command to install
