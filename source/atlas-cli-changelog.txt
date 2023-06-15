@@ -14,6 +14,32 @@
    :depth: 1
    :class: singlecol
 
+.. _atlas-cli-1.7.4:
+
+{+atlas-cli+} 1.7.4
+-------------------
+
+Released 15 June 2023
+
+- Adds the ``--compact`` flag to compact the output of specific ``list`` 
+  commands. This ensures backwards compatibility with {+atlas-cli+} 
+  releases prior to 1.7.0.
+  
+  Use this flag with the ``--output json`` or ``--output json-format`` 
+  flags to return an array that contains list items as output for the
+  following commands:
+
+  - :ref:`atlas-teams-list`
+  - :ref:`atlas-dbusers-certs-list`
+  - :ref:`atlas-dbusers-list`
+  - :ref:`atlas-projects-apiKeys-list`
+  - :ref:`atlas-organizations-apiKeys-list`
+  - :ref:`atlas-projects-users-list`
+  - :ref:`atlas-processes-list`
+  - :ref:`atlas-alerts-settings-list`
+
+- Introduces custom handling for valid ISO-8601 timestamps.
+
 .. _atlas-cli-1.7.3:
 
 {+atlas-cli+} 1.7.3
