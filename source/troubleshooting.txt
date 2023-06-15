@@ -92,7 +92,7 @@ the :atlas:`access list </configure-api-access>` for the requested
 project. Add your IP address or API key to the :atlas:`access list 
 </configure-api-access>` to run commands. To learn more, see 
 :atlas:`Get Started with the Atlas Administration API 
-</configure-api-access>`.
+</configure-api-access>`. 
 
 To add your IP address to an API key's access list:
 
