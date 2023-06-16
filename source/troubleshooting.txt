@@ -108,8 +108,8 @@ To add your IP address to an API key's access list:
       #. Select your desired project from the list of projects in the 
          :guilabel:`Projects` page.
 
-      #. Click the vertical ellipsis (:icon-fa4:`ellipsis-v`) next to 
-         your project name in the upper left corner and select 
+      #. Next to the :guilabel:`Projects` menu, expand the
+         :icon-fa5:`ellipsis-v` :guilabel:`Options` menu, then click 
          :guilabel:`Project Settings`.
 
       #. Click :guilabel:`Access Manager` in the navigation bar.
@@ -124,7 +124,7 @@ To add your IP address to an API key's access list:
       
    .. step:: Add your IP address to the API key's access list.
 
-      a. Do on of the following tasks in the 
+      a. Do one of the following tasks in the 
          :guilabel:`API Access List` section:
 
          - Click :guilabel:`Add Access List Entry` and type an |ipaddr| 
