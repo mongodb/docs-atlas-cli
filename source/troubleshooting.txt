@@ -87,9 +87,9 @@ to create new projects.
 403 (request "Forbidden") IP address <ip-address> is not allowed to access this resource.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The user's IP address or API key that you use to authenticate is not on
+The user's IP address that you use to authenticate is not on
 the :atlas:`access list </configure-api-access>` for the requested
-project. Add your IP address or API key to the :atlas:`access list 
+project. Add your IP address to the :atlas:`access list 
 </configure-api-access>` to run commands.
 
 To learn more, see the following pages:
