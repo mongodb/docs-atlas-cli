@@ -24,11 +24,8 @@ Released 18 June 2023
 
 - Adds the ``--LagTime`` and ``--ReadyForCutOver`` flags to the :ref:`atlas-liveMigrations-create` 
   and :ref:`atlas-liveMigrations-describe` commands.
-- Adds the ``--tag`` flag to the :doc:`atlas-serverless-create </command/atlas-serverless-create/>` 
-  and :doc:`atlas-serverless-update <//command/atlas-serverless-update/>` commands.
-
-.. note: I had to use doc links in the last bullet above because the ref target for 
-   these commands is also defined elsewhere
+- Adds the ``--tag`` flag to the :ref:`atlas-serverless-create` 
+  and :ref:`atlas-serverless-update` commands.
 
 .. _atlas-cli-1.7.4:
 
