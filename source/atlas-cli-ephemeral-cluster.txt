@@ -15,7 +15,7 @@ Test Automations with Ephemeral Projects and Clusters
 This tutorial demonstrates how to quickly create and delete ephemeral 
 |service| projects and {+clusters+} using the {+atlas-cli+}. Ephemeral
 projects and {+clusters+} provide temporary testing environments that
-are isolated from your production projects and {+clusters+}. You can use
+you isolate from your production projects and {+clusters+}. You can use
 ephemeral projects and {+clusters+} to test your automation scripts
 before using the scripts on production {+clusters+}.
 
@@ -26,7 +26,7 @@ Prerequisites
 
 Before you begin, complete the following tasks: 
 
-- Create an |service| user account
+- Create an |service| user account.
 - :ref:`Create <atlas-organizations-create>` an 
   :atlas:`Atlas organization </organizations-projects/>` and
   note its organization ID. You can find the organization ID by running the :ref:`atlas-organizations-list` command.
@@ -60,7 +60,7 @@ Follow These Steps
 
       c. Retrieve the project ID for the ephemeral project you created
          from the response. In the following example response, the
-         project ID is 64933bde48add154124e343f.
+         project ID is ``64933bde48add154124e343f``.
 
          .. code-block::
 
@@ -106,7 +106,7 @@ Follow These Steps
             You can't delete the ephemeral project until the ephemeral
             {+cluster+} finishes shutting down. If you get an error
             stating ``CANNOT_CLOSE_GROUP_ACTIVE_ATLAS_CLUSTERS``, wait
-            a few minutes, then run the ``atlas projects delete``
+            five minutes, then run the ``atlas projects delete``
             command again.
 
       You can run the :ref:`atlas-projects-list` command to confirm
