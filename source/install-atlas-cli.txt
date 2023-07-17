@@ -66,6 +66,16 @@ To check whether your operating system is compatible with the
       #. Install Chocolatey using ``cmd.exe`` or ``PowerShell.exe``. To 
          learn more, see `Installing Chocolatey <https://docs.chocolatey.org/en-us/choco/setup#installing-chocolatey>`__.
 
+   .. tab:: Docker
+      :tabid: docker
+
+      Complete the Prerequisites
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+      To install the {+atlas-cli+} using Docker, install the 
+      `Docker engine <https://docs.docker.com/engine/install/>`__ or
+      `Docker desktop <https://docs.docker.com/desktop/>`__.
+
    .. tab:: Download Binary
       :tabid: download-binary
 
@@ -79,6 +89,7 @@ Follow These Steps
       :tabid: Homebrew
 
       .. procedure::
+         :style: normal
 
          .. step:: Install the {+atlas-cli+} and {+mongosh+}.
 
@@ -101,6 +112,7 @@ Follow These Steps
       :tabid: yum    
       
       .. procedure::
+         :style: normal
 
          .. step:: Configure ``yum`` for your edition of MongoDB. 
 
@@ -202,6 +214,7 @@ Follow These Steps
       :tabid: apt
 
       .. procedure::
+         :style: normal
 
          .. step:: Import the public key used by ``apt``.
 
@@ -376,6 +389,7 @@ Follow These Steps
       :tabid: chocolatey
 
       .. procedure::
+         :style: normal
 
          .. step:: Install the {+atlas-cli+}.
 
@@ -389,10 +403,30 @@ Follow These Steps
 
          .. include:: /includes/steps-verify-atlas-cli.rst
 
+   .. tab:: Docker
+      :tabid: docker
+
+      To pull the latest {+atlas-cli+} Docker image, run the following
+      command:
+
+      .. code-block::
+
+         docker pull mongodb/atlas-cli
+
+      After you pull the {+atlas-cli+} Docker image, you can run
+      {+atlas-cli+} commands with Docker. 
+      
+      To run an {+atlas-cli+} command with Docker, add 
+      ``docker run --rm atlas-cli`` before the
+      {+atlas-cli+} command. For example, to run the
+      :ref:`atlas-clusters-list` command with Docker, run 
+      ``docker run --rm atlas-cli atlas clusters list``.
+
    .. tab:: Download Binary
       :tabid: download-binary
 
       .. procedure::
+         :style: normal
 
          .. step:: Install the {+atlas-cli+}.
           
@@ -452,6 +486,7 @@ method you used to install the {+atlas-cli+}:
       ~~~~~~~~~~~~~~~~~~
 
       .. procedure::
+         :style: normal
 
          .. step:: Update the {+atlas-cli+}.
 
@@ -480,6 +515,7 @@ method you used to install the {+atlas-cli+}:
       ~~~~~~~~~~~~~~~~~~
 
       .. procedure::
+         :style: normal
 
          .. step:: Update the {+atlas-cli+}.
 
@@ -506,6 +542,7 @@ method you used to install the {+atlas-cli+}:
       ~~~~~~~~~~~~~~~~~~
 
       .. procedure::
+         :style: normal
 
          .. step:: Update the {+atlas-cli+}.
 
@@ -533,6 +570,7 @@ method you used to install the {+atlas-cli+}:
       ~~~~~~~~~~~~~~~~~~
 
       .. procedure::
+         :style: normal
 
          .. step:: Install the {+atlas-cli+}.
 
@@ -549,6 +587,7 @@ method you used to install the {+atlas-cli+}:
       ~~~~~~~~~~~~~~~~~~
 
       .. procedure::
+         :style: normal
 
          .. step:: Update the {+atlas-cli+}.
 
