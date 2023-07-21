@@ -21,7 +21,7 @@
 
 Released 20 July 2023
 
-- Fixes issue with printing table format for the
+- Fixes issue with the printed table format for the
   :ref:`atlas-networking-containers-list` command. 
 - Removes support for MongoDB 4.2.
 - Configures :ref:`atlas-quickstart` command as an alias for the
