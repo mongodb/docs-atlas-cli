@@ -25,6 +25,7 @@ Released 20 July 2023
   :ref:`atlas-networking-containers-list` command. 
 - Removes support for MongoDB 4.2.
 - Configures :ref:`atlas-quickstart` command as an alias for the
+- Fixes issue with backup restore watch commands
   :ref:`atlas-setup` command. 
 
 .. _atlas-cli-1.9.1:
