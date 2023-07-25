@@ -411,16 +411,11 @@ Follow These Steps
 
       .. code-block::
 
-         docker pull mongodb/atlas-cli
+         docker pull mongodb/atlas
 
-      After you pull the {+atlas-cli+} Docker image, you can run
-      {+atlas-cli+} commands with Docker. 
-      
-      To run an {+atlas-cli+} command with Docker, add 
-      ``docker run --rm atlas-cli`` before the
-      {+atlas-cli+} command. For example, to run the
-      :ref:`atlas-clusters-list` command with Docker, run 
-      ``docker run --rm atlas-cli atlas clusters list``.
+      To learn how to run {+atlas-cli+} commands with Docker, see the
+      `{+atlas-cli+} Docker documentation 
+      <https://hub.docker.com/repository/docker/mongodb/atlas/general>`__.
 
    .. tab:: Download Binary
       :tabid: download-binary
