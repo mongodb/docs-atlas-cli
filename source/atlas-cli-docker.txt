@@ -1,0 +1,63 @@
+.. _atlas-cli-docker:
+
+======================================
+Run {+atlas-cli+} Commands with Docker
+======================================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+This tutorial shows you how to run {+atlas-cli+} commands with Docker
+in the following ways:
+
+- Run Docker in interactive mode
+- Run Docker as a daemon (detach mode)
+
+You can use interactive mode with or without an environment variable
+file. If you don't specify an environment variable file, the 
+{+atlas-cli+} uses the :ref:`configuration file <config-toml-location>`
+on your local machine for environment variables.
+
+To learn more about interactive mode and detach mode, see `docker run
+<https://docs.docker.com/engine/reference/commandline/run/>`__.
+
+.. _atlas-cli-docker-reqs:
+
+Complete The Prerequisites 
+--------------------------
+
+Before you begin, complete the following prerequisites: 
+
+1. Install the `Docker engine 
+   <https://docs.docker.com/engine/install/>`__ or
+   `Docker desktop <https://docs.docker.com/desktop/>`__.
+2. :ref:`Pull the Docker image <atlas-cli-install-steps>` to install
+   the {+atlas-cli+} with Docker.
+3. (Optional) To run in interactive mode with an environment file,
+   create an `environment variable file 
+   <https://docs.docker.com/engine/reference/commandline/run/#env>`__
+   that contains valid 
+   :ref:`{+atlas-cli+} environment variables <atlas-cli-env-vars>`.
+
+Follow These Steps
+------------------
+
+To run {+atlas-cli+} commands with Docker, select one of the following
+options and follow the steps:
+
+.. tabs::
+         
+   .. tab:: Run Docker in Interactive Mode
+      :tabid: interactive
+
+      .. include:: /includes/steps-run-interactive-mode.rst
+         
+   .. tab:: Run Docker as a Daemon
+      :tabid: daemon
+
+      .. include:: /includes/steps-run-as-daemon.rst
