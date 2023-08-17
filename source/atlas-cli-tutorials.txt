@@ -39,6 +39,11 @@ You can also go straight to the :doc:`{+atlas-cli+} Commands
        {+cluster+}. This tutorial requires an |service| account and an
        existing organization.
 
+   * - :ref:`atlas-cli-local-cloud`
+     - Find tutorials for the ``atlas deployments`` command, which lets
+       you create local MongoDB deployments, create |service| cloud
+       deployments, manage local {+clusters+} that you deployed with ``atlas deployments``, and manage all MongoDB |service| cloud deployments.
+
    * - :ref:`atlas-cli-ephemeral-cluster`
      - Create an ephemeral project and {+cluster+} to test automations.
 
@@ -49,4 +54,5 @@ You can also go straight to the :doc:`{+atlas-cli+} Commands
    /atlas-cli-getting-started
    /atlas-cli-quickstart
    /atlas-cli-create-cluster-from-config-file
+   /atlas-cli-local-cloud
    /atlas-cli-ephemeral-cluster
