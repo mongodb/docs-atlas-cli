@@ -56,13 +56,21 @@
       <connect-atlas-cli>`, adding 
       ``docker run --env-file ./atlas.env --rm mongodb/atlas`` before
       each {+atlas-cli+} command. For example, to run the 
-      :ref:`atlas auth login <atlas-auth-login>` command with an
+      :ref:`atlas config init <atlas-config-init>` command with an
       environment variable file, run the following command, replacing
       ``atlas.env`` with the name of the environment file:
       
       .. code-block::
          
-         docker run --env-file ./atlas.env --rm mongodb/atlas atlas auth login
+         docker run --env-file ./atlas.env --rm mongodb/atlas atlas config init
+
+      .. note::
+
+         The ``atlas config init`` command requires setting API keys in the `environment variable file 
+         <https://docs.docker.com/engine/reference/commandline/run/#env>`__. 
+         To learn more, see 
+         :ref:`{+atlas-cli+} environment variables
+         <atlas-cli-env-vars>`.
 
       After you authenticate, you can run {+atlas-cli+} commands by
       adding adding 

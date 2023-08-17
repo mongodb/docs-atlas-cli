@@ -19,9 +19,7 @@ in the following ways:
 - Run Docker as a daemon (detach mode)
 
 You can use interactive mode with or without an environment variable
-file. If you don't specify an environment variable file, the 
-{+atlas-cli+} uses the :ref:`configuration file <config-toml-location>`
-on your local machine for environment variables.
+file.
 
 To learn more about interactive mode and detach mode, see `docker run
 <https://docs.docker.com/engine/reference/commandline/run/>`__.
@@ -42,7 +40,9 @@ Before you begin, complete the following prerequisites:
    create an `environment variable file 
    <https://docs.docker.com/engine/reference/commandline/run/#env>`__
    that contains valid 
-   :ref:`{+atlas-cli+} environment variables <atlas-cli-env-vars>`.
+   :ref:`{+atlas-cli+} environment variables <atlas-cli-env-vars>`,
+   including API key environment variables that provide to your API
+   keys.
 
 Follow These Steps
 ------------------
