@@ -41,7 +41,7 @@ Before you begin, complete the following prerequisites:
    <https://docs.docker.com/engine/reference/commandline/run/#env>`__
    that contains valid 
    :ref:`{+atlas-cli+} environment variables <atlas-cli-env-vars>`,
-   including API key environment variables that provide to your API
+   including API key environment variables that provide your API
    keys.
 
 Follow These Steps
