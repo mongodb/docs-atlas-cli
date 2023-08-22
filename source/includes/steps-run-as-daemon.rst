@@ -19,7 +19,7 @@
 
    .. step:: Authenticate and run {+atlas-cli+} commands.
 
-      To authenticate and run commands, set up API keys in the `environment variable file 
+      To authenticate and run commands, set up API keys in the `environment file 
       <https://docs.docker.com/engine/reference/commandline/run/#env>`__. 
       To learn more, see 
       :ref:`{+atlas-cli+} environment variables <atlas-cli-env-vars>`.
@@ -28,7 +28,7 @@
       adding
       ``docker exec --env-file ./atlas.env --rm mongodb/atlas`` before
       each {+atlas-cli+} command. For example, to run the 
-      :ref:`atlas --help <atlas>` command with an environment variable
+      :ref:`atlas --help <atlas>` command with an environment
       file, run the following command, replacing ``atlas.env`` with the
       name of the environment file:
 
