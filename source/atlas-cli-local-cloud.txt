@@ -1,0 +1,100 @@
+.. _atlas-cli-local-cloud:
+
+=========================================================
+Manage Local and Cloud Deployments from the {+atlas-cli+}
+=========================================================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+Use the {+atlas-cli+} to work with |service|, including using |fts| 
+and performing vector searches, throughout the entire software 
+development lifecycle, from your local environment to the cloud.
+
+.. include:: /includes/fact-atlas-deployments-preview.rst
+
+With the ``atlas deployments`` commands, you can perform the following
+actions with the {+atlas-cli+}:
+
+- Create local MongoDB deployments. Local deployments reside on your
+  computer and provide a non-production environment for development.
+- Create |service| cloud deployments. |service| hosts deployments in
+  the cloud for both non-production and production use.
+- Manage local {+clusters+} that you deployed with ``atlas
+  deployments``.
+- Manage all MongoDB |service| cloud deployments.
+
+.. note::
+
+   For local MongoDB deployments, you can manage only deployments that
+   you created with ``atlas deployments``. If you created a local
+   MongoDB {+cluster+} without using the {+atlas-cli+}, you can't
+   manage that {+cluster+} with the {+atlas-cli+}.
+
+Only ``atlas deployments`` {+atlas-cli+} commands work on local MongoDB
+deployments. All {+atlas-cli+} commands, including ``atlas
+deployments`` commands, work on MongoDB |service| cloud deployments.
+
+Supported Actions
+-----------------
+
+The actions you can perform with ``atlas deployments`` include but
+aren't limited to:
+
+- **Set up** a new local or |service| cloud {+cluster+}, including:
+ 
+  - Create the {+cluster+}.
+  
+  - Load sample data into the {+cluster+}.
+  
+  - Add your IP address to your project's IP access list (for |service|
+    cloud {+clusters+} only).
+
+  - Create a MongoDB user for your {+cluster+}.
+
+  - Connect to your {+cluster+}.
+   
+- **List** local and |service| cloud {+clusters+}.
+  
+- **Connect** or return the connection string for a local or |service|
+  cloud {+cluster+}.
+
+- **Pause or start** a local or |service| cloud {+cluster+}.
+  
+- **Delete** a local or |service| cloud {+cluster+}.
+  
+- **Access logs** for a local or |service| cloud {+cluster+}.
+  
+- **Create or manage search indexes** to run |service| Search on a
+  local or |service| cloud {+cluster+}.
+
+To learn all of the actions that ``atlas deployments`` supports, see
+:ref:`atlas-deployments`.
+
+Tutorials
+---------
+
+Use the following resources for step-by-step guidance to run ``atlas
+deployments`` commands:
+
+.. list-table:: 
+   :header-rows: 1
+   :widths: 40 60
+
+   * - Tutorial
+     - Objective
+
+   * - :ref:`atlas-cli-deploy-local`
+     - Use the ``atlas deployments`` command to create a local MongoDB
+       {+cluster+}. This tutorial deploys a single-node replica set on
+       your local computer.
+
+.. toctree::
+   :titlesonly:
+
+   /atlas-cli-deploy-local

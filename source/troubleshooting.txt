@@ -173,3 +173,144 @@ HOMEDRIVE, HOMEPATH, or USERPROFILE are blank
 
 This error might appear if the {+atlas-cli+} can't access your home
 directory.
+
+
+# Are there any known errors to add for ``atlas deployments``?
+
+.. _local-deploy-errors:
+
+Local Deployment Errors
+-----------------------
+
+Error: qemu exited unexpectedly with exit code -1, stderr: qemu-system-x86_64: Error: HV_DENIED
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The {+atlas-cli+} uses `Podman </https://podman.io/>`__ and `QEMU 
+<https://www.qemu.org/>`__. We have identified this issue on MacOS x86 
+architectures. Upgrade to the latest version of QEMU and restart Podman.
+
+Error: exit status 127
+~~~~~~~~~~~~~~~~~~~~~~
+
+This error might occur when you use the ``atlas deployments setup`` 
+command on Ubuntu Linux because of a `known issue 
+<https://bugs.launchpad.net/ubuntu/+source/libpod/+bug/2024394>`__ with 
+Podman. Downgrade Podman:
+
+.. code-block:: sh
+
+   sudo apt install podman=3.4.4+ds1-1ubuntu1
+
+MongoNetworkError: connect ECONNREFUSED
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This issue might occur after your machine goes into sleep mode or 
+restarts. When you try to connect to the local {+cluster+}, this error 
+occurs.
+
+The {+atlas-cli+} uses `Podman </https://podman.io/>`__ and `QEMU 
+<https://www.qemu.org/>`__ to run dockerized instances of MongoDB. 
+Podman has a daemonless architecture. So, the local MongoDB instances 
+don't restart automatically.
+
+To fix this issue:
+
+1. List the Podman containers.
+
+   .. code-block:: sh
+
+      podman ps --all
+
+#. To resume the container, copy and paste the following command into 
+   your terminal and replace ``{container-name}`` with the name of the 
+   container to start.
+
+   .. code-block:: sh
+
+      podman start {container-name}
+
+Issues on Windows
+-----------------
+
+We don't support Windows at this time.
+
+Local Machine Issues
+--------------------
+
+If the {+atlas-cli+} slows down to an unusable state after you create 
+multiple local deployments and load the sample data, you might have 
+reached the limits of your machine.
+
+Consider allocating more memory:
+
+1. Stop the Podman machine:
+
+   .. code-block:: sh
+
+      podman machine Stop
+
+#. Allocate more memory:
+
+   .. code-block:: sh
+
+      podman machine set --cpus 2 --memory 2048
+
+#. Start the Podman machine:
+
+   .. code-block:: sh
+
+      podman machine start
+
+#. List the Podman containers.
+
+   .. code-block:: sh
+
+      podman ps --all
+
+#. To resume the container, copy and paste the following command into 
+   your terminal and replace ``{container-name}`` with the name of the 
+   container to start.
+
+   .. code-block:: sh
+
+      podman start {container-name}
+
+Podman Issues
+-------------
+
+The {+atlas-cli+} uses `Podman </https://podman.io/>`__.
+
+To install Podman:
+
+.. code-block:: sh
+
+   brew install podman
+
+To initialize a Podman machine:
+
+.. code-block:: sh
+
+   podman machine init
+
+To start a Podman machine:
+
+.. code-block::
+
+   podman machine start
+
+If your local {+cluster+} doesn't work, you might need to clean up your 
+Podman environment and start fresh:
+
+.. code-block::
+
+   podman kill --all && podman system prune --force && podman volume rm --all
+
+Run Diagnostics
+---------------
+
+If you run into issues and need support, run the following command to 
+provide detailed diagnostics:
+
+.. code-block:: sh
+
+   atlas deployments diagnostics <deploymentName> --output json > out.json

@@ -14,6 +14,7 @@ toc_landing_pages = [
   "/atlas-cli-profiles",
   "/atlas-cli-quickstart",
   "/atlas-cli-tutorials",
+  "/atlas-cli-local-cloud",
   "/command/atlas",
   "/compatibility",
   "/connect-atlas-cli",
