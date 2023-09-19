@@ -225,13 +225,13 @@ To fix this issue:
       podman start {container-name}
 
 Issues on Windows
------------------
+~~~~~~~~~~~~~~~~~
 
 We don't support Windows for local |service| deployments during this 
 Public Preview stage.
 
 Local Machine Issues
---------------------
+~~~~~~~~~~~~~~~~~~~~
 
 If the {+atlas-cli+} slows down to an unusable state after you create 
 multiple local |service| deployments and load the sample data, you 
@@ -272,7 +272,7 @@ Consider allocating more memory:
       podman start {container-name}
 
 Podman Issues
--------------
+~~~~~~~~~~~~~
 
 The {+atlas-cli+} uses `Podman <https://podman.io/>`__ for
 ``atlas deployments`` commands.
@@ -303,7 +303,7 @@ clean up your Podman environment and start fresh:
    podman kill --all && podman system prune --force && podman volume rm --all
 
 Run Diagnostics
----------------
+~~~~~~~~~~~~~~~
 
 If you run into issues and with ``atlas deployments`` commands and need 
 support, run the following command to provide detailed diagnostics:
