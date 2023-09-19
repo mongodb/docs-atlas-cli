@@ -1,7 +1,7 @@
 .. _atlas-cli-deploy-local:
 
 ==================================
-Deploy a Local MongoDB {+Cluster+}
+Deploy a Local MongoDB deployment
 ==================================
 
 .. default-domain:: mongodb
@@ -13,11 +13,46 @@ Deploy a Local MongoDB {+Cluster+}
    :class: singlecol
 
 This tutorial shows you how to use the ``atlas deployments`` command to 
-create a local MongoDB {+cluster+}. This tutorial deploys a single-node 
+create a local MongoDB deployment. This tutorial deploys a single-node 
 replica set on your local computer. You can then manage your 
-{+cluster+}, use |fts|, and perform a vector search.
+deployment, use |fts|, and perform a vector search.
 
 .. include:: /includes/fact-atlas-deployments-preview.rst
+
+Supported OS for Local MongoDB Deployments
+------------------------------------------
+
+.. list-table::
+   :header-rows: 1
+
+   * - Operating System
+     - Operating System Version
+     - Architecture
+     - Minimum CPU Cores
+     - Minimum Free RAM (GB)
+   
+   * - MacOS
+     - 13.2 and later
+     - x86-64, ARM
+     - 2
+     - 2 
+   
+   * - Amazon Linux
+     - 2
+     - x86-64, ARM
+     - 2
+     - 2
+   
+   * - Red Hat Eterprise Linux / CentOS 
+     - 8, 9
+     - x86-64, ARM
+     - 2
+     - 2
+
+.. note::
+
+   Windows and Ubuntu are not fully supported for local MongoDB 
+   deployments during the Public Preview stage.
 
 .. _atlas-cli-deploy-local-reqs:
 
@@ -26,7 +61,7 @@ Complete the Prerequisites
 
 Before you begin, complete the following prerequisites:
 
-.. note::
+.. important::
 
    For compatibility information, see the related installation pages.
 
@@ -38,7 +73,12 @@ Before you begin, complete the following prerequisites:
 
      brew install mongodb-atlas-cli
 
-- Install :mongosh:`mongosh </install>`.
+  .. note::
+
+     For general {+atlas-cli+} compatibility information, see 
+     :ref:`compatibility-atlas-cli`.
+
+- Install :mongosh:`mongosh </install>` version 2.0 or later.
 
   **Example:**
 
@@ -46,7 +86,7 @@ Before you begin, complete the following prerequisites:
 
      brew install mongosh
 
-- Install :compass:`Compass </install>`.
+- Install :compass:`Compass </install>` version 1.39.4 or later.
 
   **Example:**
 
@@ -54,7 +94,7 @@ Before you begin, complete the following prerequisites:
 
      brew install mongodb-compass
 
-- Install `Podman </https://podman.io/>`__.
+- Install `Podman <https://podman.io/>`__ version 4.4 and later.
 
   **Example:**
 
@@ -62,20 +102,25 @@ Before you begin, complete the following prerequisites:
 
      brew install podman
 
-Deploy a Local MongoDB {+Cluster+}
-----------------------------------
+  .. note::
+
+     Podman requires a network connection for pulling and caching 
+     MongoDB images.
+
+Deploy a Local MongoDB Deployment
+---------------------------------
 
 Use the ``atlas deployments`` command to create a local MongoDB 
-{+cluster+}.
+deployment.
 
 You can run this command in the following ways: 
       
 - **Interactive Mode (Default)**: the command prompts you for the 
-  {+cluster+} settings and provides default values.
+  deployment settings and provides default values.
 - **Interactive Mode (Custom)**: the command prompts you for the 
-  {+cluster+} settings and lets you provide custom values. 
+  deployment settings and lets you provide custom values. 
 - **Non-Interactive Mode**: you run the command with the specified 
-  options.
+  options. The command does not prompt you to provide further values.
 
 Click one of the following tabs to see the command for your preferred 
 mode.
@@ -204,7 +249,7 @@ mode.
 
             **Example:**
 
-            Specify ``custom - With default settings`` and press 
+            Specify ``custom - With custom settings`` and press 
             ``Enter``.
 
             .. io-code-block::
@@ -222,7 +267,7 @@ mode.
 
                   ? Cluster Name [This can't be changed later] (local3612) 
         
-         .. step:: Specify a {+cluster+} name.
+         .. step:: Specify a deployment name.
 
             **Example:**
 
@@ -317,15 +362,15 @@ mode.
 
                   connection skipped
 
-Manage a Local {+Cluster+}
---------------------------
+Manage a Local MongoDB Deployment
+---------------------------------
 
-Use the ``atlas deployments`` command to manage a local {+cluster+}. 
+Use the ``atlas deployments`` command to manage a local deployment. 
 
 .. procedure::
    :style: normal
 
-   .. step:: List the available {+clusters+}.
+   .. step:: List the available deployments.
 
       **Example:**
 
@@ -368,7 +413,7 @@ Use the ``atlas deployments`` command to manage a local {+cluster+}.
 
    .. step:: Download and load the sample data.
 
-      a. Run the following command to download the sample date:
+      a. Run the following command to download the sample data:
 
          .. code-block:: sh
             
@@ -376,28 +421,28 @@ Use the ``atlas deployments`` command to manage a local {+cluster+}.
 
       #. Copy and paste the following command into your terminal and 
          replace ``{port-number}`` with the port for your 
-         {+cluster+}:
+         deployment:
 
          .. code-block:: sh
 
             mongorestore --archive=sampledata.archive --port={port-number}
 
-   .. step:: Connect to a {+cluster+}.
+   .. step:: Connect to a deployment.
 
-      a. Run the following command to connect to a {+cluster+}:
+      a. Run the following command to connect to a deployment:
 
          .. code-block:: sh
 
             atlas deployments connect
       
-      #. Specify the {+cluster+} to connect to and press ``Enter``.
+      #. Specify the deployment to connect to and press ``Enter``.
 
-      #. Specify how you want to connect to the {+cluster+} and press 
+      #. Specify how you want to connect to the deployment and press 
          ``Enter``.
 
-   .. step:: Delete a {+cluster+}.
+   .. step:: Delete a deployment.
 
-      a. Run the following command to delete a {+cluster+}:
+      a. Run the following command to delete a deployment:
 
          .. code-block:: sh
 
@@ -406,20 +451,22 @@ Use the ``atlas deployments`` command to manage a local {+cluster+}.
       #. Specify ``y`` and press ``Enter`` to confirm.
 
 
-Use Atlas Search
-----------------
+Use Atlas Search with a Local MongoDB Deployment
+------------------------------------------------
 
-Use the ``atlas deployments`` command to use |fts|. To learn more, see 
-:atlas:`Atlas Search </atlas-search>`.
+Use the ``atlas deployments`` command to work with |fts|. To learn 
+more, see :atlas:`Atlas Search </atlas-search>`.
 
 You can run this command in the following ways: 
       
 - **Interactive Mode**: the command prompts you for the 
   |fts| settings.
 - **Non-Interactive Mode (Flags)**: you run the command 
-  with the specified options.
+  with the specified options. The command does not prompt you to 
+  provide further values.
 - **Non-Interactive Mode (Configuration File)**: you run the command 
-  with the specified settings in the configuration file.
+  with the specified settings in the configuration file. The command 
+  does not prompt you to provide further values.
 
 Click one of the following tabs to see the command for your preferred 
 mode.
@@ -440,7 +487,7 @@ mode.
 
                   atlas deployments search indexes create
 
-            #. Specify the {+cluster+} and press ``Enter``.
+            #. Specify the deployment and press ``Enter``.
 
             #. Specify ``searchIndex`` as the name for the index and 
                press ``Enter``.
@@ -450,15 +497,15 @@ mode.
 
             #. Specify the ``movies`` collection and press ``Enter``.
 
-         .. step:: Connect to the {+cluster+}.
+         .. step:: Connect to the deployment.
 
-            a. Run the following command to connect to a {+cluster+}:
+            a. Run the following command to connect to a deployment:
 
                .. code-block:: sh
 
                   atlas deployments connect
       
-            #. Specify the {+cluster+} to connect to and press 
+            #. Specify the deployment to connect to and press 
                ``Enter``.
 
             #. Specify ``mongosh`` and press ``Enter``.
@@ -533,21 +580,21 @@ mode.
          .. step:: Create a local |fts| index.
 
             Copy and paste the following command into your terminal 
-            and replace ``{myLocalRs}`` with your {+cluster+}:
+            and replace ``{myLocalRs}`` with your deployment:
 
             .. code-block:: sh
 
                atlas deployments search indexes create searchIndex --deploymentName {myLocalRs} --db sample_mflix --collection movies
 
-         .. step:: Connect to the {+cluster+}.
+         .. step:: Connect to the deployment.
 
-            a. Run the following command to connect to a {+cluster+}:
+            a. Run the following command to connect to a deployment:
 
                .. code-block:: sh
 
                   atlas deployments connect
       
-            #. Specify the {+cluster+} to connect to and press 
+            #. Specify the deployment to connect to and press 
                ``Enter``.
 
             #. Specify ``mongosh`` and press ``Enter``.
@@ -640,17 +687,17 @@ mode.
 
                   atlas deployments search indexes create --file indexDef.json
 
-            #. Specify the {+cluster+} and press ``Enter``.
+            #. Specify the deployment and press ``Enter``.
 
-         .. step:: Connect to the {+cluster+}.
+         .. step:: Connect to the deployment.
 
-            a. Run the following command to connect to a {+cluster+}:
+            a. Run the following command to connect to a deployment:
 
                .. code-block:: sh
 
                   atlas deployments connect
       
-            #. Specify the {+cluster+} to connect to and press 
+            #. Specify the deployment to connect to and press 
                ``Enter``.
 
             #. Specify ``mongosh`` and press ``Enter``.
@@ -716,8 +763,8 @@ mode.
                     }
                   ]
 
-Perform a Vector Search
------------------------
+Perform a Vector Search on a Local MongoDB Deployment
+-----------------------------------------------------
 Use the ``atlas deployments`` command to perform a vector search. To 
 learn more, see 
 :atlas:`How to Index Vector Embeddings for Vector Search 
@@ -754,17 +801,17 @@ learn more, see
 
             atlas deployments search indexes create --file indexDef-vector.json
 
-      #. Specify the {+cluster+} and press ``Enter``.
+      #. Specify the deployment and press ``Enter``.
 
-   .. step:: Connect to the {+cluster+}.
+   .. step:: Connect to the deployment.
 
-      a. Run the following command to connect to a {+cluster+}:
+      a. Run the following command to connect to a deployment:
 
          .. code-block:: sh
 
             atlas deployments connect
       
-      #. Specify the {+cluster+} to connect to and press 
+      #. Specify the deployment to connect to and press 
          ``Enter``.
 
       #. Specify ``mongosh`` and press ``Enter``.

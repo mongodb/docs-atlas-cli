@@ -41,9 +41,7 @@ You can also go straight to the :doc:`{+atlas-cli+} Commands
 
    * - :ref:`atlas-cli-local-cloud`
      - Find tutorials for the ``atlas deployments`` command, which lets
-       you create local MongoDB deployments, create |service| cloud
-       deployments, manage local {+clusters+} that you deployed with 
-       ``atlas deployments``, and manage all MongoDB |service| cloud 
+       you create and manage local MongoDB and |service| cloud
        deployments.
 
        .. include:: /includes/fact-atlas-deployments-preview.rst

@@ -174,20 +174,18 @@ HOMEDRIVE, HOMEPATH, or USERPROFILE are blank
 This error might appear if the {+atlas-cli+} can't access your home
 directory.
 
-
-# Are there any known errors to add for ``atlas deployments``?
-
 .. _local-deploy-errors:
 
-Local Deployment Errors
------------------------
+Local MongoDB Deployment Errors
+-------------------------------
 
 Error: qemu exited unexpectedly with exit code -1, stderr: qemu-system-x86_64: Error: HV_DENIED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The {+atlas-cli+} uses `Podman </https://podman.io/>`__ and `QEMU 
+The {+atlas-cli+} uses `Podman <https://podman.io/>`__ and `QEMU 
 <https://www.qemu.org/>`__. We have identified this issue on MacOS x86 
-architectures. Upgrade to the latest version of QEMU and restart Podman.
+architectures. To resolve this isseu, upgrade to the latest version of 
+QEMU and restart Podman.
 
 Error: exit status 127
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -195,20 +193,17 @@ Error: exit status 127
 This error might occur when you use the ``atlas deployments setup`` 
 command on Ubuntu Linux because of a `known issue 
 <https://bugs.launchpad.net/ubuntu/+source/libpod/+bug/2024394>`__ with 
-Podman. Downgrade Podman:
-
-.. code-block:: sh
-
-   sudo apt install podman=3.4.4+ds1-1ubuntu1
+Podman. We don't support Ubuntu for local deployments during this 
+Public Preview stage.
 
 MongoNetworkError: connect ECONNREFUSED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This issue might occur after your machine goes into sleep mode or 
-restarts. When you try to connect to the local {+cluster+}, this error 
-occurs.
+restarts. When you try to connect to the local MongoDB deployment, this 
+error occurs.
 
-The {+atlas-cli+} uses `Podman </https://podman.io/>`__ and `QEMU 
+The {+atlas-cli+} uses `Podman <https://podman.io/>`__ and `QEMU 
 <https://www.qemu.org/>`__ to run dockerized instances of MongoDB. 
 Podman has a daemonless architecture. So, the local MongoDB instances 
 don't restart automatically.
@@ -222,7 +217,7 @@ To fix this issue:
       podman ps --all
 
 #. To resume the container, copy and paste the following command into 
-   your terminal and replace ``{container-name}`` with the name of the 
+   your terminal, and replace ``{container-name}`` with the name of the 
    container to start.
 
    .. code-block:: sh
@@ -232,7 +227,8 @@ To fix this issue:
 Issues on Windows
 -----------------
 
-We don't support Windows at this time.
+We don't support Windows for local deployments during this Public 
+Preview stage.
 
 Local Machine Issues
 --------------------
@@ -278,28 +274,29 @@ Consider allocating more memory:
 Podman Issues
 -------------
 
-The {+atlas-cli+} uses `Podman </https://podman.io/>`__.
+The {+atlas-cli+} uses `Podman <https://podman.io/>`__ for
+``atlas deployments`` commands.
 
-To install Podman:
+To install Podman, run the following command:
 
 .. code-block:: sh
 
    brew install podman
 
-To initialize a Podman machine:
+To initialize a Podman machine, run the following command:
 
 .. code-block:: sh
 
    podman machine init
 
-To start a Podman machine:
+To start a Podman machine, run the following command:
 
 .. code-block::
 
    podman machine start
 
-If your local {+cluster+} doesn't work, you might need to clean up your 
-Podman environment and start fresh:
+If your local MongoDB deployment doesn't work, you might need to clean 
+up your Podman environment and start fresh:
 
 .. code-block::
 
@@ -308,8 +305,8 @@ Podman environment and start fresh:
 Run Diagnostics
 ---------------
 
-If you run into issues and need support, run the following command to 
-provide detailed diagnostics:
+If you run into issues and with ``atlas deployments`` commands and need 
+support, run the following command to provide detailed diagnostics:
 
 .. code-block:: sh
 
