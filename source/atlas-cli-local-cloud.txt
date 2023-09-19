@@ -13,57 +13,58 @@ Manage Local and Cloud Deployments from the {+atlas-cli+}
    :class: singlecol
 
 Use the {+atlas-cli+} to work with |service|, including using |fts| 
-and performing vector searches, throughout the entire software 
-development lifecycle, from your local environment to the cloud.
+and {+avs+}, throughout the entire software development lifecycle, from 
+your local environment to the cloud.
 
 .. include:: /includes/fact-atlas-deployments-preview.rst
 
 With the ``atlas deployments`` commands, you can perform the following
-actions with the {+atlas-cli+}:
+actions:
 
-- Create local MongoDB deployments. Local deployments reside on your
-  computer and provide a non-production environment for development.
-- Create |service| cloud deployments. |service| hosts deployments in
-  the cloud for both non-production and production use.
-- Manage local deployments that you created with the ``atlas
-  deployments`` command.
-- Manage all MongoDB |service| cloud deployments.
+- Create and manage local |service| deployments. Local |service| 
+  deployments reside on your computer and provide a non-production 
+  environment for development.
+- Create and manage |service| cloud deployments. Cloud |service| 
+  deployments reside in the cloud for non-production and production use.
+- Manage |fts| and {+avs+} indexes for your local and cloud |service| 
+  deployments.
 
 .. note::
 
-   For local MongoDB deployments, you can manage only deployments that
-   you created with ``atlas deployments``. If you created a local
-   MongoDB deployment without using the {+atlas-cli+}, you can't
+   For local |service| deployments, you can manage only deployments that
+   you created with the ``atlas deployments`` command. If you created a 
+   local|service| deployment without using the {+atlas-cli+}, you can't
    manage that deployment with the {+atlas-cli+}.
 
-Only ``atlas deployments`` {+atlas-cli+} commands work on local MongoDB
-deployments. All {+atlas-cli+} commands, including ``atlas
-deployments`` commands, work on MongoDB |service| cloud deployments.
+You can use only ``atlas deployments`` {+atlas-cli+} commands with 
+local |service| deployments. You can use all {+atlas-cli+} commands, 
+including ``atlasdeployments`` commands,  with cloud |service| 
+deployments.
 
 Supported Actions
 -----------------
 
-The actions you can perform with ``atlas deployments`` include but
-aren't limited to:
+You can perform the following actions with the ``atlas deployments`` 
+command  for local and cloud |service| deployments including, but not limited to:
 
-- **Set up** a new local or |service| cloud deployment.
+- **Set up** a new |service| deployment.
    
-- **List** local and |service| cloud deployment.
+- **List** |service| deployments.
   
 - **Connect** with {+mongosh+} or :compass:`Compass </>`, or return the 
-  connection string for a local or |service| cloud deployment.
+  connection string for an |service| deployment.
 
-- **Pause or start** a local or |service| cloud deployment.
+- **Pause or start** an |service| deployment.
   
-- **Delete** a local or |service| cloud deployment.
+- **Delete** an |service| deployment.
   
-- **Access logs** for a local or |service| cloud deployment.
+- **Access logs** for an |service| deployment.
   
-- **Create or manage search indexes** to run |service| Search on a
-  local or |service| cloud deployment.
+- **Create or manage |fts| and {+avs+} indexes** to run a full-text 
+  search or semantic search on an |service| deployment.
 
-To learn all of the actions that ``atlas deployments`` supports, see
-:ref:`atlas-deployments`.
+To learn all of the actions that the ``atlas deployments`` command 
+supports, see :ref:`atlas-deployments`.
 
 Tutorials
 ---------
@@ -79,7 +80,7 @@ deployments`` commands:
      - Objective
 
    * - :ref:`atlas-cli-deploy-local`
-     - Use the ``atlas deployments`` command to create a local MongoDB
+     - Use the ``atlas deployments`` command to create a local |service|
        deployment. This tutorial deploys a single-node replica set on
        your local computer.
 

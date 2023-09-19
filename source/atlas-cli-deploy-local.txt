@@ -1,8 +1,8 @@
 .. _atlas-cli-deploy-local:
 
-=================================
-Create a Local MongoDB Deployment
-=================================
+===============================
+Create a Local Atlas Deployment
+===============================
 
 .. default-domain:: mongodb
 
@@ -13,14 +13,14 @@ Create a Local MongoDB Deployment
    :class: singlecol
 
 This tutorial shows you how to use the ``atlas deployments`` command to 
-create a local MongoDB deployment. This tutorial deploys a single-node 
-replica set on your local computer. You can then manage your 
-deployment, use |fts|, and perform a vector search.
+create a local |service| deployment. In this tutorial, we will deploy a 
+single-node replica set on your local computer. You can then manage 
+your deployment, and use |fts| and {+avs+}.
 
 .. include:: /includes/fact-atlas-deployments-preview.rst
 
-Supported OS for Local MongoDB Deployments
-------------------------------------------
+Supported OS for Local Atlas Deployments
+----------------------------------------
 
 .. list-table::
    :header-rows: 1
@@ -51,7 +51,7 @@ Supported OS for Local MongoDB Deployments
 
 .. note::
 
-   Windows and Ubuntu are not fully supported for local MongoDB 
+   Windows and Ubuntu are not fully supported for local |service| 
    deployments during the Public Preview stage.
 
 .. _atlas-cli-deploy-local-reqs:
@@ -107,10 +107,10 @@ Before you begin, complete the following prerequisites:
      Podman requires a network connection for pulling and caching 
      MongoDB images.
 
-Create a Local MongoDB Deployment
----------------------------------
+Create a Local Atlas Deployment
+-------------------------------
 
-Use the ``atlas deployments`` command to create a local MongoDB 
+Use the ``atlas deployments`` command to create a local |service|
 deployment.
 
 You can run this command in the following ways: 
@@ -120,7 +120,9 @@ You can run this command in the following ways:
 - **Interactive Mode (Custom)**: the command prompts you for the 
   deployment settings and lets you provide custom values. 
 - **Non-Interactive Mode**: you run the command with the specified 
-  options. The command does not prompt you to provide further values.
+  options. The command does not prompt you to provide further values. 
+  To learn all of the actions that ``atlas deployments`` supports, see
+  :ref:`atlas-deployments`.
 
 Click one of the following tabs to see the command for your preferred 
 mode.
@@ -135,19 +137,9 @@ mode.
 
          .. step:: Run the ``atlas deployments`` command in interactive mode.
 
-            .. io-code-block::
-         
-               .. input::
-                  :language: sh
+            .. code-block:: sh
             
-                  atlas deployments setup
-
-               .. output::
-                  :language: sh
-
-                  ? What would you like to deploy?  [Use arrows to move, type to filter, ? for more help]
-                  > local - Local Database
-                    atlas - Atlas Database
+               atlas deployments setup
 
          .. step:: Specify what to deploy.
 
@@ -172,7 +164,7 @@ mode.
                   MongoDB Version   7.0
                   Port              27017
 
-         .. step:: Specify how to set up your local MongoDB database.
+         .. step:: Specify how to set up your local Atlas database.
 
             **Example:**
 
@@ -208,19 +200,9 @@ mode.
 
          .. step:: Run the ``atlas deployments`` command in interactive mode.
 
-            .. io-code-block::
+            .. code-block:: sh
          
-               .. input::
-                  :language: sh
-            
-                  atlas deployments setup
-
-               .. output::
-                  :language: sh
-
-                  ? What would you like to deploy?  [Use arrows to move, type to filter, ? for more help]
-                  > local - Local Database
-                    atlas - Atlas Database
+               atlas deployments setup
 
          .. step:: Specify what to deploy.
 
@@ -245,27 +227,19 @@ mode.
                   MongoDB Version   7.0
                   Port              27017
 
-         .. step:: Specify how to set up your local MongoDB database.
+         .. step:: Specify how to set up your local Atlas database.
 
             **Example:**
 
             Specify ``custom - With custom settings`` and press 
             ``Enter``.
 
-            .. io-code-block::
+            .. code-block:: sh
                 
-               .. input::
-                  :language: sh
-            
-                  ? How do you want to setup your local MongoDB database?  [Use arrows to move, type to filter]
-                    default - With default settings
-                  > custom - With custom settings
-                    cancel - Cancel set up
-
-               .. output::
-                  :language: sh
-
-                  ? Deployment Name [This can't be changed later] (local3612) 
+               ? How do you want to setup your local MongoDB database?  [Use arrows to move, type to filter]
+                 default - With default settings
+               > custom - With custom settings
+                 cancel - Cancel set up
         
          .. step:: Specify a deployment name.
 
@@ -273,19 +247,12 @@ mode.
 
             Specify ``myLocalRs`` and press ``Enter``.
 
-            .. io-code-block::
+            .. code-block:: sh
                 
                .. input::
                   :language: sh
             
                   ? Deployment Name [This can't be changed later] (local3612) myLocalRs
-
-               .. output::
-                  :language: sh
-
-                  ? MongoDB Version  [Use arrows to move, type to filter]
-                  > 7.0
-                    6.0
 
          .. step:: Specify a MongoDB Version.
 
@@ -293,19 +260,11 @@ mode.
 
             Specify ``7.0`` and press ``Enter``.
 
-            .. io-code-block::
-                
-               .. input::
-                  :language: sh
+            .. code-block:: sh
             
-                  ? MongoDB Version  [Use arrows to move, type to filter]
-                  > 7.0
-                    6.0
-
-               .. output::
-                  :language: sh
-
-                  ? Specify a port (49469) 
+               ? MongoDB Version  [Use arrows to move, type to filter]
+               > 7.0
+                 6.0
                   
          .. step:: Specify a port.
 
@@ -362,10 +321,11 @@ mode.
 
                   connection skipped
 
-Manage a Local MongoDB Deployment
----------------------------------
+Manage a Local Atlas Deployment
+-------------------------------
 
-Use the ``atlas deployments`` command to manage a local deployment. 
+Use the ``atlas deployments`` command to manage a local |service| 
+deployment. 
 
 .. procedure::
    :style: normal
@@ -430,8 +390,8 @@ Use the ``atlas deployments`` command to manage a local deployment.
       #. Specify ``y`` and press ``Enter`` to confirm.
 
 
-Use Atlas Search with a Local MongoDB Deployment
-------------------------------------------------
+Use Atlas Search with a Local Atlas Deployment
+----------------------------------------------
 
 Use the ``atlas deployments`` command to work with |fts|. To learn 
 more, see :atlas:`Atlas Search </atlas-search>`.
@@ -742,9 +702,9 @@ mode.
                     }
                   ]
 
-Perform a Vector Search on a Local MongoDB Deployment
+Use {+avs+} with a Local Atlas Deployment
 -----------------------------------------------------
-Use the ``atlas deployments`` command to perform a vector search. To 
+Use the ``atlas deployments`` command to work with {+avs+}. To 
 learn more, see :atlas:`Run Vector Search Queries
 </atlas-vector-search/vector-search-stage>`.
 
@@ -857,5 +817,5 @@ To learn all of the actions that ``atlas deployments`` supports, see
 Troubleshoot Errors
 -------------------
 
-To learn more about troubleshooting local deployment issues, see 
-:ref:`local-deploy-errors`.
+To learn more about troubleshooting local |service| deployment issues, 
+see :ref:`local-deploy-errors`.

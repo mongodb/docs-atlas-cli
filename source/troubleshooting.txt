@@ -176,8 +176,8 @@ directory.
 
 .. _local-deploy-errors:
 
-Local MongoDB Deployment Errors
--------------------------------
+Troubleshoot Local Atlas Deployment Issues
+------------------------------------------
 
 Error: qemu exited unexpectedly with exit code -1, stderr: qemu-system-x86_64: Error: HV_DENIED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -193,15 +193,15 @@ Error: exit status 127
 This error might occur when you use the ``atlas deployments setup`` 
 command on Ubuntu Linux because of a `known issue 
 <https://bugs.launchpad.net/ubuntu/+source/libpod/+bug/2024394>`__ with 
-Podman. We don't support Ubuntu for local deployments during this 
-Public Preview stage.
+Podman. We don't support Ubuntu for local |service| deployments during 
+this Public Preview stage.
 
 MongoNetworkError: connect ECONNREFUSED
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This issue might occur after your machine goes into sleep mode or 
-restarts. When you try to connect to the local MongoDB deployment, this 
-error occurs.
+restarts. When you try to connect to the local |service| deployment, 
+this error occurs.
 
 The {+atlas-cli+} uses `Podman <https://podman.io/>`__ and `QEMU 
 <https://www.qemu.org/>`__ to run dockerized instances of MongoDB. 
@@ -227,15 +227,15 @@ To fix this issue:
 Issues on Windows
 -----------------
 
-We don't support Windows for local deployments during this Public 
-Preview stage.
+We don't support Windows for local |service| deployments during this 
+Public Preview stage.
 
 Local Machine Issues
 --------------------
 
 If the {+atlas-cli+} slows down to an unusable state after you create 
-multiple local deployments and load the sample data, you might have 
-reached the limits of your machine.
+multiple local |service| deployments and load the sample data, you 
+might have reached the limits of your machine.
 
 Consider allocating more memory:
 
@@ -295,8 +295,8 @@ To start a Podman machine, run the following command:
 
    podman machine start
 
-If your local MongoDB deployment doesn't work, you might need to clean 
-up your Podman environment and start fresh:
+If your local |service| deployment doesn't work, you might need to 
+clean up your Podman environment and start fresh:
 
 .. code-block::
 
