@@ -60,8 +60,8 @@ command  for local and cloud |service| deployments including, but not limited to
   
 - **Access logs** for an |service| deployment.
   
-- **Create or manage |fts| and {+avs+} indexes** to run a full-text 
-  search or semantic search on an |service| deployment.
+- **Create or manage Atlas Search and {+avs+} indexes** to run a 
+  full-text search or semantic search on an |service| deployment.
 
 To learn all of the actions that the ``atlas deployments`` command 
 supports, see :ref:`atlas-deployments`.
