@@ -107,6 +107,8 @@ Before you begin, complete the following prerequisites:
      Podman requires a network connection for pulling and caching 
      MongoDB images.
 
+.. _atlas-cli-deploy-local-setup:
+
 Create a Local Atlas Deployment
 -------------------------------
 
@@ -321,6 +323,8 @@ mode.
 
                   connection skipped
 
+.. _atlas-cli-deploy-local-manage:
+
 Manage a Local Atlas Deployment
 -------------------------------
 
@@ -389,6 +393,7 @@ deployment.
 
       #. Specify ``y`` and press ``Enter`` to confirm.
 
+.. _atlas-cli-deploy-local-fts:
 
 Use Atlas Search with a Local Atlas Deployment
 ----------------------------------------------
@@ -701,6 +706,8 @@ mode.
                       title: 'The Babe'
                     }
                   ]
+
+.. _atlas-cli-deploy-local-avs:
 
 Use {+avs+} with a Local Atlas Deployment
 -----------------------------------------------------

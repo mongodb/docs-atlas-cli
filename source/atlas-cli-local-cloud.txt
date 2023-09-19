@@ -33,12 +33,12 @@ actions:
 
    For local |service| deployments, you can manage only deployments that
    you created with the ``atlas deployments`` command. If you created a 
-   local|service| deployment without using the {+atlas-cli+}, you can't
+   local |service| deployment without using the {+atlas-cli+}, you can't
    manage that deployment with the {+atlas-cli+}.
 
 You can use only ``atlas deployments`` {+atlas-cli+} commands with 
 local |service| deployments. You can use all {+atlas-cli+} commands, 
-including ``atlasdeployments`` commands,  with cloud |service| 
+including ``atlas deployments`` commands,  with cloud |service| 
 deployments.
 
 Supported Actions
@@ -47,21 +47,26 @@ Supported Actions
 You can perform the following actions with the ``atlas deployments`` 
 command  for local and cloud |service| deployments including, but not limited to:
 
-- **Set up** a new |service| deployment.
+- :ref:`Set up a new Atlas deployment 
+  <atlas-cli-deploy-local-setup>`.
    
-- **List** |service| deployments.
+- :ref:`List Atlas deployments <atlas-cli-deploy-local-manage>`.
   
-- **Connect** with {+mongosh+} or :compass:`Compass </>`, or return the 
+- :ref:`Connect <atlas-cli-deploy-local-manage>` with {+mongosh+} or 
+  :compass:`Compass </>`, or return the 
   connection string for an |service| deployment.
 
-- **Pause or start** an |service| deployment.
+- :ref:`Pause or start an Atlas deployment 
+  <atlas-cli-deploy-local-manage>`.
   
-- **Delete** an |service| deployment.
+- :ref:`Delete an Atlas deployment <atlas-cli-deploy-local-manage>`.
   
-- **Access logs** for an |service| deployment.
-  
-- **Create or manage Atlas Search and {+avs+} indexes** to run a 
-  full-text search or semantic search on an |service| deployment.
+- :ref:`Create or manage Atlas Search indexes 
+  <atlas-cli-deploy-local-fts>` to run a full-text search on an 
+  |service| deployment.
+ 
+- :ref:`Create or manage {+avs+} indexes <atlas-cli-deploy-local-avs>` 
+  to run a semantic search on an |service| deployment.
 
 To learn all of the actions that the ``atlas deployments`` command 
 supports, see :ref:`atlas-deployments`.
