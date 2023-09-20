@@ -245,11 +245,11 @@ Consider allocating more memory:
 
       podman machine Stop
 
-#. Allocate more memory:
+#. Allocate more memory based on your machine settings:
 
    .. code-block:: sh
 
-      podman machine set --cpus 2 --memory 2048
+      podman machine set --cpus 3 --memory 5120
 
 #. Start the Podman machine:
 
