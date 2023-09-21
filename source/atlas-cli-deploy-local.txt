@@ -301,6 +301,7 @@ mode.
             **Example:**
 
             .. io-code-block::
+               :copyable: trueS
          
                .. input::
                   :language: sh
@@ -339,6 +340,7 @@ deployment.
       **Example:**
 
       .. io-code-block::
+         :copyable: true
          
          .. input::
             :language: sh
@@ -463,6 +465,7 @@ mode.
          .. step:: Run an example query.
 
             .. io-code-block::
+               :copyable: true
 
                .. input::
                   :language: sh
@@ -552,6 +555,7 @@ mode.
          .. step:: Run an example query.
 
             .. io-code-block::
+               :copyable: true
 
                .. input::
                   :language: sh
@@ -655,6 +659,7 @@ mode.
          .. step:: Run an example query.
 
             .. io-code-block::
+               :copyable: true
 
                .. input::
                   :language: sh
@@ -770,6 +775,7 @@ learn more, see :atlas:`Run Vector Search Queries
    .. step:: Run an example query.
 
       .. io-code-block::
+         :copyable: true
 
          .. input::
             :language: sh
