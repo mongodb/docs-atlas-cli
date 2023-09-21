@@ -162,7 +162,7 @@ mode.
                   :language: sh
 
                   [Default Settings]
-                  Deployment Name      local50
+                  Deployment Name   local50
                   MongoDB Version   7.0
                   Port              27017
 
@@ -225,7 +225,7 @@ mode.
                   :language: sh
 
                   [Default Settings]
-                  Deployment Name      local50
+                  Deployment Name   local50
                   MongoDB Version   7.0
                   Port              27017
 
