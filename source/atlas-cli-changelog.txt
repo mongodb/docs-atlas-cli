@@ -52,7 +52,7 @@
 - Fixes a bug where the :ref:`atlas-projects-list` command ignored the 
   ``--orgId`` flag.
 
-- Fixes an issue with running :ref:`cloud-provider-access` commands
+- Fixes an issue with running cloud provider access commands.
 
 - Supports configuring alerts with a file.
 
