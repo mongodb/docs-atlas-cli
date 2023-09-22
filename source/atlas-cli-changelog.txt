@@ -19,6 +19,8 @@
 {+atlas-cli+} 1.11.0
 --------------------
 
+Released 14 September 2023
+
 - Fixes an issue that occurred when you created x509 certs for database 
   users. The command didn't output the certificate. If you depend on 
   the previously incorrect output, this update is a breaking change.
