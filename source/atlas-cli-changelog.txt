@@ -21,7 +21,7 @@
 
 Released 26 September 2023
 
-- Updates the :atlas:`Atlas Search </atlas-search>` Docker \
+- Updates the :atlas:`Atlas Search </atlas-search>` Docker
   image for local deployments.
 
 .. _atlas-cli-1.12.0:
