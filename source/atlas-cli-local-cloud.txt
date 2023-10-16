@@ -89,7 +89,13 @@ deployments`` commands:
        deployment. This tutorial deploys a single-node replica set on
        your local computer.
 
+   * - :ref:`atlas-cli-deploy-fts`
+     - Use the ``atlas deployments search indexes create`` command to 
+       create an |fts| index and work with {+avs+}.
+
 .. toctree::
    :titlesonly:
 
    /atlas-cli-deploy-local
+   /atlas-cli-deploy-fts
+   
