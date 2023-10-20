@@ -25,7 +25,7 @@ Released 20 October 2023
   deployment commands on an unsupported operating system. 
 - Adds `Podman <https://podman.io/>`__ as a recommended dependency for
   the ``deb`` and ``rpm`` meta packages.
-- Adds :ref:`atlas` and :ref:`atlas-deployments` to
+- Adds listing of :ref:`atlas` and local :ref:`atlas-deployments` to
   the deployment interactive flow.
 - Adds a spinner for the :ref:`atlas-deployments-start` and
   :ref:`atlas-deployments-pause` commands.
