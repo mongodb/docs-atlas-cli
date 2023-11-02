@@ -91,7 +91,8 @@ deployments`` commands:
 
    * - :ref:`atlas-cli-deploy-fts`
      - Use the ``atlas deployments search indexes create`` command to 
-       create an |fts| index and work with {+avs+}.
+       manage |fts| indexes and work with {+avs+} locally and in the 
+       cloud.
 
 .. toctree::
    :titlesonly:

@@ -366,6 +366,8 @@ with {+avs+}. To learn more, see
 You can run this command with local and cloud |service| 
 deployments. For detailed steps, see :ref:`atlas-cli-deploy-avs`.
 
+.. include:: /includes/fact-avs-mdb-version.rst
+
 Supported Actions
 -----------------
 

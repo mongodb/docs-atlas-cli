@@ -2,7 +2,8 @@ Before you begin, complete the following prerequisites:
 
 .. important::
 
-   For compatibility information, see the related installation pages.
+   For compatibility information for each prerequisite product, see the 
+   related installation pages.
 
 - Install the :ref:`{+atlas-cli+} <install-atlas-cli>`.
 
@@ -12,11 +13,6 @@ Before you begin, complete the following prerequisites:
 
      brew install mongodb-atlas-cli
 
-  .. note::
-
-     For general {+atlas-cli+} compatibility information, see 
-     :ref:`compatibility-atlas-cli`.
-
 - Install :mongosh:`mongosh </install>` version 2.0 or later.
 
   **Example:**
@@ -25,13 +21,23 @@ Before you begin, complete the following prerequisites:
 
      brew install mongosh
 
-- Install :compass:`Compass </install>` version 1.39.4 or later.
+- (Optional) Install :compass:`Compass </install>` version 1.39.4 or 
+  later.
 
   **Example:**
 
   .. code-block:: sh
 
      brew install mongodb-compass
+
+- Install :dbtools:`MongoDB Database Tools 	
+  </installation/installation/>`.	
+
+  **Example:**	
+
+  .. code-block:: sh	
+
+     brew install mongodb-database-tools
 
 - Install `Podman <https://podman.io/>`__ version 4.4 and later.
 
