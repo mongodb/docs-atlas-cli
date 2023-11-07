@@ -440,6 +440,11 @@ Search </atlas-search/field-types/knn-vector>`.
 
    .. step:: Run an example query.
 
+      .. important::
+
+         Copying and pasting a ``queryVector`` field with many numbers
+         into your terminal might take a while depending on your machine.
+
       .. io-code-block::
          :copyable: true
 
