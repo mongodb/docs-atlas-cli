@@ -32,16 +32,16 @@ Released 17 November 2023
   - :ref:`atlas-clusters-search-indexes-describe`
   - :ref:`atlas-deployments-search-indexes-list`
   - :ref:`atlas-deployments-search-indexes-describe`
-- Adds the ``--expireAfterDays`` option for
+- Adds the ``--expireAfterDays`` option for the
   :ref:`atlas-clusters-onlineArchives-create` and
   :ref:`atlas-clusters-onlineArchives-update` commands.
-- Improved the error message for the :ref:`atlas-deployments-list`
+- Improves the error message for the :ref:`atlas-deployments-list`
   command if you aren't authenticated.
 - Fixes a bug that prevented organization fetching, which prevented
   some users from logging in.
 - Fixes a bug where :ref:`atlas-logs-download` didn't respect the
   ``--start`` and ``--end`` flags.
-- Fixes a local development bug when you create an index from a file.
+- Fixes a local deployment bug when you create an index from a file.
 - Fixes a bug in the :ref:`atlas-config-init` command where the output
   property didn't save properly.
 
