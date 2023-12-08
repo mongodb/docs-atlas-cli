@@ -105,5 +105,5 @@ see :ref:`example-cloud-backup-schedule-config-file`.
 .. toctree::
    :titlesonly:
 
-   /reference/json/cluster-config-file
-   /reference/json/cloud-backup-schedule-config-file
+   Cluster </reference/json/cluster-config-file>
+   Cloud Backup Schedule </reference/json/cloud-backup-schedule-config-file>
