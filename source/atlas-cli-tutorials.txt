@@ -42,5 +42,5 @@ You can also go straight to the :doc:`{+atlas-cli+} Commands
 .. toctree::
    :titlesonly:
 
-   /atlas-cli-getting-started
-   /atlas-cli-quickstart
+   Get Started with Atlas </atlas-cli-getting-started>
+   Create & Configure Clusters </atlas-cli-quickstart>
