@@ -112,6 +112,6 @@ see :ref:`example-search-index-config-file`.
 .. toctree::
    :titlesonly:
 
-   /reference/json/cluster-config-file
-   /reference/json/cloud-backup-schedule-config-file
-   /reference/json/search-index-config-file
+   Cluster </reference/json/cluster-config-file>
+   Cloud Backup Schedule </reference/json/cloud-backup-schedule-config-file>
+   Atlas Search Index </reference/json/search-index-config-file>
