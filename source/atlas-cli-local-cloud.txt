@@ -8,7 +8,7 @@ Manage Local and Cloud Deployments from the {+atlas-cli+}
 
 .. facet::
    :name: genre
-   :values: tutorial
+   :values: reference
 
 .. contents:: On this page
    :local:

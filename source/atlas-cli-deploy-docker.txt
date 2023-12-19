@@ -1,8 +1,8 @@
 .. _atlas-cli-deploy-docker:
 
-=========================================
-Create a Local Atlas Deployment in Docker
-=========================================
+===========================================
+Create a Local Atlas Deployment with Docker
+===========================================
 
 .. default-domain:: mongodb
 
@@ -16,9 +16,9 @@ Create a Local Atlas Deployment in Docker
    :depth: 1
    :class: singlecol
 
-This tutorial shows you how to use the ``atlas deployments`` command to 
-create a local |service| deployment in Docker. In this tutorial, we 
-will deploy a single-node replica set in Docker.
+This tutorial shows you how to use the :ref:`atlas-deployments` command 
+to create a local |service| deployment with Docker. In this tutorial, 
+we will deploy a single-node replica set with Docker.
 
 .. include:: /includes/fact-atlas-deployments-preview.rst
 
@@ -31,11 +31,11 @@ Complete the Prerequisites
 
 .. _atlas-cli-deploy-docker-setup:
 
-Create a Local Atlas Deployment in Docker
------------------------------------------
+Create a Local Atlas Deployment with Docker
+-------------------------------------------
 
 Use the ``atlas deployments`` command to create a local |service|
-deployment in Docker.
+deployment with Docker.
       
 .. procedure::
    :style: normal
@@ -72,6 +72,9 @@ deployment in Docker.
 
          atlas deployments setup --bindIpAll --username root --password root --type local --force
 
+      To learn more about the available options, see 
+      :ref:`atlas-deployments-setup`.
+
    .. step:: Connect to the local |service| deployment.
 
       To connect to the local |service| deployment from the host (not 
@@ -85,11 +88,11 @@ deployment in Docker.
          mongosh {connection_string} --username root --password root
 
 
-Create a Local Atlas Deployment in Docker Compose
--------------------------------------------------
+Create a Local Atlas Deployment with Docker Compose
+---------------------------------------------------
 
 Use the ``atlas deployments`` command to create a local |service|
-deployment in Docker Compose.
+deployment with `Docker Compose <https://docs.docker.com/compose/>`__.
       
 .. procedure::
    :style: normal
@@ -102,7 +105,7 @@ deployment in Docker Compose.
 
          brew install docker-compose
 
-   .. step:: Create a docker-compose.yaml file.
+   .. step:: Create a ``docker-compose.yaml`` file.
 
       **Example:**
 
