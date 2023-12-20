@@ -22,13 +22,6 @@ we will deploy a single-node replica set with Docker.
 
 .. include:: /includes/fact-atlas-deployments-preview.rst
 
-.. _atlas-cli-deploy-local-reqs:
-
-Complete the Prerequisites
---------------------------
-
-.. include:: /includes/fact-deploy-tutorial-prereqs.rst
-
 .. _atlas-cli-deploy-docker-setup:
 
 Create a Local Atlas Deployment with Docker
@@ -64,7 +57,8 @@ deployment with Docker.
 
    .. step:: Create a local |service| deployment.
 
-      The following command should return a connection string.
+      The following command creates a local |service| deployment with 
+      |fts| capabilities enabled. It also returns a connection string.
 
       **Example:**
 
@@ -81,11 +75,20 @@ deployment with Docker.
       container), copy and paste the following command, and replace 
       the ``{connection_string}`` variable with your connection string.
 
-      **Example:**
+      .. note::
+
+         The following example uses {+mongosh+}, but you can use the 
+         connection method that you prefer.
 
       .. code-block:: sh
 
          mongosh {connection_string} --username root --password root
+
+      **Example:**
+
+      .. code-block:: sh
+
+         mongosh mongodb://root:root@localhost:27017/?directConnection=true --username root --password root
 
 
 Create a Local Atlas Deployment with Docker Compose
@@ -107,6 +110,9 @@ deployment with `Docker Compose <https://docs.docker.com/compose/>`__.
 
    .. step:: Create a ``docker-compose.yaml`` file.
 
+      Create the ``docker-compose.yaml`` file in the same directory 
+      that you run Docker Compose from.
+
       **Example:**
 
       .. code-block:: sh
@@ -124,7 +130,8 @@ deployment with `Docker Compose <https://docs.docker.com/compose/>`__.
 
    .. step:: Run Docker Compose.
 
-      The following command should return a connection string.
+      The following command creates a local |service| deployment with 
+      |fts| capabilities enabled. It also returns a connection string.
 
       **Example:**
 
@@ -138,11 +145,20 @@ deployment with `Docker Compose <https://docs.docker.com/compose/>`__.
       container), copy and paste the following command, and replace 
       the ``{connection_string}`` variable with your connection string.
 
-      **Example:**
+      .. note::
+
+         The following example uses {+mongosh+}, but you can use the 
+         connection method that you prefer.
 
       .. code-block:: sh
 
          mongosh {connection_string} --username root --password root
+
+      **Example:**
+
+      .. code-block:: sh
+
+         mongosh mongodb://root:root@localhost:27778/?directConnection=true --username root --password root 
 
 Supported Actions
 -----------------

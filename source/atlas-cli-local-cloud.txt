@@ -95,7 +95,7 @@ deployments`` commands:
 
    * - :ref:`atlas-cli-deploy-docker`
      - Use the ``atlas deployments`` command to create a local |service|
-       deployment in Docker.
+       deployment with Docker.
 
    * - :ref:`atlas-cli-deploy-fts`
      - Use the ``atlas deployments search indexes create`` command to 
@@ -106,6 +106,6 @@ deployments`` commands:
    :titlesonly:
 
    Create a Local Deployment </atlas-cli-deploy-local>
-   Deploy in Docker </atlas-cli-deploy-docker>
+   Deploy with Docker </atlas-cli-deploy-docker>
    Use Atlas Search </atlas-cli-deploy-fts>
    
