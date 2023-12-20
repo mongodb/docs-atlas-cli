@@ -82,13 +82,13 @@ deployment with Docker.
 
       .. code-block:: sh
 
-         mongosh {connection_string} --username root --password root
+         mongosh {connection_string}
 
       **Example:**
 
       .. code-block:: sh
 
-         mongosh mongodb://root:root@localhost:27017/?directConnection=true --username root --password root
+         mongosh mongodb://root:root@localhost:27017/?directConnection=true
 
 
 Create a Local Atlas Deployment with Docker Compose
@@ -128,6 +128,9 @@ deployment with `Docker Compose <https://docs.docker.com/compose/>`__.
              ports:
                - 27778:27778
 
+      To learn more about the available options, see 
+      :ref:`atlas-deployments-setup`.
+
    .. step:: Run Docker Compose.
 
       The following command creates a local |service| deployment with 
@@ -152,13 +155,13 @@ deployment with `Docker Compose <https://docs.docker.com/compose/>`__.
 
       .. code-block:: sh
 
-         mongosh {connection_string} --username root --password root
+         mongosh {connection_string}
 
       **Example:**
 
       .. code-block:: sh
 
-         mongosh mongodb://root:root@localhost:27778/?directConnection=true --username root --password root 
+         mongosh mongodb://root:root@localhost:27778/?directConnection=true
 
 Supported Actions
 -----------------
