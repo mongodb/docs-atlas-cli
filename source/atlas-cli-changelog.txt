@@ -21,8 +21,6 @@
 
 Released 30 January 2024
 
-- Replaces Windows signing tools to `GaraSign
-  <https://garantir.io/garasign/>`__. 
 - Improves the validation of invalid profile names.
 
 .. _atlas-cli-1.14.1:
