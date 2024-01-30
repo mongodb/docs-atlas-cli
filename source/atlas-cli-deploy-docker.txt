@@ -129,7 +129,7 @@ deployment with `Docker Compose <https://docs.docker.com/compose/>`__.
                 ports:
                   - 27778:27778
 
-      #. Replace the password in the command on line 6 with your
+      #. Replace the ``{your-password}`` variable in the example with your
          password and save the file.
 
       To learn more about the available options, see 
