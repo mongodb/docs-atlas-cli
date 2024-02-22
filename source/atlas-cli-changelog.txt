@@ -14,6 +14,16 @@
    :depth: 1
    :class: singlecol
 
+.. _atlas-cli-1.15.0:
+
+{+atlas-cli+} 1.15.0
+--------------------
+
+Released 22 February 2024
+
+- Fixes a bug that prevented you from using the ``--file`` flag with
+  the :ref:`atlas-clusters-update` command.
+
 .. _atlas-cli-1.14.3:
 
 {+atlas-cli+} 1.14.3
