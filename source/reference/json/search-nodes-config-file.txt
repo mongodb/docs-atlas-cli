@@ -10,10 +10,10 @@ Search Nodes Configuration File
    :depth: 1
    :class: singlecol
 
-You can use a configuration file to specify the required 
-settings for creating search nodes on a {+cluster+} 
-by using the {+atlas-cli+}. The {+atlas-cli+} accepts 
-``.json`` configuration files. 
+To create or update :atlas:`search nodes 
+</cluster-config/multi-cloud-distribution/#std-label-configure-search-nodes>` 
+for a {+cluster+} by using the {+atlas-cli+}, you can use a ``.json`` 
+configuration file to specify the required search nodes settings.
 
 .. _search-nodes-settings:
 
@@ -22,7 +22,7 @@ Search Nodes Settings
 
 You can specify the following settings in the search nodes
 configuration file. For a full list of settings and 
-descriptions, refer to the :oas-atlas-op:`API specification 
+descriptions, see the :oas-atlas-op:`API specification 
 </createAtlasSearchDeployment>`.
 
 .. list-table:: 
@@ -35,7 +35,7 @@ descriptions, refer to the :oas-atlas-op:`API specification
 
    * - ``specs``
      - Array of objects
-     - Settings to configure search nodes for your cluster.
+     - Settings to configure search nodes for your {+cluster+}.
 
    * - ``specs.instanceSize``
      - string
@@ -46,10 +46,12 @@ descriptions, refer to the :oas-atlas-op:`API specification
        - ``<instance-size>_LOWCPU_NVME``
 
        For example, ``S20_HIGHCPU_NVME``.
+       To learn more, see :atlas:`Search Nodes Costs
+       </billing/search-node>`.
 
    * - ``specs.nodeCount``
      - integer
-     - Number of search nodes in the cluster.
+     - Number of search nodes in the {+cluster+}.
 
 .. _example-search-nodes-config-file:
 
@@ -72,7 +74,7 @@ the ``clusterName`` and ``file`` options.
 Create Search Nodes
 ~~~~~~~~~~~~~~~~~~~
 
-The following example creates search nodes for the cluster named
+The following example creates search nodes for the {+cluster+} named
 ``myCluster`` using a JSON configuration file named 
 ``search-nodes-config.json``:
 
@@ -83,7 +85,7 @@ The following example creates search nodes for the cluster named
 Update Search Nodes
 ~~~~~~~~~~~~~~~~~~~
 
-The following example updates search nodes for the cluster named
+The following example updates search nodes for the {+cluster+} named
 ``myCluster`` using a JSON configuration file named 
 ``search-nodes-config.json``:
 
