@@ -80,7 +80,7 @@ The following example creates search nodes for the {+cluster+} named
 
 .. code-block::
 
-    atlas clusters search nodes create --clusterName myCluster --file /search-nodes-config.json
+    atlas clusters search nodes create --clusterName myCluster --file search-nodes-config.json
 
 Update Search Nodes
 ~~~~~~~~~~~~~~~~~~~
@@ -91,4 +91,4 @@ The following example updates search nodes for the {+cluster+} named
 
 .. code-block::
 
-    atlas clusters search nodes update --clusterName myCluster --file /search-nodes-config.json
+    atlas clusters search nodes update --clusterName myCluster --file search-nodes-config.json

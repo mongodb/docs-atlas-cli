@@ -101,7 +101,7 @@ based on the settings specified in the configuration file:
 
 .. code-block:: sh
 
-   atlas clusters update myCluster --file /example.json
+   atlas clusters update myCluster --file example.json
 
 {+Cluster+} Configuration File
 ------------------------------
