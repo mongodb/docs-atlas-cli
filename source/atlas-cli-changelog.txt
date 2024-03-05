@@ -14,6 +14,15 @@
    :depth: 1
    :class: singlecol
 
+.. _atlas-cli-1.15.1:
+
+{+atlas-cli+} 1.15.1
+--------------------
+
+Released 29 February 2024
+
+- Updates internal code. This release doesn't affect {+atlas-cli+} commands.
+
 .. _atlas-cli-1.15.0:
 
 {+atlas-cli+} 1.15.0
