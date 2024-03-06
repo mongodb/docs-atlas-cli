@@ -21,7 +21,8 @@
 
 Released 29 February 2024
 
-- Updates internal code. This release doesn't affect {+atlas-cli+} commands.
+- Fixes an issue where the :ref:`atlas-auth-login` command fails 
+  to prompt for the default organization.
 
 .. _atlas-cli-1.15.0:
 
