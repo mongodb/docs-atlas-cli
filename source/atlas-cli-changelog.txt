@@ -21,7 +21,7 @@
 
 Released 07 March 2024
 
-- Adds the ``--omitCount`` flag to the :ref:`atlas-events-projects-list` command.
+- Adds the ``--omitCount`` flag to the :ref:`atlas-events-projects-list` and :ref:`atlas-events-organizations-list` commands.
 - Improves the Microsoft Windows binary build process.
 
 .. _atlas-cli-1.15.1:
