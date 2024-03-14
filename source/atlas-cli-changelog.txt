@@ -25,7 +25,7 @@ Released 14 March 2024
   handle collection names with dots (``.``) properly.
 - Adds the ``--omitCount`` flag to all the list commands that support
   pagination.
-- Adds the ``--file`` flag to the :ref:`atlas-clusters-index-create`
+- Adds the ``--file`` flag to the :ref:`atlas-clusters-indexes-create`
   command.
 
 .. _atlas-cli-1.16.0:
