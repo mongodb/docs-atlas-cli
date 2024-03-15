@@ -215,8 +215,8 @@ You can persist data across multiple runs with Docker Compose.
 
    .. step:: Update your ``docker-compose.yaml`` file.
 
-      a. Update the ``docker-compose.yaml`` file to mount the ``data`` 
-         directory as a volume.
+      a. Update the ``docker-compose.yaml`` file to mount the necessary 
+         data directories as volumes.
 
          **Example:**
 
