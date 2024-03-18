@@ -16,10 +16,11 @@ Verify Integrity of {+atlas-cli+} Packages
    :name: genre
    :values: tutorial
 
-The {+atlas-cli+} release team digitally signs all software packages to
-certify that a particular {+atlas-cli+} package is valid and unaltered. 
-Before installing the {+atlas-cli+}, you should validate the 
-package using the provided PGP signature or SHA-256 checksum.
+The {+atlas-cli+} release team digitally signs all software packages and
+container images to certify that a particular package is valid and
+unaltered. Before installing the {+atlas-cli+}, you should validate the 
+package using the provided PGP signature, SHA-256 checksum, or 
+`Cosign <https://github.com/sigstore/cosign>`__ information.
 
 Verify Linux Packages
 ---------------------
@@ -103,5 +104,45 @@ Verify Windows Packages
 -----------------------
 
 The following procedure verifies the MongoDB binary against its SHA256 key.
+
+Verify Docker Container Images
+------------------------------
+
+You can use `Cosign <https://github.com/sigstore/cosign>`__ to verify
+MongoDB's signature for {+atlas-cli+} container images.
+
+To verify MongoDB's container signature, perform the following steps:
+
+.. procedure::
+   :style: normal
+
+   .. step:: Download and install Cosign.
+
+      **Exmaple**
+
+      .. code-block::
+
+         brew install cosign
+
+      For full installation instructions, see `Cosign 
+      <https://github.com/sigstore/cosign>`__.
+
+   .. step:: Download the {+atlas-cli+} container image's public key
+
+      .. code-block::
+
+         curl https://cosign.mongodb.com/atlas-cli.pem  > atlas-cli.pem
+
+   .. step:: Verify the signature.
+
+      Run the following command to verify the signature by tag:
+
+      .. code-block::
+
+         COSIGN_REPOSITORY=docker.io/mongodb/signatures cosign verify --private-infrastructure --key=./atlas-cli.pem docker.io/mongodb/atlas:latest
+
+
+
+
 
 
