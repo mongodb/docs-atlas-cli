@@ -1,8 +1,8 @@
 .. _verify-packages:
 
-=========================================
-Verify Integrity of {+atlas-cli} Packages
-=========================================
+==========================================
+Verify Integrity of {+atlas-cli+} Packages
+==========================================
 
 .. default-domain:: mongodb
 
@@ -16,7 +16,7 @@ Verify Integrity of {+atlas-cli} Packages
    :name: genre
    :values: tutorial
 
-The {+atlas-cli} release team digitally signs all software packages to
+The {+atlas-cli+} release team digitally signs all software packages to
 certify that a particular {+atlas-cli+} package is valid and unaltered. 
 Before installing the {+atlas-cli+}, you should validate the 
 package using the provided PGP signature or SHA-256 checksum.
@@ -25,9 +25,8 @@ Verify Linux Packages
 ---------------------
 
 MongoDB signs each release branch with a different PGP key. The public 
-key files for each release branch since MongoDB 2.2 are available for
-download from the `key server <https://pgp.mongodb.com/>`_ 
-in both textual ``.asc`` and binary ``.pub`` formats. 
+key files for the lastest {+atlas-cli+} release is available for
+download from the `key server <https://pgp.mongodb.com/>`_. 
 
 The following procedure verifies the {+atlas-cli+} package against its 
 PGP/GPG key.
@@ -62,6 +61,7 @@ PGP/GPG key.
       Run the following command to download and import the key file:
 
       .. io-code-block::
+         :copyable: true
 
          .. input::
 
@@ -70,7 +70,7 @@ PGP/GPG key.
             
          .. output::
 
-            gpg: key 4B7C549A058F8B6B: "Atlas CLI {+atlas-cli-version+} Release Signing Key <packaging@mongodb.com>" imported
+            gpg: key <key-value-short>: public key "Atlas CLI Release Signing Key <packaging@mongodb.com>" imported
             gpg: Total number processed: 1
             gpg:               imported: 1
 
@@ -79,6 +79,7 @@ PGP/GPG key.
       Run the following command to verify the installation file:
 
       .. io-code-block::
+         :copyable: true
 
          .. input::
 
@@ -86,13 +87,17 @@ PGP/GPG key.
             
          .. output::
 
-            gpg: Signature made Wed Jun  5 03:17:20 2019 EDT
-            gpg:                using RSA key 4B7C549A058F8B6B
-            gpg: Good signature from "Atlas CLI {+atlas-cli-version+} Release Signing Key <packaging@mongodb.com>" [unknown]
+            gpg: Signature made Thu Mar 14 08:25:00 2024 EDT
+            gpg:                using RSA key <key-value-long>
+            gpg: Good signature from "Atlas CLI Release Signing Key <packaging@mongodb.com>" [unknown]
 
       If the package is properly signed, but you do not currently trust
       the signing key, ``gpg`` also returns the following message :
 
+      .. code-block::
+
+         gpg: WARNING: This key is not certified with a trusted signature!
+         gpg:          There is no indication that the signature belongs to the owner.
 
 Verify Windows Packages
 -----------------------
