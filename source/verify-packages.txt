@@ -1,0 +1,98 @@
+
+=========================================
+Verify Integrity of {+atlas-cli} Packages
+=========================================
+
+.. default-domain:: mongodb
+
+.. contents:: On this page
+   :local:
+   :backlinks: none
+   :depth: 1
+   :class: singlecol
+
+The {+atlas-cli} release team digitally signs all software packages to
+certify that a particular {+atlas-cli+} package is valid and unaltered. 
+Before installing the {+atlas-cli+}, you should validate the 
+package using the provided PGP signature or SHA-256 checksum.
+
+Verify Linux Packages
+---------------------
+
+MongoDB signs each release branch with a different PGP key. The public 
+key files for each release branch since MongoDB 2.2 are available for
+download from the `key server <https://pgp.mongodb.com/>`_ 
+in both textual ``.asc`` and binary ``.pub`` formats. 
+
+The following procedure verifies the {+atlas-cli+} package against its 
+PGP/GPG key.
+
+.. procedure::
+   :style: normal
+
+   .. step:: Download the {+atlas-cli+} installation file.
+
+      Download the {+atlas-cli+} binaries from `MongoDB Download Center
+      <https://www.mongodb.com/try/download/atlascli>`__
+      based on your Linux environment. Click :guilabel:`Copy link` and
+      use the URL in the following instructions.
+
+      For example, to download the ``{+atlas-cli-version+}`` release
+      for Linux through the shell, run this command:
+
+      .. code-block::
+
+         curl -LO https://fastdl.mongodb.org/mongocli/mongodb-atlas-cli_{+atlas-cli-version+}_linux_x86_64.tar.gz
+
+   .. step:: Download the public signature file.
+
+      Run the following command to download the file:
+
+      .. code-block::
+
+         curl -LO https://fastdl.mongodb.org/mongocli/mongodb-atlas-cli_{+atlas-cli-version+}_linux_x86_64.tar.gz.sig
+
+   .. step:: Download and import the key file.
+
+      Run the following command to download and import the key file:
+
+      .. io-code-block::
+
+         .. input::
+
+            curl -LO https://pgp.mongodb.com/atlas-cli.asc
+            gpg --import atlas-cli.asc
+            
+         .. output::
+
+            gpg: key 4B7C549A058F8B6B: "Atlas CLI {+atlas-cli-version+} Release Signing Key <packaging@mongodb.com>" imported
+            gpg: Total number processed: 1
+            gpg:               imported: 1
+
+   .. step:: Verify the {+atlas-cli+} installation file.
+
+      Run the following command to verify the installation file:
+
+      .. io-code-block::
+
+         .. input::
+
+            gpg --verify mongodb-atlas-cli_{+atlas-cli-version+}_linux_x86_64.tar.gz.sig mongodb-atlas-cli_{+atlas-cli-version+}_linux_x86_64.tar.gz
+            
+         .. output::
+
+            gpg: Signature made Wed Jun  5 03:17:20 2019 EDT
+            gpg:                using RSA key 4B7C549A058F8B6B
+            gpg: Good signature from "Atlas CLI {+atlas-cli-version+} Release Signing Key <packaging@mongodb.com>" [unknown]
+
+      If the package is properly signed, but you do not currently trust
+      the signing key, ``gpg`` also returns the following message :
+
+
+
+Verify Windows Packages
+-----------------------
+
+The following procedure verifies the MongoDB binary against its SHA256 key.
+
+
