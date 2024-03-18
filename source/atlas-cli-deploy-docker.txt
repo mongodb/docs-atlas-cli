@@ -100,6 +100,10 @@ deployment with `Docker Compose <https://docs.docker.com/compose/>`__.
 .. procedure::
    :style: normal
 
+   .. step:: Install and start Docker.
+
+      To learn more, see the `Docker documentation <https://docs.docker.com/desktop/install/mac-install/>`__.
+
    .. step:: Install Docker Compose.
 
       **Example:**
@@ -170,10 +174,24 @@ deployment with `Docker Compose <https://docs.docker.com/compose/>`__.
 Persist Data Across Runs with Docker Compose
 --------------------------------------------
 
-You can persist data across multiple runs with Docker Compose.
+You can persist data across multiple runs with Docker Compose. 
+Persisting data helps to ensure that data isn't lost between runs. Data 
+remains available across runs of Docker Compose.
 
 .. procedure::
    :style: normal
+
+   .. step:: Install and start Docker.
+
+      To learn more, see the `Docker documentation <https://docs.docker.com/desktop/install/mac-install/>`__.
+
+   .. step:: Install Docker Compose.
+
+      **Example:**
+
+      .. code-block:: sh
+
+         brew install docker-compose
 
    .. step:: Create a script to start and stop your local deployment.
 
