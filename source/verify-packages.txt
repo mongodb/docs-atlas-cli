@@ -1,3 +1,4 @@
+.. _verify-packages:
 
 =========================================
 Verify Integrity of {+atlas-cli} Packages
@@ -10,6 +11,10 @@ Verify Integrity of {+atlas-cli} Packages
    :backlinks: none
    :depth: 1
    :class: singlecol
+
+.. facet::
+   :name: genre
+   :values: tutorial
 
 The {+atlas-cli} release team digitally signs all software packages to
 certify that a particular {+atlas-cli+} package is valid and unaltered. 
@@ -87,7 +92,6 @@ PGP/GPG key.
 
       If the package is properly signed, but you do not currently trust
       the signing key, ``gpg`` also returns the following message :
-
 
 
 Verify Windows Packages
