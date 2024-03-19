@@ -112,6 +112,9 @@ deployment with `Docker Compose <https://docs.docker.com/compose/>`__.
 
          brew install docker-compose
 
+      To learn more, see the `Docker Compose install documentation 
+      <https://docs.docker.com/compose/install/>`__.
+
    .. step:: Create a ``docker-compose.yaml`` file.
 
       a. Create the ``docker-compose.yaml`` file in the same directory 
@@ -174,9 +177,10 @@ deployment with `Docker Compose <https://docs.docker.com/compose/>`__.
 Persist Data Across Runs with Docker Compose
 --------------------------------------------
 
-You can persist data across multiple runs with Docker Compose. 
-Persisting data helps to ensure that data isn't lost between runs. Data 
-remains available across runs of Docker Compose.
+You can persist data across multiple runs with `Docker Compose 
+<https://docs.docker.com/compose/>`__. Persisting data helps to ensure 
+that data isn't lost between runs. Data remains available across runs 
+of Docker Compose.
 
 .. procedure::
    :style: normal
@@ -193,10 +197,13 @@ remains available across runs of Docker Compose.
 
          brew install docker-compose
 
+      To learn more, see the `Docker Compose install documentation 
+      <https://docs.docker.com/compose/install/>`__.
+
    .. step:: Create a script to start and stop your local deployment.
 
-      a. Copy and paste the following script and name the file
-         ``entrypoint.sh``:
+      a. Create the following ``entrypoint.sh`` script file in the same 
+         directory that you run Docker Compose from:
 
          .. code-block:: sh
 
@@ -274,7 +281,7 @@ remains available across runs of Docker Compose.
 
          docker-compose up
 
-      You can also run Docker Compose in detached mode.
+      You can also run Docker Compose in `detached mode <https://docs.docker.com/reference/cli/docker/compose/up/#options>`__.
 
       **Example:**
 
