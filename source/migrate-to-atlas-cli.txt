@@ -20,7 +20,7 @@ Migrate to the {+atlas-cli+}
 
    ``mongocli atlas`` commands for MongoCLI are now deprecated. Follow
    the steps on this page to migrate to the {+atlas-cli+} and run
-   :doc:`{+atlas-cli+} commands </command/atlas>` instead of
+   :ref:`{+atlas-cli+} commands <atlas>` instead of
    ``mongocli atlas`` commands.
 
 If you have already configured {+mcli+}, you can migrate your settings to the
