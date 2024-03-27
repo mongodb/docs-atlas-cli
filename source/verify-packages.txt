@@ -18,7 +18,8 @@ Verify Integrity of {+atlas-cli+} Packages
 
 The {+atlas-cli+} release team digitally signs all software packages and
 container images to certify that a particular package is valid and
-unaltered. Before installing the {+atlas-cli+}, you should validate the 
+unaltered. Before you install the {+atlas-cli+} packages for Linux,
+Windows, or Docker, you should validate the 
 package using the provided PGP signature, SHA-256 checksum, or 
 `Cosign <https://github.com/sigstore/cosign>`__ information.
 
@@ -125,15 +126,19 @@ SHA-256 key.
 
    .. step:: Save the public signature.
 
-      a. Open the ``checksums.txt`` file for the
-         release, which returns the
-         SHA256 key. For example, for version {+atlas-cli-version+},
-         download and open the following file: `https://github.com/mongodb/mongodb-atlas-cli/releases/download/atlascli%2Fv{+atlas-cli-version+}/checksums.txt <https://github.com/mongodb/mongodb-atlas-cli/releases/download/atlascli%2Fv{+atlas-cli-version+}/checksums.txt>`__.
-      #. Copy the text listed next to the file you downloaded. For 
-         example, if you downloaded ``mongodb-atlas-cli_{+atlas-cli-version+}_windows_x86_64.zip``, 
-         copy the text next to 
+      a. Download the ``checksums.txt`` file for the
+         release from `Github 
+         <https://github.com/mongodb/mongodb-atlas-cli/releases>`__,
+         which contains the SHA-256 key for each file. For example, for
+         version {+atlas-cli-version+},
+         download the `{+atlas-cli-version+} checksums.txt file
+         <https://github.com/mongodb/mongodb-atlas-cli/releases/download/atlascli%2Fv{+atlas-cli-version+}/checksums.txt>`__.
+      #. Open the ``checksums.txt`` file and copy the text listed to
+         the left of the package you downloaded.
+         For example, if you downloaded ``mongodb-atlas-cli_{+atlas-cli-version+}_windows_x86_64.zip``, 
+         copy the text to the left of
          ``mongodb-atlas-cli_{+atlas-cli-version+}_windows_x86_64.zip``.
-         This is the SHA-256 key value.
+         This value is the SHA-256 key value.
       #. Save the key value in a ``.txt`` file named ``atlas-cli-key``
          in your Downloads folder.
 
@@ -223,6 +228,7 @@ To verify MongoDB's container signature, perform the following steps:
       Run the following command to verify the signature by tag:
 
       .. io-code-block::
+         :copyable: true
 
          .. input::
             
