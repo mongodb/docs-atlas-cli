@@ -1,8 +1,8 @@
 .. _verify-packages:
 
-==========================================
-Verify Integrity of {+atlas-cli+} Packages
-==========================================
+==============================================
+Verify the Integrity of {+atlas-cli+} Packages
+==============================================
 
 .. default-domain:: mongodb
 
@@ -33,7 +33,7 @@ key files for the lastest {+atlas-cli+} release is available for
 download from the `key server <https://pgp.mongodb.com/>`_. 
 
 The following procedure verifies the {+atlas-cli+} package against its 
-PGP/GPG key.
+PGP key.
 
 .. procedure::
    :style: normal
@@ -47,7 +47,7 @@ PGP/GPG key.
       use the URL in the following instructions.
 
       For example, to download the ``{+atlas-cli-version+}`` release
-      for Linux through the shell, run this command:
+      for Linux through the shell, run the following command:
 
       .. code-block::
 
@@ -96,7 +96,7 @@ PGP/GPG key.
             gpg:                using RSA key <key-value-long>
             gpg: Good signature from "Atlas CLI Release Signing Key <packaging@mongodb.com>" [unknown]
 
-      If the package is properly signed, but you do not currently trust
+      If the package is properly signed, but you don't currently trust
       the signing key, ``gpg`` also returns the following message :
 
       .. code-block::
@@ -122,8 +122,6 @@ SHA-256 key.
       <https://www.mongodb.com/try/download/atlascli>`__ or 
       `Github <https://github.com/mongodb/mongodb-atlas-cli/releases>`__.
 
-
-
    .. step:: Save the public signature.
 
       a. Download the ``checksums.txt`` file for the
@@ -139,7 +137,7 @@ SHA-256 key.
          copy the text to the left of
          ``mongodb-atlas-cli_{+atlas-cli-version+}_windows_x86_64.zip``.
          This value is the SHA-256 key value.
-      #. Save the key value in a ``.txt`` file named ``atlas-cli-key``
+      #. Save the SHA-256 key value in a ``.txt`` file named ``atlas-cli-key``
          in your Downloads folder.
 
    .. step:: Compare the signature file to the {+atlas-cli+} installer hash.
