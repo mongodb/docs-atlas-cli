@@ -10,112 +10,55 @@ Atlas Search Index Configuration File
    :depth: 1
    :class: singlecol
 
-You can use an |fts| index configuration file to specify the required 
-settings for creating a search index using the {+atlas-cli+}. The 
-{+atlas-cli+} accepts ``.json`` search index configuration files. You
-can use the  ``.json`` search index configuration file to create the
-index for :ref:`cloud <atlas-clusters-search-indexes-create>` and
-:ref:`local <atlas-deployments-search-indexes-create>` Atlas
-deployments. 
+.. |atlas-cli command| replace:: :ref:`atlas-clusters-search-indexes-create`
+.. |configuration-file-name| replace:: atlas search indexes configuration  
+.. |openapi-link| replace:: :oas-atlas-op:`Create One Atlas Search Index </createAtlasSearchIndex>`
+.. |action| replace:: create an Atlas Search index
+
+You can use a |configuration-file-name| file to specify the
+settings required when you |action| using the {+atlas-cli+}. The
+{+atlas-cli+} accepts ``.json`` |configuration-file-name| files.
 
 .. _search-index-settings:
 
-Atlas Search Index Settings
----------------------------
+Available Settings
+------------------
 
-You can specify the following settings in the |fts| index
-configuration file. For a full list of available settings, see
-the request body schema in the API specification:
-:oas-atlas-op:`Create One Atlas Search Index </createAtlasSearchIndex>`.
+When you |action| using a configuration file, you
+can specify any settings that are listed in 
+|openapi-link| under :guilabel:`Request Body Schema`.
 
-.. list-table:: 
-   :header-rows: 1 
-   :widths: 20 10 70 
+.. seealso:: Sample Index Files
 
-   * - Field 
-     - Type 
-     - Description 
-
-   * - ``collectionName``
-     - string
-     - Label that identifies the collection for which you want to
-       create an |fts| index.
-
-   * - ``database``
-     - string
-     - Label that identifies the database that contains the collection
-       for which you want to create an |fts| index.
-
-   * - ``name``
-     - string
-     - Label that identifies this index. Within each namespace, names
-       of all indexes in the namespace must be unique.
-
-   * - ``mappings``
-     - object
-     - Index specifications for the collection's fields.
-
-   * - ``mappings.dynamic``
-     - boolean
-     - Flag that indicates whether the index uses dynamic or static
-       mappings. If omitted or if set to ``false``, ``mappings.fields`` is required. To learn more, see 
-       :atlas:`Atlas Search Index Syntax 
-       </atlas-search/index-definitions/>`.
+   - `Unique indexes <https://github.com/mongodb/mongodb-atlas-cli/blob/master/test/e2e/atlas/data/create_2dspere_index.json>`__ 
+   - `Sparse Index <https://github.com/mongodb/mongodb-atlas-cli/blob/master/test/e2e/atlas/data/create_sparse_index.json>`__ 
+   - `Partial indexes <https://github.com/mongodb/mongodb-atlas-cli/blob/master/test/e2e/atlas/data/create_partial_index.json>`__ 
 
 .. _example-search-index-config-file:
 
-Example Atlas Search Index Configuration File
----------------------------------------------
+Create a Configuration File
+---------------------------
 
-To create an |fts| index, define the search index in your |json| file as
-shown in the following example file:
+Follow these steps to |action| with a configuration file:
 
-.. tabs:: 
+.. procedure::
+   :style: normal
 
-   .. tab:: Basic Configuration
-      :tabid: basic
+   .. step:: Copy the sample request for |openapi-link|.
 
-      The following configuration automatically indexes all dynamically
-      indexable fields in the ``sample_airbnb.listingsAndReviews`` collection.
+      a. Navigate to the |openapi-link|
+         section of the |service| Admin API specification.
+      b. Under :guilabel:`Request samples` on the right side, click
+         :guilabel:`Expand all`.
+      c. Click :guilabel:`Copy` to copy the sample request.
 
-      .. literalinclude:: /includes/create-atlas-search-index-config-file.json
+   .. step:: Create the configuration file.
+    
+      a. Paste the copied sample request into a text editor and change
+         the values to reflect your values.
+      b. Save the file with a ``.json`` extension.
 
-   .. tab:: Expanded Configuration
-      :tabid: expanded
+   .. step:: Run the |atlas-cli command| command with 
+      the ``--file`` option.
 
-      The following configuration indexes only the ``name`` and
-      ``property_type`` fields in the
-      ``sample_airbnb.listingsAndReviews`` collection. 
-
-      .. literalinclude:: /includes/create-atlas-search-expanded-index-config-file.json
-
-Example Atlas Search Index Create Command
------------------------------------------
-
-.. tabs:: 
-
-   .. tab:: Cloud Deployment
-      :tabid: cloud
-
-      After you create the file, run the command to create the |fts|
-      search index and specify the ``clusterName`` and the ``file``. The 
-      following example creates a search index for the cluster named
-      ``myCluster`` using a JSON index configuration file named 
-      ``search-config.json``:
-
-      .. code-block::
-
-         atlas clusters search indexes create --clusterName myCluster --file search-config.json --output json
-
-   .. tab:: Local Deployment
-      :tabid: local
-
-      After you create the file, run the command to create the |fts|
-      search index and specify the ``deploymentName`` and the ``file``.
-      The following example creates a search index for a deployment
-      named ``myLocalRs`` using a JSON index configuration file named 
-      ``search-config.json``:
-
-      .. code-block::
-
-         atlas deployments search indexes create --deploymentName myLocalRs --file search-config.json --output json
+      Specify the path to the file you saved with the ``--file`` flag.
