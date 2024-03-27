@@ -116,7 +116,7 @@ SHA-256 key.
 
    .. step:: Download the {+atlas-cli+} installation file.
 
-      Download the {+atlas-cli+} ``.msi`` file from the 
+      Download the {+atlas-cli+} ``.msi`` or ``.zip`` file from the 
       `MongoDB Download Center
       <https://www.mongodb.com/try/download/atlascli>`__ or 
       `Github <https://github.com/mongodb/mongodb-atlas-cli/releases>`__.
@@ -128,7 +128,7 @@ SHA-256 key.
       a. Open the ``checksums.txt`` file for the
          release, which returns the
          SHA256 key. For example, for version {+atlas-cli-version+},
-         download and open the following file: `https://github.com/mongodb/mongodb-atlas-cli/releases/download/atlascli%2Fv{+atlas-cli-version+}/checksums.txt <https://github.com/mongodb/mongodb-atlas-cli/releases/download/atlascli%2Fv{+atlas-cli-version+}/checksums.txt`__.
+         download and open the following file: `https://github.com/mongodb/mongodb-atlas-cli/releases/download/atlascli%2Fv{+atlas-cli-version+}/checksums.txt <https://github.com/mongodb/mongodb-atlas-cli/releases/download/atlascli%2Fv{+atlas-cli-version+}/checksums.txt>`__.
       #. Copy the text listed next to the file you downloaded. For 
          example, if you downloaded ``mongodb-atlas-cli_{+atlas-cli-version+}_windows_x86_64.zip``, 
          copy the text next to 
