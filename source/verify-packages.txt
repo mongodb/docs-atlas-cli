@@ -22,6 +22,8 @@ unaltered. Before installing the {+atlas-cli+}, you should validate the
 package using the provided PGP signature, SHA-256 checksum, or 
 `Cosign <https://github.com/sigstore/cosign>`__ information.
 
+.. _verify-packages-linux:
+
 Verify Linux Packages
 ---------------------
 
@@ -101,6 +103,8 @@ PGP/GPG key.
          gpg: WARNING: This key is not certified with a trusted signature!
          gpg:          There is no indication that the signature belongs to the owner.
 
+.. _verify-packages-windows:
+
 Verify Windows Packages
 -----------------------
 
@@ -119,7 +123,7 @@ The following procedure verifies the MongoDB binary against its SHA256 key.
    .. step:: Save the public signature.
 
       a. Copy the contents at the following URL, which returns the
-         SHA256 key: `https://fastdl.mongodb.org/mongocli/mongodb-atlas-cli_1.17.0_windows_x86_64.msi.sha256`__.
+         SHA256 key: `https://fastdl.mongodb.org/mongocli/mongodb-atlas-cli_{+atlas-cli-version+}_windows_x86_64.msi.sha256 <https://fastdl.mongodb.org/mongocli/mongodb-atlas-cli_{+atlas-cli-version+}_windows_x86_64.msi.sha256>`__.
       b. Save the key value in a file named ``atlas-cli-key`` in
          your Downloads folder.
 
@@ -149,6 +153,8 @@ The following procedure verifies the MongoDB binary against its SHA256 key.
 
       If the two values match, the {+atlas-cli+} binary is verified.
 
+.. _verify-packages-docker:
+
 Verify Docker Container Images
 ------------------------------
 
@@ -162,7 +168,7 @@ To verify MongoDB's container signature, perform the following steps:
 
    .. step:: Download and install Cosign.
 
-      **Example**
+      **Example: MacOS**
 
       .. code-block::
 
