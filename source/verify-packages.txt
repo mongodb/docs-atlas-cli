@@ -108,7 +108,8 @@ PGP/GPG key.
 Verify Windows Packages
 -----------------------
 
-The following procedure verifies the MongoDB binary against its SHA256 key.
+The following procedure verifies the {+atlas-cli+} package against its 
+SHA-256 key.
 
 .. procedure::
    :style: normal
@@ -117,27 +118,61 @@ The following procedure verifies the MongoDB binary against its SHA256 key.
 
       Download the {+atlas-cli+} ``.msi`` file from the 
       `MongoDB Download Center
-      <https://www.mongodb.com/try/download/atlascli>`__
-      based on your Windows environment.
+      <https://www.mongodb.com/try/download/atlascli>`__ or 
+      `Github <https://github.com/mongodb/mongodb-atlas-cli/releases>`__.
+
+
 
    .. step:: Save the public signature.
 
-      a. Copy the contents at the following URL, which returns the
-         SHA256 key: `https://fastdl.mongodb.org/mongocli/mongodb-atlas-cli_{+atlas-cli-version+}_windows_x86_64.msi.sha256 <https://fastdl.mongodb.org/mongocli/mongodb-atlas-cli_{+atlas-cli-version+}_windows_x86_64.msi.sha256>`__.
-      b. Save the key value in a file named ``atlas-cli-key`` in
-         your Downloads folder.
+      a. Open the ``checksums.txt`` file for the
+         release, which returns the
+         SHA256 key. For example, for version {+atlas-cli-version+},
+         download and open the following file: `https://github.com/mongodb/mongodb-atlas-cli/releases/download/atlascli%2Fv{+atlas-cli-version+}/checksums.txt <https://github.com/mongodb/mongodb-atlas-cli/releases/download/atlascli%2Fv{+atlas-cli-version+}/checksums.txt`__.
+      #. Copy the text listed next to the file you downloaded. For 
+         example, if you downloaded ``mongodb-atlas-cli_{+atlas-cli-version+}_windows_x86_64.zip``, 
+         copy the text next to 
+         ``mongodb-atlas-cli_{+atlas-cli-version+}_windows_x86_64.zip``.
+         This is the SHA-256 key value.
+      #. Save the key value in a ``.txt`` file named ``atlas-cli-key``
+         in your Downloads folder.
 
    .. step:: Compare the signature file to the {+atlas-cli+} installer hash.
 
-      Run this Powershell command:
+      Run the Powershell command to verify the package based on the
+      file you downloaded. 
+      
+      If you downloaded 
+      ``mongodb-atlas-cli_{+atlas-cli-version+}_windows_x86_64.zip``,
+      run the following command:
 
       .. io-code-block::
          :copyable: true
 
          .. input::
 
-            $sigHash = (Get-Content $Env:HomePath\Downloads\atlas-cli-key | Out-String).SubString(0,64).ToUpper(); `
-            $fileHash = (Get-FileHash $Env:HomePath\Downloads\mongodb-atlas-cli_{+atlas-cli-version+}_windows_x86_64-signed.msi).Hash.Trim(); `
+            $sigHash = (Get-Content $Env:HomePath\Downloads\atlas-cli-key.txt | Out-String).SubString(0,64).ToUpper(); `
+            $fileHash = (Get-FileHash $Env:HomePath\Downloads\mongodb-atlas-cli_{+atlas-cli-version+}_windows_x86_64.zip).Hash.Trim(); `
+            echo $sigHash; echo $fileHash; `
+            $sigHash -eq $fileHash
+
+         .. output::
+
+            <key-value-from-signature-file>
+            <key-value-from-downloaded-package>
+            True
+
+      If you downloaded 
+      ``mongodb-atlas-cli_{+atlas-cli-version+}_windows_x86_64.msi``,
+      run the following command:
+
+      .. io-code-block::
+         :copyable: true
+
+         .. input::
+
+            $sigHash = (Get-Content $Env:HomePath\Downloads\atlas-cli-key.txt | Out-String).SubString(0,64).ToUpper(); `
+            $fileHash = (Get-FileHash $Env:HomePath\Downloads\mongodb-atlas-cli_{+atlas-cli-version+}_windows_x86_64.msi).Hash.Trim(); `
             echo $sigHash; echo $fileHash; `
             $sigHash -eq $fileHash
 
