@@ -14,6 +14,28 @@
    :depth: 1
    :class: singlecol
 
+.. _atlas-cli-1.18.0:
+
+{+atlas-cli+} 1.18.0
+--------------------
+
+Released 27 March 2024
+
+- Fixes a bug in the :ref:`atlas-events-list`,
+  :ref:`atlas-projects-list` and :ref:`atlas-orgs-lists` commands where
+  an invalid ``minDate`` and ``maxDate`` silently failed and did not
+  apply to the command.
+- Fixes an issue where the {+atlas-cli+} didn't sign Windows binaries.
+- Fixes an issue where the {+atlas-cli+} didn't apply the correct
+  default MongoDB version for cluster creation.
+- Adds a note on the :ref:`atlas-clusters-update` command to warn that
+  {+atlas-cli+} doesn't allow upgrades from replica set to multi-sharded
+  nodes.
+- Adds a notification when a session expires and about best practices to
+  use the {+atlas-cli+} programatically.
+- Fixes a bug where creating a ``customDbRoles`` fails if you provide
+  more than one privilege with same action.
+
 .. _atlas-cli-1.17.0:
 
 {+atlas-cli+} 1.17.0
