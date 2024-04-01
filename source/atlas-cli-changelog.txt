@@ -21,10 +21,10 @@
 
 Released 27 March 2024
 
-- Fixes a bug in the :ref:`atlas-events-list`,
-  :ref:`atlas-projects-list` and :ref:`atlas-orgs-lists` commands where
-  an invalid ``minDate`` and ``maxDate`` silently failed and did not
-  apply to the command.
+- Fixes a bug in the :ref:`atlas-events-project-list`,
+  :ref:`atlas-projects-list` and :ref:`atlas-events-organizations-list`
+  commands where an invalid ``minDate`` and ``maxDate`` silently failed
+  and didn't apply to the command.
 - Fixes an issue where the {+atlas-cli+} didn't sign Windows binaries.
 - Fixes an issue where the {+atlas-cli+} didn't apply the correct
   default MongoDB version for cluster creation.
