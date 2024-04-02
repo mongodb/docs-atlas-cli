@@ -6,6 +6,10 @@ Create a Local Atlas Deployment
 
 .. default-domain:: mongodb
 
+.. facet::
+   :name: genre
+   :values: tutorial
+
 .. contents:: On this page
    :local:
    :backlinks: none
@@ -16,6 +20,8 @@ This tutorial shows you how to use the ``atlas deployments`` command to
 create a local |service| deployment. In this tutorial, we will deploy a 
 single-node replica set on your local computer. You can then manage 
 your deployment, and use |fts| and {+avs+}.
+
+You should use local deployments for testing and development only.
 
 .. include:: /includes/fact-atlas-deployments-preview.rst
 
@@ -37,7 +43,7 @@ Supported OS for Local Atlas Deployments
      - 2
      - 2
    
-   * - Red Hat Eterprise Linux / CentOS 
+   * - Red Hat Enterprise Linux / CentOS 
      - 8, 9
      - x86-64, ARM
      - 2
@@ -95,7 +101,7 @@ mode.
 
             **Example:**
 
-            Specify ``local - Local Database`` and press ``Enter``.
+            Specify ``local - Local Database`` and press :kbd:`Enter`..
 
             .. io-code-block::
 
@@ -119,7 +125,7 @@ mode.
             **Example:**
 
             Specify ``default - With default settings`` and press 
-            ``Enter``.
+            :kbd:`Enter`..
 
             .. io-code-block::
                 
@@ -156,7 +162,7 @@ mode.
 
          .. step:: Specify what to deploy.
 
-            Specify ``local - Local Database`` and press ``Enter``.
+            Specify ``local - Local Database`` and press :kbd:`Enter`..
 
             **Example:**
 
@@ -182,7 +188,7 @@ mode.
             **Example:**
 
             Specify ``custom - With custom settings`` and press 
-            ``Enter``.
+            :kbd:`Enter`..
 
             .. code-block:: sh
                 
@@ -195,7 +201,7 @@ mode.
 
             **Example:**
 
-            Specify ``myLocalRs`` and press ``Enter``.
+            Specify ``myLocalRs`` and press :kbd:`Enter`..
 
             .. code-block:: sh
             
@@ -205,7 +211,7 @@ mode.
 
             **Example:**
 
-            Specify ``7.0`` and press ``Enter``.
+            Specify ``7.0`` and press :kbd:`Enter`..
 
             .. code-block:: sh
             
@@ -217,7 +223,7 @@ mode.
 
             **Example:**
 
-            Specify ``37018`` and press ``Enter``.
+            Specify ``37018`` and press :kbd:`Enter`..
 
             .. io-code-block::
                 
@@ -275,7 +281,10 @@ Manage a Local Atlas Deployment
 -------------------------------
 
 Use the ``atlas deployments`` command to manage a local |service| 
-deployment. 
+deployment. You can use the following commands for both local and 
+cloud |service| deployments. You can use ``--type local`` or 
+``--type atlas`` to run the command for local or cloud 
+atlas deployments respectively.
 
 .. procedure::
    :style: normal
@@ -325,10 +334,40 @@ deployment.
 
             atlas deployments connect
       
-      #. Specify the deployment to connect to and press ``Enter``.
+      #. Specify the deployment to connect to and press :kbd:`Enter`..
 
       #. Specify how you want to connect to the deployment and press 
-         ``Enter``.
+         :kbd:`Enter`..
+
+   .. step:: Pause a deployment.
+
+      a. Run the following command to pause a deployment:
+
+         .. code-block:: sh
+
+            atlas deployments pause
+
+      #. Specify the deployment to pause and press :kbd:`Enter`..
+
+   .. step:: Start a deployment
+
+      a. Run the following command to start a deployment:
+
+         .. code-block:: sh
+
+            atlas deployments start
+      
+      #. Specify the deployment to start and press :kbd:`Enter`..
+
+   .. step:: Return the logs for the deployment.
+
+      a. Run the following command to return the logs for a deployment:
+
+         .. code-block:: sh
+
+            atlas deployments logs
+      
+      #. Specify the deployment to return logs for and press :kbd:`Enter`..
 
    .. step:: Delete a deployment.
 
@@ -338,7 +377,9 @@ deployment.
 
             atlas deployments delete
 
-      #. Specify ``y`` and press ``Enter`` to confirm.
+      #. Specify the deployment to delete and press :kbd:`Enter`.. 
+   
+      #. Specify ``y`` and press :kbd:`Enter`. to confirm.
 
 .. _atlas-cli-deploy-local-fts:
 

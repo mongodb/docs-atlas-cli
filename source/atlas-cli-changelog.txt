@@ -14,6 +14,105 @@
    :depth: 1
    :class: singlecol
 
+.. _atlas-cli-1.17.0:
+
+{+atlas-cli+} 1.17.0
+--------------------
+
+Released 14 March 2024
+
+- Fixes an issue where :ref:`atlas-customDbRoles` commands didn't
+  handle collection names with dots (``.``) properly.
+- Adds the ``--omitCount`` flag to all the list commands that support
+  pagination.
+- Adds the ``--file`` flag to the :ref:`atlas-clusters-indexes-create`
+  command.
+
+.. _atlas-cli-1.16.0:
+
+{+atlas-cli+} 1.16.0
+--------------------
+
+Released 07 March 2024
+
+- Adds the ``--omitCount`` flag to the :ref:`atlas-events-projects-list` and :ref:`atlas-events-organizations-list` commands.
+- Improves the Microsoft Windows binary build process.
+
+.. _atlas-cli-1.15.1:
+
+{+atlas-cli+} 1.15.1
+--------------------
+
+Released 29 February 2024
+
+- Fixes an issue where the :ref:`atlas-auth-login` command fails 
+  to prompt for the default organization.
+
+.. _atlas-cli-1.15.0:
+
+{+atlas-cli+} 1.15.0
+--------------------
+
+Released 22 February 2024
+
+- Adds support for Atlas Search nodes management, including the
+  following commands:
+
+  - :ref:`atlas-clusters-search-nodes-create`
+  - :ref:`atlas-clusters-search-nodes-list`
+  - :ref:`atlas-clusters-search-nodes-update`
+  - :ref:`atlas-clusters-search-nodes-delete`
+- Adds the ``--tag`` flag to the :ref:`atlas-projects-create` command.
+- Fixes a bug that prevented you from using the ``--file`` flag with
+  the :ref:`atlas-clusters-update` command.
+
+.. _atlas-cli-1.14.3:
+
+{+atlas-cli+} 1.14.3
+--------------------
+
+Released 8 February 2024
+
+- Adds support for :ref:`{+avs+} for Local Deployments 
+  <atlas-cli-deploy-fts>`.
+- Adds support to rename teams.
+- :ref:`Signs the Linux binaries <verify-packages-linux>` with PGP.
+- :ref:`Signs the Windows binaries <verify-packages-windows>` with
+  garasign.
+- :ref:`Signs the Docker image <verify-packages-docker>` with Cosign.
+
+.. _atlas-cli-1.14.2:
+
+{+atlas-cli+} 1.14.2
+--------------------
+
+Released 30 January 2024
+
+- Improves the validation of invalid profile names.
+
+.. _atlas-cli-1.14.1:
+
+{+atlas-cli+} 1.14.1
+--------------------
+
+Released 18 January 2024
+
+- Fixes an issue that prevented upgrading from a lower to a higher
+  shared tier. 
+- Fixes the template for ``privateEndpoint`` commands.
+
+.. _atlas-cli-1.14.0:
+
+{+atlas-cli+} 1.14.0
+--------------------
+
+Released 6 December 2023
+
+- Adds :ref:`atlas-backups-compliancePolicy` 
+  commands so that you can set up and manage a cloud backup compliance policy 
+  for your project. To learn more, see :ref:`backup-compliance-policy`.
+- Drops support for :atlas:`{+ak8so+} </atlas-operator>` 1.x.
+
 .. _atlas-cli-1.13.0:
 
 {+atlas-cli+} 1.13.0
@@ -766,6 +865,7 @@ including managing:
 - Alerts
 - Metrics and monitoring
 
-For a complete list of available commands, see :doc:`</command/atlas>`.
+For a complete list of available commands, see the 
+:ref:`{+atlas-cli+} commands <atlas>`.
 
 To install this version, see :ref:`<install-atlas-cli>`.

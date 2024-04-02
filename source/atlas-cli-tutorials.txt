@@ -18,8 +18,8 @@ Use the following tutorials to learn how to manage |service| using the
 To learn the {+atlas-cli+} basics, see :ref:`install-atlas-cli` and
 :ref:`connect-atlas-cli`.
 
-You can also go straight to the :doc:`{+atlas-cli+} Commands 
-</command/atlas>`.
+You can also go straight to the :ref:`{+atlas-cli+} Commands 
+<atlas>`.
 
 .. list-table:: 
    :header-rows: 1
@@ -55,9 +55,10 @@ You can also go straight to the :doc:`{+atlas-cli+} Commands
 .. toctree::
    :titlesonly:
 
-   /atlas-cli-getting-started
-   /atlas-cli-quickstart
-   /atlas-cli-create-cluster-from-config-file
-   /atlas-cli-local-cloud
-   /atlas-cli-ephemeral-cluster
-   /atlas-cli-docker
+   Get Started with Atlas </atlas-cli-getting-started>
+   Create & Configure Clusters </atlas-cli-quickstart>
+   Cluster Configuration File </atlas-cli-create-cluster-from-config-file>
+   Local & Cloud Deployments </atlas-cli-local-cloud>
+   Test Automations </atlas-cli-ephemeral-cluster>
+   Run Commands with Docker </atlas-cli-docker>
+   
