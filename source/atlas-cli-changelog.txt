@@ -27,7 +27,7 @@ Released 27 March 2024
   and didn't apply to the command.
 - Fixes an issue where the {+atlas-cli+} didn't sign Windows binaries.
 - Fixes an issue where the {+atlas-cli+} didn't apply the correct
-  default MongoDB version for cluster creation.
+  default MongoDB version for {+cluster+} creation.
 - Adds a note on the :ref:`atlas-clusters-update` command to warn that
   {+atlas-cli+} doesn't allow upgrades from replica set to multi-sharded
   nodes.
@@ -35,6 +35,8 @@ Released 27 March 2024
   use the {+atlas-cli+} programatically.
 - Fixes a bug where creating a ``customDbRoles`` fails if you provide
   more than one privilege with same action.
+- Fixes an issue where exporting a {+cluster+} from |service| to {+ak8so+}
+  YAML didn't exclude read only fields for shared tenant deployments.
 
 .. _atlas-cli-1.17.0:
 
