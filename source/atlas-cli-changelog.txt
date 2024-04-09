@@ -14,9 +14,9 @@
    :depth: 1
    :class: singlecol
 
-.. _atlas-cli-1.18.0:
+.. _atlas-cli-1.19.0:
 
-{+atlas-cli+} 1.18.0
+{+atlas-cli+} 1.19.0
 --------------------
 
 Released 3 April 2024
