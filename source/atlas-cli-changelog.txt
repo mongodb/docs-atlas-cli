@@ -19,6 +19,17 @@
 {+atlas-cli+} 1.18.0
 --------------------
 
+Released 3 April 2024
+
+- Adds support for Podman 5.0.0 for local deployments.
+- Fixes an issue with the ``--watch`` flag for the
+  :ref:`atlas-deployments-search-indexes-create` command.
+
+.. _atlas-cli-1.18.0:
+
+{+atlas-cli+} 1.18.0
+--------------------
+
 Released 27 March 2024
 
 - Fixes a bug in the :ref:`atlas-events-projects-list`,
