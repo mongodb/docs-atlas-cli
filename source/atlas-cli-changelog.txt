@@ -21,7 +21,7 @@
 
 Released 11 April 2024
 
-- Adds :ref:`atlas-projects-update` command.
+- Adds the :ref:`atlas-projects-update` command.
 - Fixes an issue with the :ref:`atlas-kubernetes-config-generate`
   command. 
 
