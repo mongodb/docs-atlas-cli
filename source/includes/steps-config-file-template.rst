@@ -13,8 +13,8 @@ Follow these steps to |action| with a configuration file:
 
    .. step:: Create the configuration file.
     
-      a. Paste the copied sample request into a text editor and change
-         the values to reflect your values.
+      a. Paste the sample request into a text editor and change
+         the values to reflect your desired configuration.
       b. Save the file with a ``.json`` extension.
 
    .. step:: Run the |atlas-cli command| command with 
