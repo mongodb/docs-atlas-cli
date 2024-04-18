@@ -3,7 +3,7 @@ Follow these steps to |action 2| with a configuration file:
 .. procedure::
    :style: normal
 
-   .. step:: Copy the sample request for |openapi-link|.
+   .. step:: Copy the sample request for |openapi-link 2|.
 
       a. Navigate to the |openapi-link 2|
          section of the |service| Admin API specification.
