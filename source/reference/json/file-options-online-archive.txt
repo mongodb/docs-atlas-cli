@@ -14,12 +14,12 @@ Online Archive Configuration File
 .. multiple commands For a one-command
 .. template, use the template on cloud-backup-schedule-config-file.txt
 
-.. |atlas-cli command| replace:: :ref:`atlas-clusters-onlineArchive-create`
+.. |atlas-cli command| replace:: :ref:`atlas-clusters-onlineArchives-create`
 .. |configuration-file-name| replace:: online archive configuration  
 .. |openapi-link| replace:: :oas-atlas-tag:`Create One Online Archive </Online-Archive/operation/createOnlineArchive>`
 .. |action| replace:: create online archives
 
-.. |atlas-cli command 2| replace:: :ref:`atlas-clusters-onlineArchive-update`
+.. |atlas-cli command 2| replace:: :ref:`atlas-clusters-onlineArchives-update`
 .. |openapi-link 2| replace:: :oas-atlas-tag:`Update One Online Archive </Online-Archive/operation/updateOnlineArchive>`
 .. |action 2| replace:: update online archives
 
