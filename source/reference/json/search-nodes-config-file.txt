@@ -18,6 +18,7 @@ Search Nodes Configuration File
 .. |configuration-file-name| replace:: search nodes configuration  
 .. |openapi-link| replace:: :oas-atlas-tag:`Create Search Nodes </Atlas-Search/operation/createAtlasSearchDeployment>`
 .. |action| replace:: create search nodes
+
 .. |atlas-cli command 2| replace:: :ref:`atlas-clusters-search-nodes-update`
 .. |openapi-link 2| replace:: :oas-atlas-tag:`Update Search Nodes </Atlas-Search/operation/updateAtlasSearchDeployment>`
 .. |action 2| replace:: update search nodes

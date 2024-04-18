@@ -1,11 +1,11 @@
-Follow these steps to |action 2| with a configuration file:
+Follow these steps to |action 3| with a configuration file:
 
 .. procedure::
    :style: normal
 
-   .. step:: Copy the sample request for |openapi-link|.
+   .. step:: Copy the sample request for |openapi-link 3|.
 
-      a. Navigate to the |openapi-link 2|
+      a. Navigate to the |openapi-link 3|
          section of the |service| Admin API specification.
       b. Under :guilabel:`Request samples` on the right side, click
          :guilabel:`Expand all`.
@@ -17,7 +17,7 @@ Follow these steps to |action 2| with a configuration file:
          the values to reflect your desired configuration.
       b. Save the file with a ``.json`` extension.
 
-   .. step:: Run the |atlas-cli command 2| command with 
+   .. step:: Run the |atlas-cli command 3| command with 
       the ``--file`` option.
 
       Specify the path to the file you saved with the ``--file`` flag.
