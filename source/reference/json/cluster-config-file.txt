@@ -15,7 +15,7 @@
 .. |configuration-file-name| replace:: cluster configuration  
 .. |openapi-link| replace:: :oas-atlas-tag:`Create One Cluster from One Project </Clusters/operation/createCluster>`
 .. |action| replace:: create clusters
-  
+
 .. |atlas-cli command 2| replace:: :ref:`atlas-clusters-update`
 .. |openapi-link 2| replace:: :oas-atlas-tag:`Modify One Cluster from One Project </Clusters/operation/updateCluster>`
 .. |action 2| replace:: update clusters
@@ -48,6 +48,8 @@ can specify any settings that are listed in
 |openapi-link 3| under :guilabel:`Request Body Schema`.
 
 .. _example-cluster-config-file:
+.. _multi-cloud-example-cluster-config-file:
+.. _geosharded-example-cluster-config-file:
 
 Create a Configuration File
 ---------------------------
@@ -66,26 +68,3 @@ Upgrade a Cluster
 ~~~~~~~~~~~~~~~~~
 
 .. include:: /includes/steps-config-file-template-action-3.rst
-
-Example Configuration Files
----------------------------
-
-.. _multi-cloud-example-cluster-config-file:
-
-Example Multi-Cloud Cluster Configuration File
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-To create a multi-cloud {+cluster+}, specify more than one
-service provider for your ``regionConfigs`` objects as shown in the
-following example file:
-
-.. literalinclude:: /includes/json-cluster-config-file-multi.json
-
-.. _geosharded-example-cluster-config-file:
-
-Example Geosharded Cluster Configuration File
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-To create a :ref:`geosharded <global-clusters>` {+cluster+}, specify zones for your ``replicationSpecs`` objects as shown in the following example file:
-
-.. literalinclude:: /includes/geosharded-cluster-config-file.json
