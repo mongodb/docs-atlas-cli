@@ -55,6 +55,7 @@ mcli-version = "1.23.1"
 mdbagent = "MongoDB Agent"
 mdbVersion = "6.0"
 mongosh = ":binary:`~bin.mongosh`"
+oidc = ":abbr:`OIDC (OpenID Connect)`"
 
 [substitutions]
 a-application = "an Ops Manager Application"

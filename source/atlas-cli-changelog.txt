@@ -21,12 +21,15 @@
 
 Released 26 April 2024
 
-- Adds commands that support OIDC federated authentication, including:
+- Adds commands that support {+oidc+} federated authentication,
+  including:
+ 
   - :ref:`atlas-federatedAuthentication-federationSettings-identityProvider` commands
   - :ref:`atlas-federatedAuthentication-federationSettings-connectedOrgConfigs-connect` and :ref:`atlas-federatedAuthentication-federationSettings-connectedOrgConfigs-disconnect` commands
   - :ref:`atlas-federatedAuthentication-federationSettings-describe`
-- Updates the :ref:`atlas-dbusers-create` command to allow ``OIDC`` as
-  an authentication type.
+
+- Adds the ``oidcType`` flag for the :ref:`atlas-dbusers-create`
+  command.
 - Adds the ``--tier`` flag for the
   :ref:`atlas-streams-instances-create` command.
 
