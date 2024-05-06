@@ -14,6 +14,22 @@
    :depth: 1
    :class: singlecol
 
+.. _atlas-cli-1.22.0:
+
+{+atlas-cli+} 1.22.0
+--------------------
+
+Released 3 May 2024
+
+- Fixes a bug in the :ref:`atlas-dbusers-create` command when
+  creating an {+oidc+} user.
+- Adds the following commands to configure connected organizations:
+
+  - :ref:`atlas-connectedOrgConfigs-list`
+  - :ref:`atlas-connectedOrgsconfig-update`
+  - :ref:`atlas-connectedOrgConfigs-delete`
+  - :ref:`atlas-connectedOrgConfigs-describe`
+
 .. _atlas-cli-1.21.0:
 
 {+atlas-cli+} 1.21.0
