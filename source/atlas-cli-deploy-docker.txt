@@ -101,8 +101,8 @@ Create a Local Atlas Deployment with Docker
 Create a Local Atlas Deployment with Docker Compose
 ---------------------------------------------------
 
-Use the ``atlas deployments`` command to create a local |service|
-deployment with `Docker Compose <https://docs.docker.com/compose/>`__.
+Create a local |service| deployment with `Docker Compose 
+<https://docs.docker.com/compose/>`__.
       
 .. procedure::
    :style: normal
@@ -318,7 +318,7 @@ Docker image.
 
    .. step:: Run the following commands.
 
-      **Example::**
+      **Example:**
 
       .. code-block:: sh
 
