@@ -142,7 +142,7 @@ deployment with `Docker Compose <https://docs.docker.com/compose/>`__.
    .. step:: Run Docker Compose.
 
       The following command creates a local |service| deployment with 
-      |fts| capabilities enabled. It also returns a connection string.
+      |fts| capabilities enabled.
 
       **Example:**
 
@@ -153,8 +153,9 @@ deployment with `Docker Compose <https://docs.docker.com/compose/>`__.
    .. step:: Connect to the local |service| deployment.
 
       To connect to the local |service| deployment from the host (not 
-      container), copy and paste the following command, and replace 
-      the ``{connection_string}`` variable with your connection string.
+      container), copy and paste the following command into a new 
+      terminal, and replace the ``{connection_string}`` variable with 
+      your connection string.
 
       .. note::
 
@@ -229,7 +230,7 @@ of Docker Compose.
    .. step:: Run Docker Compose.
 
       The following command creates a local |service| deployment with 
-      |fts| capabilities enabled. It also returns a connection string.
+      |fts| capabilities enabled.
 
       **Example:**
 
@@ -248,8 +249,9 @@ of Docker Compose.
    .. step:: Connect to the local |service| deployment.
 
       To connect to the local |service| deployment from the host (not 
-      container), copy and paste the following command, and replace 
-      the ``{connection_string}`` variable with your connection string.
+      container), copy and paste the following command into a new 
+      terminal, and replace the ``{connection_string}`` variable with 
+      your connection string.
 
       .. note::
 
