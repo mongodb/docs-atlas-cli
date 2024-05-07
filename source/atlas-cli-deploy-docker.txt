@@ -16,9 +16,9 @@ Create a Local Atlas Deployment with Docker
    :depth: 1
    :class: singlecol
 
-This tutorial shows you how to use the :ref:`atlas-deployments` command 
-to create a local |service| deployment with Docker. In this tutorial, 
-we will deploy a single-node replica set with Docker.
+This tutorial shows you how to create a local |service| deployment with 
+Docker. In this tutorial, we will deploy a single-node replica set with 
+Docker.
 
 .. include:: /includes/fact-atlas-deployments-preview.rst
 
@@ -271,7 +271,7 @@ of Docker Compose.
 Generate a List of Dependencies
 -------------------------------
 
-You can generate a list of the dependances for the 
+You can generate a list of the dependencies for the 
 ``mongodb/mongodb-atlas-local`` Docker image.
 
 .. procedure::
