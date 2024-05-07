@@ -26,9 +26,6 @@ we will deploy a single-node replica set with Docker.
 
 Create a Local Atlas Deployment with Docker
 -------------------------------------------
-
-Use the ``atlas deployments`` command to create a local |service|
-deployment with Docker.
       
 .. procedure::
    :style: normal
@@ -142,9 +139,6 @@ deployment with `Docker Compose <https://docs.docker.com/compose/>`__.
              ports:
                - 27018:27017
 
-      To learn more about the available options, see 
-      :ref:`atlas-deployments-setup`.
-
    .. step:: Run Docker Compose.
 
       The following command creates a local |service| deployment with 
@@ -232,9 +226,6 @@ of Docker Compose.
          volumes:
            data:
 
-      To learn more about the available options, see 
-      :ref:`atlas-deployments-setup`.
-
    .. step:: Run Docker Compose.
 
       The following command creates a local |service| deployment with 
@@ -295,11 +286,11 @@ You can generate a list of the dependances for the
       To learn more, see the :github:`syft README 
       </anchore/syft/blob/main/README.md>`.
 
-.. step:: Run syft.
+   .. step:: Run syft.
 
-   .. code-block:: sh
+      .. code-block:: sh
 
-      syft mongodb/mongodb-atlas-local
+         syft mongodb/mongodb-atlas-local
 
 Verify the Image Signature
 --------------------------
@@ -319,7 +310,19 @@ Docker image.
          brew install cosign
 
       To learn more, see the `cosign Installation 
-      <https://docs.sigstore.dev/system_config/installation/>`__
+      <https://docs.sigstore.dev/system_config/installation/>`__.
+
+   .. step:: Run the following commands.
+
+      **Example::**
+
+      .. code-block:: sh
+
+         curl -O https://cosign.mongodb.com/mongodb-atlas-local.pem
+
+      .. code-block:: sh
+
+         COSIGN_REPOSITORY="docker.io/mongodb/signatures" cosign verify --private-infrastructure --key=./mongodb-atlas-local.pem "mongodb/mongodb-atlas-local";
 
 Run the Image with GitHub Actions
 ---------------------------------
@@ -356,9 +359,3 @@ directory:
             sudo dpkg -i mongosh.deb
             mongosh --version
         - run: mongosh 'mongodb://localhost/?directConnection=true' --eval 'show dbs'
-
-Supported Actions
------------------
-
-To learn all of the actions that ``atlas deployments`` supports, see
-:ref:`atlas-deployments`.
