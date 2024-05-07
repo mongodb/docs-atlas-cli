@@ -34,11 +34,13 @@ Create a Local Atlas Deployment with Docker
 
       To learn more, see the `Docker documentation <https://docs.docker.com/desktop/install/mac-install/>`__.
 
-   .. step:: Pull down the latest ``mongodb/mongodb-atlas-local`` Docker image.
+   .. step:: Pull down the ``mongodb/mongodb-atlas-local`` Docker image.
+
+      **Example:**
 
       .. code-block:: sh
 
-         docker pull mongodb/mongodb-atlas-local
+         docker pull mongodb/mongodb-atlas-local:latest
 
    .. step:: Run the Docker image.
 
