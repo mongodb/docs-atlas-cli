@@ -24,14 +24,14 @@ Released 23 May 2024
 - Adds support for Amazon Linux 2023. To learn more, see 
   :ref:`install-atlas-cli`.
 
-- Updates :ref:`atlas-deployment-ls` to list atlas clusters in case of 
-  local failures.
+- Updates :ref:`atlas-deployments-list` to list atlas clusters in case 
+  of local failures.
 
 - Stops publishing new versions on the ``server-4.4 Linux yum/apt`` 
   repositories.
 
 - Adds support for ``srvShardOptimizedConnectionString`` to the 
-  :ref:`atlas-cluster-connectionstring-get` command.
+  :ref:`atlas-clusters-connectionStrings-describe` command.
 
 .. _atlas-cli-1.22.0:
 
