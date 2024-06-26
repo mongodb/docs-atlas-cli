@@ -27,7 +27,7 @@ settings required when you |action|
 using the {+atlas-cli+}. The {+atlas-cli+} accepts ``.json`` 
 |configuration-file-name| files.
 
-.. _cloud-backup-schedule-settings:
+.. _cloud-backup-compliance-policy-settings:
 
 Available Settings
 ------------------
@@ -36,7 +36,7 @@ When you |action| using a configuration file, you
 can specify any settings that are listed in 
 |openapi-link| under :guilabel:`Request Body Schema`.
 
-.. _example-cloud-backup-schedule-config-file:
+.. _example-cloud-backup-compliance-policy-config-file:
 
 Create a Configuration File
 ---------------------------
