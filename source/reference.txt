@@ -9,7 +9,7 @@ accept the ``--file`` option.
 Section Overview
 ----------------
 
-:ref:`|json| <json-cluster-config>`
+:ref:`JSON <json-cluster-config>`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Learn how to pass configuration values to the {+atlas-cli+} with 
