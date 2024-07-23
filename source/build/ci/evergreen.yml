@@ -1,0 +1,1325 @@
+# Copyright 2021 MongoDB Inc
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+exec_timeout_secs: 4200 # automatically fail any task if it takes longer than 1h10m to finish.
+stepback: true
+command_type: system
+pre_error_fails_task: true
+
+variables:
+  - &go_linux_version
+      go_root: "/opt/golang/go1.22"
+      go_bin: "/opt/golang/go1.22/bin"
+      go_base_path: ""
+  - &go_env
+      XDG_CONFIG_HOME: ${go_base_path}${workdir}
+      GO111MODULE: "on"
+      GOROOT: ${go_root}
+      GOPATH: ${go_base_path}${workdir}
+      ADD_PATH: "${go_bin}:${go_base_path}${workdir}/bin:${go_base_path}${workdir}/src/github.com/mongodb/mongodb-atlas-cli/bin"
+      GOPROXY: ${go_proxy}
+  - &go_options
+    add_to_path:
+      - ${go_bin}
+      - ${go_base_path}${workdir}/bin
+      - ${go_base_path}${workdir}/src/github.com/mongodb/mongodb-atlas-cli/bin
+    include_expansions_in_env:
+      - go_base_path
+      - go_proxy
+      - workdir
+    working_dir: src/github.com/mongodb/mongodb-atlas-cli
+    env:
+      <<: *go_env
+functions:
+  "clone":
+    - command: git.get_project
+      type: setup
+      params:
+        directory: src/github.com/mongodb/mongodb-atlas-cli
+  "build":
+    - command: subprocess.exec
+      type: test
+      params:
+        <<: *go_options
+        command: make build
+  "e2e test":
+    - command: subprocess.exec
+      type: test
+      params:
+        <<: *go_options
+        include_expansions_in_env:
+          - go_base_path
+          - workdir
+          - MCLI_ORG_ID
+          - MCLI_PROJECT_ID
+          - MCLI_PRIVATE_API_KEY
+          - MCLI_PUBLIC_API_KEY
+          - MCLI_SERVICE
+          - TEST_CMD
+          - E2E_TAGS
+          - E2E_TEST_BUCKET
+          - E2E_CLOUD_ROLE_ID
+          - MCLI_OPS_MANAGER_URL
+          - OM_VERSION
+          - LOCAL_KEY
+          - KMIP_CA
+          - KMIP_CERT
+          - GCP_CREDENTIALS
+          - AWS_ACCESS_KEY
+          - AWS_SECRET_ACCESS_KEY
+          - AZURE_TENANT_ID
+          - AZURE_CLIENT_ID
+          - AZURE_CLIENT_SECRET
+          - E2E_TIMEOUT
+          - E2E_SERVERLESS_INSTANCE_NAME
+          - E2E_PARALLEL
+          - IDENTITY_PROVIDER_ID
+          - revision
+        env:
+          <<: *go_env
+          MCLI_SKIP_UPDATE_CHECK: "yes"
+          TEST_CMD: gotestsum --junitfile e2e-tests.xml --format standard-verbose --
+        command: make e2e-test
+  "install gotestsum":
+    - command: shell.exec
+      type: setup
+      params:
+        <<: *go_options
+        working_dir: src/github.com/mongodb/mongodb-atlas-cli/bin
+        shell: bash
+        script: |
+          set -Eeou pipefail
+          export PATH="$ADD_PATH:$PATH"
+          curl -sfL https://github.com/gotestyourself/gotestsum/releases/download/v${gotestsum_ver}/gotestsum_${gotestsum_ver}_linux_amd64.tar.gz | tar zx
+  "generate evergreen":
+    - command: subprocess.exec
+      type: test
+      params:
+        <<: *go_options
+        include_expansions_in_env:
+          - go_base_path
+          - workdir
+          - task_type
+        binary: build/ci/evergreen-generate-tasks.sh
+    - command: s3.put
+      params:
+        aws_key: ${aws_key}
+        aws_secret: ${aws_secret}
+        local_files_include_filter:
+          - src/github.com/mongodb/mongodb-atlas-cli/tasks.json
+        remote_file: ${project}/dist/${revision}_${created_at}/atlascli/${task_type}/
+        bucket: mongodb-mongocli-build
+        permissions: public-read
+        content_type: ${content_type|application/json}
+        display_name: internal-bucket
+    - command: generate.tasks
+      params:
+        files:
+          - tasks.json
+pre:
+  - func: "clone"
+post:
+  - command: attach.xunit_results
+    params:
+      files: ["src/github.com/mongodb/mongodb-atlas-cli/*.xml"]
+tasks:
+  - name: compile
+    tags: ["code_health"]
+    commands:
+      - func: "build"
+  - name: config_e2e
+    tags: ["e2e","required"]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - command: shell.exec
+        type: test
+        params:
+          <<: *go_options
+          shell: bash
+          script: |
+            set -Eeou pipefail
+            mkdir "$XDG_CONFIG_HOME/atlascli"
+            cat <<EOF > "$XDG_CONFIG_HOME/atlascli/config.toml"
+            [e2e]
+              org_id = "5e429e7706822c6eac4d5971"
+              public_api_key = "AAUMGJXA"
+              service = "cloud"
+            EOF
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,config
+  - name: brew_e2e
+    tags: ["e2e","required"]
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          E2E_TAGS: brew
+  # If your e2e tests depend on a cluster running please consider setting it on its own task
+  - name: atlas_generic_e2e
+    tags: ["e2e","generic","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,generic
+          IDENTITY_PROVIDER_ID: ${identity_provider_id}
+  - name: atlas_gov_generic_e2e
+    tags: ["e2e","generic","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_gov_org_id}
+          MCLI_PROJECT_ID: ${atlas_gov_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_gov_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_gov_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_cloud_gov_ops_manager_url}
+          MCLI_SERVICE: cloudgov
+          E2E_TAGS: atlas,generic
+          IDENTITY_PROVIDER_ID: ${identity_provider_id}
+  # This is all about cluster which tends to be slow to get a healthy one
+  - name: atlas_clusters_flags_e2e
+    tags: ["e2e","clusters","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,clusters,flags
+  - name: atlas_clusters_file_e2e
+    tags: ["e2e","clusters","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_clusters_flags_e2e
+        variant: "e2e_atlas_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,clusters,file
+  - name: atlas_clusters_sharded_e2e
+    tags: ["e2e","clusters","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_clusters_flags_e2e
+        variant: "e2e_atlas_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,clusters,sharded
+  - name: atlas_clusters_m0_e2e
+    tags: ["e2e","clusters","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_clusters_flags_e2e
+        variant: "e2e_atlas_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,clusters,m0
+  - name: atlas_kubernetes_generate_e2e
+    tags: ["e2e","atlas","kubernetes", "assigned_to_jira_team_cloudp_kubernetes_atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_clusters_flags_e2e
+        variant: "e2e_atlas_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,cluster,kubernetes,generate
+  - name: atlas_kubernetes_apply_e2e
+    tags: [ "e2e","atlas","kubernetes", "assigned_to_jira_team_cloudp_kubernetes_atlas" ]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_clusters_flags_e2e
+        variant: "e2e_atlas_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,cluster,kubernetes,apply
+  - name: atlas_clusters_upgrade_e2e
+    tags: ["e2e","clusters","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_clusters_flags_e2e
+        variant: "e2e_atlas_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,clusters,upgrade
+  - name: atlas_interactive_e2e
+    tags: ["e2e","atlas", "interactive"]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,interactive
+  - name: atlas_serverless_e2e
+    tags: ["e2e","clusters","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_clusters_flags_e2e
+        variant: "e2e_atlas_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,serverless,instance
+  - name: atlas_gov_clusters_flags_e2e
+    tags: ["e2e","clusters","atlasgov"]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_gov_org_id}
+          MCLI_PROJECT_ID: ${atlas_gov_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_gov_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_gov_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_cloud_gov_ops_manager_url}
+          MCLI_SERVICE: cloudgov
+          E2E_TAGS: atlas,clusters,flags
+  - name: atlas_gov_clusters_file_e2e
+    tags: ["e2e","clusters","atlasgov"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_gov_clusters_flags_e2e
+        variant: "e2e_atlas_gov_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_gov_org_id}
+          MCLI_PROJECT_ID: ${atlas_gov_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_gov_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_gov_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_cloud_gov_ops_manager_url}
+          MCLI_SERVICE: cloudgov
+          E2E_TAGS: atlas,clusters,file
+  - name: atlas_gov_clusters_sharded_e2e
+    tags: ["e2e","clusters","atlasgov"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_gov_clusters_flags_e2e
+        variant: "e2e_atlas_gov_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_gov_org_id}
+          MCLI_PROJECT_ID: ${atlas_gov_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_gov_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_gov_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_cloud_gov_ops_manager_url}
+          MCLI_SERVICE: cloudgov
+          E2E_TAGS: atlas,clusters,sharded
+  # LDAP Configuration depends on a cluster running
+  - name: atlas_ldap_e2e
+    tags: ["e2e","clusters","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_clusters_flags_e2e
+        variant: "e2e_atlas_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,ldap
+  # Logs depend on a cluster running to get logs from
+  - name: atlas_logs_e2e
+    tags: ["e2e","clusters","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_clusters_flags_e2e
+        variant: "e2e_atlas_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,logs
+  - name: atlas_gov_logs_e2e
+    tags: ["e2e","clusters","atlasgov"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_gov_clusters_flags_e2e
+        variant: "e2e_atlas_gov_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_gov_org_id}
+          MCLI_PROJECT_ID: ${atlas_gov_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_gov_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_gov_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_cloud_gov_ops_manager_url}
+          MCLI_SERVICE: cloudgov
+          E2E_TAGS: atlas,logs
+  # Metrics depend on a cluster running to get metrics from
+  - name: atlas_metrics_e2e
+    tags: ["e2e","clusters","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_clusters_flags_e2e
+        variant: "e2e_atlas_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,metrics
+  - name: atlas_gov_metrics_e2e
+    tags: ["e2e","clusters","atlasgov"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_gov_clusters_flags_e2e
+        variant: "e2e_atlas_gov_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_gov_org_id}
+          MCLI_PROJECT_ID: ${atlas_gov_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_gov_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_gov_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_cloud_gov_ops_manager_url}
+          MCLI_SERVICE: cloudgov
+          E2E_TAGS: atlas,metrics
+  # Processes depend on a cluster running
+  - name: atlas_processes_e2e
+    tags: ["e2e","clusters","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_clusters_flags_e2e
+        variant: "e2e_atlas_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,processes
+  - name: atlas_gov_processes_e2e
+    tags: ["e2e","clusters","atlasgov"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_gov_clusters_flags_e2e
+        variant: "e2e_atlas_gov_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_gov_org_id}
+          MCLI_PROJECT_ID: ${atlas_gov_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_gov_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_gov_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_cloud_gov_ops_manager_url}
+          MCLI_SERVICE: cloudgov
+          E2E_TAGS: atlas,processes
+  # Online archives depend on a cluster to create the archive against
+  - name: atlas_online_archive_e2e
+    tags: ["e2e","clusters","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_clusters_flags_e2e
+        variant: "e2e_atlas_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,onlinearchive
+  # Performance Advisor depend on a cluster
+  - name: atlas_performance_advisor_e2e
+    tags: ["e2e","clusters","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_clusters_flags_e2e
+        variant: "e2e_atlas_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,performanceAdvisor
+  - name: atlas_gov_performance_advisor_e2e
+    tags: ["e2e","clusters","atlasgov"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_gov_clusters_flags_e2e
+        variant: "e2e_atlas_gov_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_gov_org_id}
+          MCLI_PROJECT_ID: ${atlas_gov_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_gov_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_gov_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_cloud_gov_ops_manager_url}
+          MCLI_SERVICE: cloudgov
+          E2E_TAGS: atlas,performanceAdvisor
+  # Search depend on a cluster to create the indexes against
+  - name: atlas_search_e2e
+    tags: ["e2e","clusters","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_clusters_flags_e2e
+        variant: "e2e_atlas_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,search
+  - name: atlas_gov_search_e2e
+    tags: ["e2e","clusters","atlasgov"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_gov_clusters_flags_e2e
+        variant: "e2e_atlas_gov_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_gov_org_id}
+          MCLI_PROJECT_ID: ${atlas_gov_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_gov_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_gov_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_cloud_gov_ops_manager_url}
+          MCLI_SERVICE: cloudgov
+          E2E_TAGS: atlas,search
+  - name: atlas_search_nodes_e2e
+    tags: ["e2e","clusters","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: atlas_clusters_flags_e2e
+        variant: "e2e_atlas_clusters"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,search_nodes
+  # Private endpoints can be flaky when multiple tests run concurrently so keeping this out of the PR suite
+  - name: atlas_private_endpoint_e2e
+    tags: ["e2e","networking","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,networking
+  # datafederation requires cloud provider role authentication and an s3 bucket created
+  - name: atlas_datafederation_db_e2e
+    tags: ["e2e","datafederation","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,datafederation,db
+          E2E_TEST_BUCKET: ${e2e_test_bucket}
+          E2E_CLOUD_ROLE_ID: ${e2e_cloud_role_id}
+  # datafederation requires cloud provider role authentication and an s3 bucket created
+  - name: atlas_datafederation_privatenetwork_e2e
+    tags: ["e2e","datafederation","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,datafederation,privatenetwork
+          E2E_TEST_BUCKET: ${e2e_test_bucket}
+          E2E_CLOUD_ROLE_ID: ${e2e_cloud_role_id}
+  # datafederation requires cloud provider role authentication and an s3 bucket created
+  - name: atlas_datafederation_querylimits_e2e
+    tags: ["e2e","datafederation","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,datafederation,querylimits
+          E2E_TEST_BUCKET: ${e2e_test_bucket}
+          E2E_CLOUD_ROLE_ID: ${e2e_cloud_role_id}
+  # datalakepipeline requires cloud provider role authentication and an s3 bucket created
+  - name: atlas_datalakepipeline_e2e
+    tags: ["e2e","datalakepipeline","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,datalakepipeline
+          E2E_TEST_BUCKET: ${e2e_test_bucket}
+          E2E_CLOUD_ROLE_ID: ${e2e_cloud_role_id}
+  # IAM commands tests with an Atlas profile
+  - name: atlas_iam_e2e
+    tags: ["e2e","generic","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: iam,atlas
+  - name: atlas_gov_iam_e2e
+    tags: ["e2e","generic","atlas"]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_gov_org_id}
+          MCLI_PROJECT_ID: ${atlas_gov_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_gov_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_gov_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_cloud_gov_ops_manager_url}
+          MCLI_SERVICE: cloudgov
+          E2E_TAGS: iam
+    # Live migration endpoints can be flaky when multiple tests run concurrently so keeping this out of the PR suite
+  - name: atlas_live_migrations_link_token_e2e
+    tags: ["e2e","atlas","livemigrations"]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,livemigrations
+  # Streams commands tests
+  - name: atlas_streams
+    tags: ["e2e","generic","atlas", "assigned_to_jira_team_cloudp_atlas_streams"]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,streams
+  - name: atlas_streams_with_cluster
+    tags: [ "e2e","streams","atlas","assigned_to_jira_team_cloudp_atlas_streams"]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,streams_with_cluster
+  - name: atlas_decrypt_e2e
+    tags: [ "e2e","decrypt" ]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "build"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          GCP_CREDENTIALS: ${logs_decrypt_gcp_credentials}
+          AWS_ACCESS_KEY: ${logs_decrypt_aws_access_key}
+          AWS_SECRET_ACCESS_KEY: ${logs_decrypt_aws_secret_access_key}
+          AZURE_TENANT_ID: ${logs_decrypt_azure_tenant_id}
+          AZURE_CLIENT_ID: ${logs_decrypt_azure_client_id}
+          AZURE_CLIENT_SECRET: ${logs_decrypt_azure_client_secret}
+          E2E_TAGS: atlas,decrypt
+  - name: atlas_backups_snapshots_e2e
+    tags: [ "e2e","backup","atlas" ]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,backup,snapshot
+          E2E_CLOUD_ROLE_ID: ${e2e_cloud_role_id}
+          E2E_TEST_BUCKET: ${e2e_test_bucket}
+  - name: atlas_backups_schedule_e2e
+    tags: [ "e2e","backup","atlas" ]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,backup,schedule
+          E2E_CLOUD_ROLE_ID: ${e2e_cloud_role_id}
+          E2E_TEST_BUCKET: ${e2e_test_bucket}
+  - name: atlas_backups_exports_buckets_e2e
+    tags: [ "e2e","backup","atlas" ]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,backup,exports,buckets
+          E2E_CLOUD_ROLE_ID: ${e2e_cloud_role_id}
+          E2E_TEST_BUCKET: ${e2e_test_bucket}
+  - name: atlas_backups_exports_jobs_e2e
+    tags: [ "e2e","backup","atlas" ]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,backup,exports,jobs
+          E2E_CLOUD_ROLE_ID: ${e2e_cloud_role_id}
+          E2E_TEST_BUCKET: ${e2e_test_bucket}
+  - name: atlas_backups_serverless_e2e
+    tags: [ "e2e","backup","atlas" ]
+    must_have_test_results: true
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,backup,serverless
+          E2E_CLOUD_ROLE_ID: ${e2e_cloud_role_id}
+          E2E_TEST_BUCKET: ${e2e_test_bucket}
+          E2E_SERVERLESS_INSTANCE_NAME: ${e2e_serverless_instance_name}
+  - name: atlas_backups_restores_e2e
+    tags: [ "e2e","backup","atlas" ]
+    must_have_test_results: true
+    exec_timeout_secs: 11400 # 3 hours 10 minutes
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        timeout_secs: 11400 # 3 hours 10 minutes
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,backup,restores
+          E2E_CLOUD_ROLE_ID: ${e2e_cloud_role_id}
+          E2E_TEST_BUCKET: ${e2e_test_bucket}
+          E2E_TIMEOUT: 3h
+  - name: atlas_backups_compliancepolicy_e2e
+    tags: [ "e2e","backup","atlas" ]
+    must_have_test_results: true
+    exec_timeout_secs: 11400 # 3 hours 10 minutes
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        timeout_secs: 11400 # 3 hours 10 minutes
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,backup,compliancepolicy
+          E2E_CLOUD_ROLE_ID: ${e2e_cloud_role_id}
+          E2E_TEST_BUCKET: ${e2e_test_bucket}
+          E2E_TIMEOUT: 3h
+  - name: atlas_cleanup_e2e
+    tags: [ "e2e","cleanup", "foliage_check_task_only" ]
+    must_have_test_results: true
+    exec_timeout_secs: 11400 # 3 hours 10 minutes
+    stepback: false
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        timeout_secs: 11400 # 3 hours 10 minutes
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,cleanup
+          E2E_PARALLEL: 16
+          E2E_TIMEOUT: 3h
+  - name: atlas_gov_cleanup_e2e
+    tags: [ "e2e","cleanup", "foliage_check_task_only" ]
+    must_have_test_results: true
+    exec_timeout_secs: 11400 # 3 hours 10 minutes
+    stepback: false
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        timeout_secs: 11400 # 3 hours 10 minutes
+        vars:
+          MCLI_ORG_ID: ${atlas_gov_org_id}
+          MCLI_PROJECT_ID: ${atlas_gov_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_gov_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_gov_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_cloud_gov_ops_manager_url}
+          MCLI_SERVICE: cloudgov
+          E2E_TAGS: atlas,cleanup
+          E2E_TIMEOUT: 3h
+          E2E_PARALLEL: 16
+  - name: atlas_deployments_local_noauth_e2e
+    tags: ["e2e","deployments","local","noauth"]
+    must_have_test_results: true
+    exec_timeout_secs: 11400 # 3 hours 10 minutes
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - command: shell.exec
+        type: setup
+        params:
+          shell: bash
+          script: |
+            set -e
+            cat /proc/sys/fs/inotify/max_user_watches
+            cat /proc/sys/fs/inotify/max_user_instances
+            echo 1024 | sudo tee /proc/sys/fs/inotify/max_user_instances
+            cat /proc/sys/fs/inotify/max_user_instances
+      - func: "e2e test"
+        timeout_secs: 11400 # 3 hours 10 minutes
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,deployments,local,noauth
+          E2E_TIMEOUT: 3h
+  - name: atlas_deployments_local_auth_e2e
+    tags: ["e2e","deployments","local","auth"]
+    must_have_test_results: true
+    exec_timeout_secs: 11400 # 3 hours 10 minutes
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - command: shell.exec
+        type: setup
+        params:
+          shell: bash
+          script: |
+            set -e
+            cat /proc/sys/fs/inotify/max_user_watches
+            cat /proc/sys/fs/inotify/max_user_instances
+            echo 1024 | sudo tee /proc/sys/fs/inotify/max_user_instances
+            cat /proc/sys/fs/inotify/max_user_instances
+      - func: "e2e test"
+        timeout_secs: 11400 # 3 hours 10 minutes
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,deployments,local,auth
+          E2E_TIMEOUT: 3h
+  - name: atlas_deployments_atlas_clusters_e2e
+    tags: ["e2e","deployments","atlas"]
+    must_have_test_results: true
+    exec_timeout_secs: 11400 # 3 hours 10 minutes
+    depends_on:
+      - name: compile
+        variant: "code_health"
+        patch_optional: true
+    commands:
+      - func: "install gotestsum"
+      - func: "e2e test"
+        timeout_secs: 11400 # 3 hours 10 minutes
+        vars:
+          MCLI_ORG_ID: ${atlas_org_id}
+          MCLI_PROJECT_ID: ${atlas_project_id}
+          MCLI_PRIVATE_API_KEY: ${atlas_private_api_key}
+          MCLI_PUBLIC_API_KEY: ${atlas_public_api_key}
+          MCLI_OPS_MANAGER_URL: ${mcli_ops_manager_url}
+          MCLI_SERVICE: cloud
+          E2E_TAGS: atlas,deployments,atlasclusters
+          E2E_TIMEOUT: 3h
+buildvariants:
+  - name: code_health
+    display_name: "Code Health"
+    run_on:
+      - rhel80-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: .code_health
+  - name: e2e_generic
+    display_name: "E2E Tests Generic"
+    run_on:
+      - rhel80-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: ".e2e .generic"
+  - name: e2e_required
+    display_name: "E2E Tests Required"
+    run_on:
+      - rhel80-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: ".e2e .required"
+  - name: e2e_interactive
+    display_name: "E2E Interactive Commands"
+    run_on:
+      - rhel80-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: ".e2e .interactive"
+  - name: e2e_atlas_clusters
+    display_name: "E2E Atlas Cluster Tests"
+    run_on:
+      - rhel80-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: ".e2e .clusters .atlas"
+  - name: e2e_atlas_kubernetes
+    display_name: "E2E Atlas Kubernetes Tests"
+    run_on:
+      - ubuntu2204-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: ".e2e .atlas .kubernetes"
+  - name: e2e_decryption
+    display_name: "E2E Decryption Tests"
+    run_on:
+      - rhel80-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: ".e2e .decrypt"
+  - name: e2e_atlas_gov_clusters
+    display_name: "E2E Atlas Gov Cluster Tests"
+    run_on:
+      - rhel80-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: ".e2e .clusters .atlasgov"
+  - name: e2e_atlas_networking
+    display_name: "E2E Atlas Networking Tests"
+    run_on:
+      - rhel80-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: ".e2e .networking .atlas"
+  - name: e2e_atlas_live_migrations
+    display_name: "E2E Atlas Live Migrations Tests"
+    run_on:
+      - rhel80-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: ".e2e .livemigrations .atlas"
+  - name: e2e_atlas_datafederation
+    display_name: "E2E Atlas Data Federation Tests"
+    run_on:
+      - rhel80-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: ".e2e .datafederation .atlas"
+  - name: e2e_atlas_datalakepipeline
+    display_name: "E2E Atlas Datalake Pipeline Tests"
+    run_on:
+      - rhel80-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: ".e2e .datalakepipeline .atlas"
+  - name: e2e_atlas_backups
+    display_name: "E2E Atlas Backup Tests"
+    run_on:
+      - rhel80-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: ".e2e .backup .atlas"
+  - name: e2e_cleanup
+    display_name: "E2E Cleanup Resources"
+    run_on:
+      - rhel80-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: ".e2e .cleanup"
+        cron: "0 2 * * *" # 2am daily
+  - name: e2e_atlas_deployments
+    display_name: "E2E Atlas Deployments Tests"
+    run_on:
+      - rhel80-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: ".e2e .deployments .atlas"
+  - name: e2e_local_deployments_podman
+    display_name: "E2E Local Deployments Tests (rhel/podman)"
+    run_on:
+      - rhel90-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: ".e2e .deployments .local"
+  - name: e2e_local_deployments_docker
+    display_name: "E2E Local Deployments Tests (ubuntu/docker)"
+    run_on:
+      - ubuntu2204-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: ".e2e .deployments .local"
+  - name: e2e_atlas_streams_with_clusters
+    display_name: "E2E Atlas Streams with Clusters Tests"
+    run_on:
+      - ubuntu2204-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: ".e2e .atlas .streams"
+include:
+  - filename: build/ci/release.yml

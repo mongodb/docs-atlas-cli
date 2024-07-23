@@ -1,0 +1,510 @@
+variables:
+  - &go_linux_version
+      go_root: "/opt/golang/go1.22"
+      go_bin: "/opt/golang/go1.22/bin"
+      go_base_path: ""
+  - &go_windows_version
+      go_root: "c:\\golang\\go1.22"
+      go_bin: "c:\\golang\\go1.22/bin"
+      go_base_path: "c:"
+  - &go_env
+      XDG_CONFIG_HOME: ${go_base_path}${workdir}
+      GO111MODULE: "on"
+      GOROOT: ${go_root}
+      GOPATH: ${go_base_path}${workdir}
+      ADD_PATH: "${go_bin}:${go_base_path}${workdir}/bin:${go_base_path}${workdir}/src/github.com/mongodb/mongodb-atlas-cli/bin"
+  - &go_options
+    add_to_path:
+      - ${go_bin}
+      - ${go_base_path}${workdir}/bin
+      - ${go_base_path}${workdir}/src/github.com/mongodb/mongodb-atlas-cli/bin
+    include_expansions_in_env:
+      - go_base_path
+      - workdir
+    working_dir: src/github.com/mongodb/mongodb-atlas-cli
+    env:
+      <<: *go_env
+functions:
+  "install gh-token":
+    - command: shell.exec
+      type: setup
+      params:
+        working_dir: src/github.com/mongodb/mongodb-atlas-cli/bin
+        script: |
+          set -Eeou pipefail
+          curl --output gh-token -sfL https://github.com/Link-/gh-token/releases/download/v2.0.1/linux-amd64
+          chmod 755 ./gh-token
+  "install goreleaser":
+    - command: shell.exec
+      type: setup
+      params:
+        working_dir: src/github.com/mongodb/mongodb-atlas-cli/bin
+        script: |
+          set -Eeou pipefail
+
+          curl -sfL ${goreleaser_pro_tar_gz} | tar zx
+  "install macos notarization service":
+    - command: shell.exec
+      type: setup
+      params:
+        working_dir: src/github.com/mongodb/mongodb-atlas-cli
+        include_expansions_in_env:
+          - notary_service_url
+        script: |
+          set -Eeou pipefail
+          curl "${notary_service_url}" --output macos-notary.zip
+          unzip -u macos-notary.zip
+          chmod 755 ./linux_amd64/macnotary
+  "install curator":
+    - command: shell.exec
+      type: setup
+      params:
+        working_dir: src/github.com/mongodb/mongodb-atlas-cli/bin
+        script: |
+          set -Eeou pipefail
+
+          curl -sL http://boxes.10gen.com/build/curator/curator-dist-rhel70-${curator_release|"latest"}.tar.gz | tar zx
+  "generate notices":
+    - command: subprocess.exec
+      type: test
+      params:
+        <<: *go_options
+        binary: build/package/generate-notices.sh
+  "package":
+    - command: subprocess.exec
+      type: test
+      params:
+        <<: *go_options
+        env:
+          <<: *go_env
+          ARTIFACTORY_USERNAME: ${artifactory_username}
+          ARTIFACTORY_PASSWORD: ${artifactory_password}
+          GRS_USERNAME: ${garasign_username}
+          GRS_PASSWORD: ${garasign_password}
+        include_expansions_in_env:
+          - go_base_path
+          - workdir
+          - notary_service_key_id
+          - notary_service_secret
+          - notary_service_url
+          - goreleaser_key
+          - github_app_id
+          - github_app_pem
+          - unstable
+        binary: build/package/package.sh
+  "install go-msi":
+    - command: subprocess.exec
+      type: setup
+      params:
+        working_dir: src/github.com/mongodb/mongodb-atlas-cli
+        command: choco install -y "go-msi" --force
+  "uninstall go-msi":
+    - command: subprocess.exec
+      type: setup
+      params:
+        working_dir: src/github.com/mongodb/mongodb-atlas-cli
+        command: choco uninstall -y "go-msi"
+  "generate msi":
+    - command: subprocess.exec
+      type: test
+      params:
+        <<: *go_options
+        add_to_path:
+          - ${go_bin}
+          - ${go_base_path}${workdir}/bin
+          - ${go_base_path}${workdir}/src/github.com/mongodb/mongodb-atlas-cli/bin
+          - "/cygdrive/c/Program Files/go-msi"
+          - "/cygdrive/c/wixtools/bin"
+        env:
+          <<: *go_env
+          SECRET_API_KEY: ${chocolatey_api_key}
+          ARTIFACTORY_USERNAME: ${artifactory_username}
+          ARTIFACTORY_PASSWORD: ${artifactory_password}
+          GRS_USERNAME: ${garasign_username}
+          GRS_PASSWORD: ${garasign_password}
+          unstable: ${unstable}
+        command: bash.exe -c build/package/generate-msi.sh
+  "rename pkg":
+    - command: subprocess.exec
+      type: test
+      params:
+        <<: *go_options
+        include_expansions_in_env:
+          - go_base_path
+          - workdir
+          - unstable
+          - latest_deb
+          - latest_rpm
+          - package_name
+          - meta_package_name
+        binary: build/package/rename-pkg.sh
+  "send slack notification":
+    - command: subprocess.exec
+      type: test
+      params:
+        working_dir: src/github.com/mongodb/mongodb-atlas-cli
+        silent: true
+        include_expansions_in_env:
+          - evergreen_user
+          - evergreen_api_key
+          - release_slack_channel
+          - revision
+          - created_at
+          - unstable
+        binary: build/package/send-slack-notification.sh
+  "generate download archive json":
+    - command: subprocess.exec
+      type: test
+      params:
+        <<: *go_options
+        working_dir: src/github.com/mongodb/mongodb-atlas-cli/dist
+        include_expansions_in_env:
+          - go_base_path
+          - workdir
+          - FEED_FILE_NAME
+        binary: ../build/package/generate-download-archive-manifest.sh
+  "upload dist":
+    - command: s3.put
+      params:
+        aws_key: ${aws_key}
+        aws_secret: ${aws_secret}
+        local_files_include_filter:
+          - src/github.com/mongodb/mongodb-atlas-cli/dist/*.tar.gz
+          - src/github.com/mongodb/mongodb-atlas-cli/dist/*.zip
+          - src/github.com/mongodb/mongodb-atlas-cli/dist/*.deb
+          - src/github.com/mongodb/mongodb-atlas-cli/dist/*.rpm
+          - src/github.com/mongodb/mongodb-atlas-cli/dist/*.tgz
+          - src/github.com/mongodb/mongodb-atlas-cli/dist/*.json
+          - src/github.com/mongodb/mongodb-atlas-cli/dist/*.msi
+          - src/github.com/mongodb/mongodb-atlas-cli/dist/*.sig
+        remote_file: ${project}/dist/${revision}_${created_at}/
+        bucket: mongodb-mongocli-build
+        permissions: public-read
+        content_type: ${content_type|application/x-gzip}
+        display_name: internal-bucket
+  "push":
+    - command: subprocess.exec
+      type: test
+      params:
+        <<: *go_options
+        include_expansions_in_env:
+          - go_base_path
+          - workdir
+          - barque_url
+          - distro
+          - edition
+          - server_version
+          - project
+          - revision
+          - created_at
+          - ext
+          - signing_auth_token_46
+          - signing_auth_token_50
+          - signing_auth_token_60
+          - signing_auth_token_70
+          - arch
+        env:
+          <<: *go_env
+          NOTARY_KEY_NAME: ${notary_key_name|server-5.0}
+          BARQUE_USERNAME: ${barque_user}
+          BARQUE_API_KEY: ${barque_api_key}
+        binary: build/package/curator-push.sh
+  "docker build":
+    - command: subprocess.exec
+      type: test
+      params:
+        include_expansions_in_env:
+          - project
+          - revision
+          - created_at
+          - image
+        working_dir: src/github.com/mongodb/mongodb-atlas-cli/build/package/docker
+        binary: ./docker-build.sh
+  "docker build meta":
+    - command: subprocess.exec
+      type: test
+      params:
+        include_expansions_in_env:
+          - project
+          - revision
+          - server_version
+          - created_at
+          - image
+        working_dir: src/github.com/mongodb/mongodb-atlas-cli/build/package/docker/meta
+        binary: ./docker-build.sh
+  "powershell build":
+    - command: subprocess.exec
+      type: test
+      params:
+        include_expansions_in_env:
+          - project
+          - revision
+          - created_at
+          - unstable
+        working_dir: src/github.com/mongodb/mongodb-atlas-cli/
+        binary: Powershell -File ./build/package/powershell/windows_post_package_test.ps1
+  "docker build repo":
+    - command: subprocess.exec
+      type: test
+      params:
+        include_expansions_in_env:
+          - image
+          - package
+          - server_version
+          - entrypoint
+          - mongo_package
+          - mongo_repo
+        working_dir: src/github.com/mongodb/mongodb-atlas-cli/build/package/docker/repo
+        binary: ./docker-build.sh
+tasks:
+  - name: package_msi
+    tags: ["packaging"]
+    depends_on:
+      - name: compile
+        variant: "code_health"
+    commands:
+      - func: "install go-msi"
+      - func: "generate msi"
+        vars:
+          unstable: ${unstable}
+      - func: "uninstall go-msi"
+      - command: s3.put
+        params:
+          aws_key: ${aws_key}
+          aws_secret: ${aws_secret}
+          local_files_include_filter:
+            - src/github.com/mongodb/mongodb-atlas-cli/bin/*.exe
+            - src/github.com/mongodb/mongodb-atlas-cli/dist/*.msi
+          remote_file: ${project}/dist/${revision}_${created_at}/unsigned_
+          bucket: mongodb-mongocli-build
+          permissions: public-read
+          content_type: ${content_type|application/octet-stream}
+          display_name: unsigned
+  - name: package_goreleaser
+    tags: ["packaging"]
+    depends_on:
+      - name: compile
+        variant: "code_health"
+    commands:
+      - func: "generate notices"
+      - func: "install goreleaser"
+      - func: "install macos notarization service"
+      - func: "install gh-token"
+      - command: subprocess.exec
+        type: test
+        params:
+          working_dir: src/github.com/mongodb/mongodb-atlas-cli
+          include_expansions_in_env:
+            - project
+            - revision
+            - created_at
+          env:
+            BUCKET: mongodb-mongocli-build
+            unstable: ${unstable}
+          binary: build/package/download-win-binaries.sh
+      - command: subprocess.exec
+        type: test
+        params:
+          include_expansions_in_env:
+            - unstable
+          env:
+            ARTIFACTORY_USERNAME: ${artifactory_username}
+            ARTIFACTORY_PASSWORD: ${artifactory_password}
+            GRS_USERNAME: ${garasign_username}
+            GRS_PASSWORD: ${garasign_password}
+          working_dir: src/github.com/mongodb/mongodb-atlas-cli
+          binary: build/package/windows_notarize.sh
+      - func: "package"
+        vars:
+          unstable: ${unstable}
+          ARTIFACTORY_USERNAME: ${artifactory_username}
+          ARTIFACTORY_PASSWORD: ${artifactory_password}
+          GRS_USERNAME: ${garasign_username}
+          GRS_PASSWORD: ${garasign_password}
+      - func: "rename pkg"
+        vars:
+          unstable: ${unstable}
+          latest_deb: ${latest_deb}
+          latest_rpm: ${latest_rpm}
+          package_name: ${package_name}
+          meta_package_name: ${meta_package_name}
+      - command: archive.targz_pack
+        params:
+          target: src/github.com/mongodb/mongodb-atlas-cli/dist/atlascli-deb-x86_64.tgz
+          source_dir: src/github.com/mongodb/mongodb-atlas-cli/dist/apt/x86_64
+          include:
+            - "*.deb"
+      - command: archive.targz_pack
+        params:
+          target: src/github.com/mongodb/mongodb-atlas-cli/dist/atlascli-deb-arm64.tgz
+          source_dir: src/github.com/mongodb/mongodb-atlas-cli/dist/apt/arm64
+          include:
+            - "*.deb"
+      - command: archive.targz_pack
+        params:
+          target: src/github.com/mongodb/mongodb-atlas-cli/dist/atlascli-rpm-x86_64.tgz
+          source_dir: src/github.com/mongodb/mongodb-atlas-cli/dist/yum/x86_64
+          include:
+            - "*.rpm"
+      - command: archive.targz_pack
+        params:
+          target: src/github.com/mongodb/mongodb-atlas-cli/dist/atlascli-rpm-aarch64.tgz
+          source_dir: src/github.com/mongodb/mongodb-atlas-cli/dist/yum/arm64
+          include:
+            - "*.rpm"
+      - func: "generate download archive json"
+        vars:
+          package_name: ${package_name}
+          FEED_FILE_NAME: "${package_name}.json"
+      - func: "upload dist"
+      - command: s3.put
+        params:
+          aws_key: ${download_center_aws_key}
+          aws_secret: ${download_center_aws_secret}
+          local_files_include_filter:
+            - src/github.com/mongodb/mongodb-atlas-cli/dist/*.tar.gz
+            - src/github.com/mongodb/mongodb-atlas-cli/dist/*.zip
+            - src/github.com/mongodb/mongodb-atlas-cli/dist/*.deb
+            - src/github.com/mongodb/mongodb-atlas-cli/dist/*.rpm
+            - src/github.com/mongodb/mongodb-atlas-cli/dist/*.tgz
+            - src/github.com/mongodb/mongodb-atlas-cli/dist/*.json
+            - src/github.com/mongodb/mongodb-atlas-cli/dist/*.msi
+            - src/github.com/mongodb/mongodb-atlas-cli/dist/*.sig
+          remote_file: mongocli/
+          build_variants:
+            - release_mongocli_github
+            - release_atlascli_github
+          bucket: downloads.mongodb.org
+          permissions: public-read
+          content_type: ${content_type|application/x-gzip}
+          display_name: downloads-center-
+      - func: "send slack notification"
+  - name: push_atlascli_generate
+    patchable: false
+    stepback: false
+    commands:
+      - func: "generate evergreen"
+        vars:
+          task_type: snapshot
+  - name: push_stable_atlascli_generate
+    git_tag_only: true
+    stepback: false
+    commands:
+      - func: "generate evergreen"
+        vars:
+          task_type: publish
+  - name: pkg_test_atlascli_generate
+    tags: [ "smoke-test", "atlascli", "pkg" ]
+    commands:
+      - func: "generate evergreen"
+        vars:
+          task_type: postpkg
+  - name: pkg_test_repo_atlascli
+    patchable: false
+    git_tag_only: true
+    depends_on:
+        - name: package_goreleaser
+          variant: "release_atlascli_github"
+    tags: [ "smoke-test", "generate", "repo", "atlascli" ]
+    commands:
+      - func: "generate evergreen"
+        vars:
+          task_type: repo
+  - name: pkg_test_windows
+    tags: [ "smoke-test", "windows" ]
+    depends_on:
+      - name: package_goreleaser
+        variant: goreleaser_atlascli_snapshot
+    commands:
+      - func: "powershell build"
+        vars:
+          file: windows_post_package_test
+buildvariants:
+  - name: go_atlascli_msi_snapshot
+    display_name: "Packaging AtlasCLI (go-msi)"
+    run_on:
+      - windows-vsCurrent-small
+    expansions:
+      <<: *go_windows_version
+      unstable: -unstable
+    tasks:
+      - name: package_msi
+  - name: goreleaser_atlascli_snapshot
+    display_name: "Packaging AtlasCLI (goreleaser)"
+    run_on:
+      - rhel90-small
+    expansions:
+      <<: *go_linux_version
+      server_version: "4.4.0-rc3"
+      package_name: "mongodb-atlas-cli"
+      meta_package_name: "mongodb-atlas"
+      latest_deb: ~latest
+      latest_rpm: .latest
+      unstable: -unstable
+    tasks:
+      - name: package_goreleaser
+        depends_on:
+          - name: package_msi
+            variant: "go_atlascli_msi_snapshot"
+  - name: publish_atlascli_snapshot
+    display_name: "Publish AtlasCLI Snapshot"
+    run_on:
+      - rhel80-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: push_atlascli_generate
+  - name: release_atlascli_github
+    display_name: "Release AtlasCLI (goreleaser)"
+    git_tag_only: true
+    run_on:
+      - rhel90-small
+    expansions:
+      <<: *go_linux_version
+      server_version: "4.4.0-rc3"
+      package_name: "mongodb-atlas-cli"
+      meta_package_name: "mongodb-atlas"
+    tasks:
+      - name: package_goreleaser
+        depends_on:
+          - name: package_msi
+            variant: release_atlascli_msi
+  - name: release_atlascli_msi
+    display_name: "Release AtlasCLI (go-msi)"
+    run_on:
+      - windows-vsCurrent-small
+    git_tag_only: true
+    expansions:
+      <<: *go_windows_version
+    tasks:
+      - name: package_msi
+  - name: release_atlascli_publish
+    display_name: "Publish AtlasCLI Generator"
+    run_on:
+      - rhel80-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: push_stable_atlascli_generate
+  - name: pkg_smoke_tests_docker_atlascli
+    display_name: "Post packaging smoke tests (Docker / AtlasCLI)"
+    run_on: ubuntu2004-small
+    expansions:
+      <<: *go_linux_version
+    tasks:
+      - name: .smoke-test .atlascli .pkg
+  - name: pkg_smoke_tests_windows_atlascli
+    display_name: "Post packaging smoke tests (Windows / AtlasCLI)"
+    run_on: windows-vsCurrent-small
+    expansions:
+      unstable: -unstable
+    tasks:
+      - name: .smoke-test .windows
+  - name: release_atlascli_repo_test
+    display_name: "Test AtlasCLI repo"
+    expansions:
+      <<: *go_linux_version
+    run_on:
+      - ubuntu2004-small
+    tasks:
+      - name: .smoke-test .generate .repo .atlascli
