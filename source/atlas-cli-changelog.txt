@@ -14,6 +14,23 @@
    :depth: 1
    :class: singlecol
 
+.. _atlas-cli-1.26.0:
+
+{+atlas-cli+} 1.26.0
+--------------------
+
+Released 25 July 2024
+
+- Fixes a local deployment error message when you don't have Docker
+  installed on MacOS and Windows. 
+- Fixes the issue with connecting to local deployment using {+mongosh+}
+  and :compass:`Compass </> ` on Windows.
+- Updates the :ref:`atlas-deployments-setup` command to always use the
+  latest image when creating a new local deployment.
+- Fixes a bug in the :ref:`atlas-deployments-setup` command where the
+  {+atlas-cli+} deletes an existing local deployment when you run this
+  command twice for the same deployment.
+
 .. _atlas-cli-1.25.0:
 
 {+atlas-cli+} 1.25.0
