@@ -173,7 +173,7 @@ Released 29 February 2024
 
 .. _atlas-cli-1.15.0:
 
-{+atlas-cli+} 1.15.0
+{+atlas-cli+} 1.15.
 --------------------
 
 Released 22 February 2024
