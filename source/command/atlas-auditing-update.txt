@@ -1,8 +1,8 @@
-.. _atlas-backups-exports-jobs-describe:
+.. _atlas-auditing-update:
 
-===================================
-atlas backups exports jobs describe
-===================================
+=====================
+atlas auditing update
+=====================
 
 .. default-domain:: mongodb
 
@@ -12,7 +12,7 @@ atlas backups exports jobs describe
    :depth: 1
    :class: singlecol
 
-Return one cloud backup export job for your project, cluster and job.
+Updates the auditing configuration for the specified project
 
 To use this command, you must authenticate with a user account or an API key with the Project Owner role.
 
@@ -22,7 +22,7 @@ Syntax
 .. code-block::
    :caption: Command Syntax
 
-   atlas backups exports jobs describe [options]
+   atlas auditing update [options]
 
 .. Code end marker, please don't delete this comment
 
@@ -37,20 +37,30 @@ Options
      - Type
      - Required
      - Description
-   * - --clusterName
-     - string
-     - true
-     - Name of the cluster. To learn more, see https://dochub.mongodb.org/core/create-cluster-api.
-   * - --exportId
+   * - --auditAuthorizationSuccess
+     - 
+     - false
+     - Flag that indicates whether someone set auditing to track successful authentications. This only applies to the "atype" : "authCheck" audit filter. Setting this parameter to true degrades cluster performance.
+   * - --auditFilter
      - string
      - false
-     - Unique string that identifies the AWS S3 bucket to which you export your snapshots.
+     - JSON document that specifies which events to record. Escape any characters that may prevent parsing, such as single or double quotes, using a backslash (\).
 
-       Mutually exclusive with --bucketId.
+       Mutually exclusive with --file.
+   * - --enabled
+     - 
+     - false
+     - Flag that indicates whether someone enabled database auditing for the specified project.
+   * - -f, --file
+     - string
+     - false
+     - Path to an optional JSON configuration file that defines auditing filters. To learn more about auditing configuration files for the Atlas CLI, see https://www.mongodb.com/docs/atlas/database-auditing/#example-auditing-filters
+
+       Mutually exclusive with --auditFilter.
    * - -h, --help
      - 
      - false
-     - help for describe
+     - help for update
    * - -o, --output
      - string
      - false
@@ -83,8 +93,7 @@ If the command succeeds, the CLI returns output similar to the following sample.
 
 .. code-block::
 
-   ID     EXPORT BUCKET ID   STATE     SNAPSHOT ID
-   <Id>   <ExportBucketId>   <State>   <SnapshotId>
+   Auditing configuration successfully updated.
    
 
 Examples
@@ -93,5 +102,13 @@ Examples
 .. code-block::
    :copyable: false
 
-   # Return the details for the continuous backup export job with the ID 5df90590f10fab5e33de2305 for the cluster named Cluster0:
-   atlas backup exports jobs describe --clusterName Cluster0 --exportID 5df90590f10fab5e33de2305
+   # Audit all authentication events for known users:
+   atlas auditing update --auditFilter '{"atype": "authenticate"}'
+
+   
+.. code-block::
+   :copyable: false
+
+   # Audit all authentication events for known user via a configuration file:
+   atlas auditing update -f filter.json
+
