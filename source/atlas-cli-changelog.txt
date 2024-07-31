@@ -23,7 +23,7 @@ Released 25 July 2024
 
 - Fixes a local deployment error message when you don't have Docker
   installed on MacOS and Windows. 
-- Fixes the issue with connecting to local deployment using {+mongosh+}
+- Fixes an issue when connecting to a local deployment using {+mongosh+}
   and :compass:`Compass </>` on Windows.
 - Updates the :ref:`atlas-deployments-setup` command to always use the
   latest image when creating a new local deployment.
