@@ -44,7 +44,7 @@ Options
    * - -f, --file
      - string
      - true
-     - Name of the JSON index configuration file to use.
+     - Name of the JSON index configuration file to use. To learn about the Atlas Search Nodes configuration file, see https://dochub.mongodb.org/core/search-nodes-config-file-atlascli.
    * - -h, --help
      - 
      - false
@@ -96,6 +96,7 @@ Examples
 --------
 
 .. code-block::
+   :copyable: false
 
    # Create a search node for the cluster named myCluster using a JSON node spec configuration file named spec.json:
    atlas clusters search nodes create --clusterName myCluster --file spec.json --output json
