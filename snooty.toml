@@ -1,5 +1,6 @@
 name = "atlas-cli"
 title = "Atlas Command Line Interface"
+eol = true
 
 intersphinx = [ "https://www.mongodb.com/docs/ops-manager/current/objects.inv",            
                 "https://www.mongodb.com/docs/manual/objects.inv",
@@ -126,4 +127,11 @@ value = """\
     functionality doesn't include CLI commands. When we introduce a \ 
     new set of CLI commands for our new Data Lake functionality, we \
     will reach out to you to prevent any interruption of service.\
+    """
+
+[[banners]]
+targets = ["*"]
+variant = "info"
+value = """\
+    This version of the documentation is archived and no longer supported. View the `current documentation <https://www.mongodb.com/docs/atlas/cli/current/>`__ to learn how to `upgrade your version of Atlas CLI <https://www.mongodb.com/docs/atlas/cli/current/install-atlas-cli/#update-the-atlas-cli>`__.\
     """
