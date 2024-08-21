@@ -59,11 +59,11 @@ To check whether your operating system is compatible with the
       Complete the Prerequisites
       ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-      To install the {+atlas-cli+} using Apt, you must install ``gnupg``:
+      To install the {+atlas-cli+} using Apt, you must install ``gnupg`` and ``curl``:
 
       .. code-block:: sh
          
-         sudo apt-get install gnupg
+         sudo apt-get install gnupg curl
 
    .. tab:: Chocolatey
       :tabid: chocolatey
@@ -267,7 +267,9 @@ Follow These Steps
 
             .. code-block:: sh
      
-               wget -qO - https://pgp.mongodb.com/server-{+mdbVersion+}.asc | sudo apt-key add -
+               curl -fsSL https://pgp.mongodb.com/server-{+mdbVersion+}.asc | \
+                  sudo gpg -o /usr/share/keyrings/mongodb-server-{+mdbVersion+}.gpg \
+                  --dearmor
      
             A successful command returns an ``OK``.
 
