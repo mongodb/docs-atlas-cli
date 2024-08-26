@@ -143,32 +143,6 @@ Follow These Steps
 
                   .. tabs::
 
-                     .. tab:: RHEL
-                        :tabid: rhel
-
-                        .. code-block:: text
-                           :emphasize-lines: 1
-          
-                           [mongodb-org-{+mdbVersion+}]
-                           name=MongoDB Repository
-                           baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/{+mdbVersion+}/x86_64/
-                           gpgcheck=1
-                           enabled=1
-                           gpgkey=https://pgp.mongodb.com/server-{+mdbVersion+}.asc
-
-                     .. tab:: Amazon Linux 2
-                        :tabid: amazon2
-
-                        .. code-block:: text
-                           :emphasize-lines: 1
-
-                           [mongodb-org-{+mdbVersion+}]
-                           name=MongoDB Repository
-                           baseurl=https://repo.mongodb.org/yum/amazon/2/mongodb-org/{+mdbVersion+}/x86_64/
-                           gpgcheck=1
-                           enabled=1
-                           gpgkey=https://pgp.mongodb.com/server-{+mdbVersion+}.asc
-
                      .. tab:: Amazon Linux 2023
                         :tabid: amazon2023
 
@@ -340,13 +314,6 @@ Follow These Steps
                               .. code-block:: sh
 
                                  echo "deb http://repo.mongodb.org/apt/debian bullseye/mongodb-org/{+mdbVersion+} main" | sudo tee /etc/apt/sources.list.d/mongodb-org-{+mdbVersion+}.list
-
-                           .. tab:: Debian 10 (Buster)
-                              :tabid: comm-deb-10
-
-                              .. code-block:: sh
-
-                                 echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/{+mdbVersion+} main" | sudo tee /etc/apt/sources.list.d/mongodb-org-{+mdbVersion+}.list
 
                .. tab:: MongoDB Enterprise Edition
                   :tabid: mdb-ent
