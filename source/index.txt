@@ -5,7 +5,7 @@
 .. _atlascli:
 
 ==========================
-What is the {+atlas-cli+}?
+What  test is the {+atlas-cli+}?
 ==========================
 
 .. introduction::
