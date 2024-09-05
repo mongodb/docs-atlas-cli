@@ -1,7 +1,7 @@
 .. _atlas-cli-tutorials:
 
 =======================================
-Manage |service| from the {+atlas-cli+}
+Manage test  |service| from the {+atlas-cli+}
 =======================================
 
 .. default-domain:: mongodb
