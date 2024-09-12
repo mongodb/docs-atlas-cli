@@ -71,6 +71,14 @@ Create a Local Atlas Deployment with Docker
          .. tab:: Automate Connection
             :tabid: automate-connection
 
+            To automate a containerized deployment of Atlas, you'll need to wait 
+            for the container to be in a healthy state before you can connect to Atlas. 
+
+            The following example demonstrates deploying an Atlas image in Docker
+            and polling Docker to check the state of the container. Once the 
+            container is in a healthy state, the script atuomates a connection 
+            to your Atlas instance with Mongosh. 
+
             a. Create a file called ``mongodb-atlas-local.sh``, and paste the 
                following script into your new file. 
 
