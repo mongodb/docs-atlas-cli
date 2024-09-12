@@ -54,21 +54,21 @@ Create a Local Atlas Deployment with Docker
 
       .. tabs::
 
-         .. tab:: Manually Connect with No Authentication
+         .. tab:: Manually Connect no Auth
             :tabid: no-auth
 
             .. code-block:: sh
 
                docker run -p 27017:27017 mongodb/mongodb-atlas-local
 
-         .. tab:: Manually Connect with Authentication
+         .. tab:: Manually Connect with Auth
             :tabid: with-auth
 
             .. code-block:: sh
 
                docker run -e MONGODB_INITDB_ROOT_USERNAME=user -e MONGODB_INITDB_ROOT_PASSWORD=pass -p 27017:27017 mongodb/mongodb-atlas-local
 
-         .. tab:: Automate Connection to Running Container
+         .. tab:: Automate Connection
             :tabid: automate-connection
 
             .. step:: Paste the following script into a local file. 
