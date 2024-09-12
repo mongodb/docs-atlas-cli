@@ -71,7 +71,7 @@ Create a Local Atlas Deployment with Docker
          .. tab:: Automate Connection
             :tabid: automate-connection
 
-            .. step:: Paste the following script into a local file. 
+            a. Paste the following script into a local file. 
 
                Create a file called ``mongodb-atlas-local.sh``, and paste the 
                following script into your new file. 
@@ -120,7 +120,7 @@ Create a Local Atlas Deployment with Docker
                   # example usage of the connection string to connect to mongosh
                   mongosh "$CONNECTION_STRING"
 
-            .. step:: Make the file executable. 
+            b. Make the file executable. 
 
                Run the following command to update the permissions on the file. 
 
@@ -128,7 +128,7 @@ Create a Local Atlas Deployment with Docker
 
                   chmod +x mongodb-atlas-local.sh
 
-            .. step:: Run the executable. 
+            c. Run the executable. 
 
                .. code-block:: sh
 
