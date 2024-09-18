@@ -592,19 +592,19 @@ Released 25 May 2023
 
 - Adds the following new commands to manage {+data-lake+} pipelines:
 
-  - :ref:`atlas-dataLakePipelines-create`
-  - :ref:`atlas-dataLakePipelines-datasets-delete`
-  - :ref:`atlas-dataLakePipelines-delete`
-  - :ref:`atlas-dataLakePipelines-describe`
-  - :ref:`atlas-dataLakePipelines-list`
-  - :ref:`atlas-dataLakePipelines-pause`
-  - :ref:`atlas-dataLakePipelines-runs-describe`
-  - :ref:`atlas-dataLakePipelines-runs-list`
-  - :ref:`atlas-dataLakePipelines-runs-watch`
-  - :ref:`atlas-dataLakePipelines-start`
-  - :ref:`atlas-dataLakePipelines-trigger`
-  - :ref:`atlas-dataLakePipelines-update`
-  - :ref:`atlas-dataLakePipelines-watch`
+  - ``atlas dataLakePipelines create``
+  - ``atlas dataLakePipelines datasets delete``
+  - ``atlas dataLakePipelines delete``
+  - ``atlas dataLakePipelines describe``
+  - ``atlas dataLakePipelines list``
+  - ``atlas dataLakePipelines pause``
+  - ``atlas dataLakePipelines runs describe``
+  - ``atlas dataLakePipelines runs list``
+  - ``atlas dataLakePipelines runs watch``
+  - ``atlas dataLakePipelines start``
+  - ``atlas dataLakePipelines trigger``
+  - ``atlas dataLakePipelines update``
+  - ``atlas dataLakePipelines watch``
 
 - Adds the following new commands to load and manage sample data:
 
