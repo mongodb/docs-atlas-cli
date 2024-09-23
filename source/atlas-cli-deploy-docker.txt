@@ -30,7 +30,7 @@ Docker.
 
 .. _atlas-cli-deploy-docker-setup:
 
-Create a Local Atlas Deployment with Docker
+Create a Local |service| Deployment with Docker
 -------------------------------------------
       
 .. procedure::
@@ -71,20 +71,20 @@ Create a Local Atlas Deployment with Docker
          .. tab:: Automate Connection
             :tabid: automate-connection
 
-            To automate a containerized deployment of Atlas, you'll need to wait 
-            for the container to be in a healthy state before you can connect to Atlas. 
+            To automate a containerized deployment of |service|, you'll need to wait 
+            for the container to be in a healthy state before you can connect to |service|. 
 
-            The following example demonstrates deploying an Atlas image in Docker
+            The following example demonstrates deploying an |service| image in Docker
             and polling Docker to check the state of the container. Once the 
-            container is in a healthy state, the script atuomates a connection 
-            to your Atlas instance with Mongosh. 
+            container is in a healthy state, the script automates a connection 
+            to your |service| instance with `Mongosh <https://www.mongodb.com/docs/mongodb-shell/install/>`__. 
 
             a. Create a file called ``mongodb-atlas-local.sh``, and paste the 
                following script into your new file. 
 
                .. code-block:: sh
 
-                  # start mongodb-atlas-local container
+                  # Start mongodb-atlas-local container
                   echo "Starting the container"
                   CONTAINER_ID=$(docker run --rm -d -P mongodb/mongodb-atlas-local:latest)
                   
@@ -120,10 +120,10 @@ Create a Local Atlas Deployment with Docker
                   wait "$CONTAINER_ID"
                   EXPOSED_PORT=$(docker inspect --format='{{ (index (index .NetworkSettings.Ports "27017/tcp") 0).HostPort }}' "$CONTAINER_ID")
                   
-                  # build the connectionstring
+                  # Build the connectionstring
                   CONNECTION_STRING="mongodb://127.0.0.1:$EXPOSED_PORT/test?directConnection=true"
                   
-                  # example usage of the connection string to connect to mongosh
+                  # Example usage of the connection string to connect to mongosh
                   mongosh "$CONNECTION_STRING"
 
             b. Run the following command to make the file executable. 
