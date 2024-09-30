@@ -49,9 +49,15 @@ Supported OS for Local Atlas Deployments
      - 2
      - 2
 
+   * - Windows
+     - 10, 11
+     - x86
+     - 2
+     - 2
+
 .. note::
 
-   Windows and Ubuntu are not fully supported for local |service| 
+   Ubuntu is not fully supported for local |service| 
    deployments during the Public Preview stage.
 
 .. _atlas-cli-deploy-local-reqs:
