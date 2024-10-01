@@ -136,7 +136,7 @@ The {+atlas-cli+} supports the following environment variables:
 
             HTTP_PROXY=<username>:<password>@<my.proxy.address>
 
-       - If the scheme is ``socks5``.
+       - If the scheme is ``socks5``:
 
          .. code-block:: sh 
             :copyable: false 
