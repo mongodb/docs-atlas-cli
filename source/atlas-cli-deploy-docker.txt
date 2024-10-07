@@ -23,7 +23,7 @@ Docker.
 .. _atlas-cli-deploy-docker-setup:
 
 Create a Local |service| Deployment with Docker
--------------------------------------------
+-----------------------------------------------
       
 .. procedure::
    :style: normal
