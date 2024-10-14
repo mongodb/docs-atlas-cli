@@ -209,16 +209,29 @@ inside our official docker container, ``mongodb/atlas`` in v1.26 or
 later. Instead, follow the steps decribed in
 :ref:`atlas-cli-deploy-docker`.
 
-You should also inspect past containers and remove any that start with
-``mongod`` or ``mongot`` in your {+cluster+} with the following command:
+You should inspect past containers in your {+cluster+} with the
+following command:
 
 .. code-block::
 
-   podman ps
+   podman ps -a
+
+Then, remove any that start with ``mongod`` or ``mongot`` with the
+following command:
+
+.. code-block::
+
+   podman container rm -f -v <name or ID>
 
 .. tip::
 
    You can safely uninstall podman if you're on MacOS.
+
+   If you installed podman with homebrew, use this command to uninstall:
+
+   .. code-block::
+
+      brew uninstall podman
 
 Configuration Errors
 --------------------
