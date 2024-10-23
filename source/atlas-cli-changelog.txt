@@ -954,23 +954,3 @@ Released 13 June 2022
 Released 06 June 2022
 
 - Fixes login and setup display issues for Microsoft Windows users.
-
-.. _atlas-cli-1.1.1:
-
-{+atlas-cli+} 1.1.1
--------------------
-
-Released 02 June 2022
-
-Changes
-~~~~~~~
-
-- Adds :ref:`telemetry <telemetry>` data to track the choices you make at the following interactive prompts:
-
-  - confirm (``yes/no``)
-  - default output format
-  - cloud provider region
-  - choose a default organization
-  - choose a default project
-
-- Updates the :ref:`atlas-setup` with minor bug fixes and design refinements.
