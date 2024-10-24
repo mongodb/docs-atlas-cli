@@ -135,5 +135,5 @@ value = """\
 targets = ["*"]
 variant = "info"
 value = """\
-    This version of the documentation is archived and no longer supported. View the `current documentation <https://www.mongodb.com/docs/atlas/cli/current/>`__ to learn how to `upgrade your version of Atlas CLI <https://www.mongodb.com/products/tools/atlas-cli>`__.\
+    This version of the documentation is archived and no longer supported. View the `current documentation <https://www.mongodb.com/docs/atlas/cli/current/install-atlas-cli/>`__ to learn how to upgrade your version of Atlas CLI.\
     """
