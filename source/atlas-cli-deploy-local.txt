@@ -74,7 +74,14 @@ Supported OS for Local Atlas Deployments
 Complete the Prerequisites
 --------------------------
 
-.. include:: /includes/fact-deploy-tutorial-prereqs.rst
+Before you begin, complete the following prerequisites:
+
+.. important::
+
+   For compatibility information for each prerequisite product, see the 
+   related installation pages.
+
+.. include:: /includes/steps-atlas-cli-deploy-local-prereqs.rst
 
 .. _atlas-cli-deploy-local-setup:
 
