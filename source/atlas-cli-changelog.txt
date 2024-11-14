@@ -27,7 +27,7 @@ Released 07 November 2024
 - Fixes a bug where |service| deployments didn't show up in some
   :ref:`atlas-deployments` commands. 
 - Updates the progress message for the :ref:`atlas-deployments-setup` command.
-- Improves the UX for the :ref:`atlas-deployments-logs` command
+- Improves the UX for the :ref:`atlas-deployments-logs` command.
 - Removes the ``--watchTimeout`` flag from the
   :ref:`atlas-deployments-search-indexes-create` command.
 - Prompts to start a paused or stopped deployment for the
