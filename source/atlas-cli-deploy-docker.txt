@@ -476,6 +476,12 @@ Compose YAML file:
 .. code-block:: yaml
 
    local_dev_atlas:
-     image: mongodb-atlas-local:latest
+     image: mongodb/mongodb-atlas-local:latest
      ports:
        - 27017:27017
+     environment:
+       - MONGODB_INITDB_ROOT_USERNAME=user
+       - MONGODB_INITDB_ROOT_PASSWORD=pass
+     volumes:
+       - data:/data/db
+       - config:/data/configdb
