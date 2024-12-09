@@ -467,21 +467,27 @@ Compose YAML file:
 
 .. code-block:: yaml
 
-   self_built_atlas_implementation:
-     image: mongo:8.0
-     ports:
-       - 27017:27017
-     command: ["./entrypoint.sh"]  # You may have defined a health check for the database in the entrypoint script.
+   services:
+     self_built_atlas_implementation:
+       image: mongo:8.0
+       ports:
+         - 27017:27017
+       command: ["./entrypoint.sh"]  # You may have defined a health check for the database in the entrypoint script.
 
 .. code-block:: yaml
 
-   local_dev_atlas:
-     image: mongodb/mongodb-atlas-local:latest
-     ports:
-       - 27017:27017
-     environment:
-       - MONGODB_INITDB_ROOT_USERNAME=user
-       - MONGODB_INITDB_ROOT_PASSWORD=pass
-     volumes:
-       - data:/data/db
-       - config:/data/configdb
+   services:
+     local_dev_atlas:
+       image: mongodb/mongodb-atlas-local:latest
+       hostname: local_dev_atlas
+       ports:
+         - 27017:27017
+       environment:
+         - MONGODB_INITDB_ROOT_USERNAME=user
+         - MONGODB_INITDB_ROOT_PASSWORD=pass
+       volumes:
+         - data:/data/db
+         - config:/data/configdb
+   volumes:
+     - data:
+     - config:
