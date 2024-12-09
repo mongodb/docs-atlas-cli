@@ -24,11 +24,10 @@ Released 4 December 2024
 - Adds the ``--mdbVersion`` and ``--connectWith`` flags in the :ref:`atlas-setup`
   command.
 - Deprecates the ``--skipMongosh`` flag in the :ref:`atlas-setup` command.
-  When you use the :ref:`atlas-setup` and :ref:`atlas-deployments-setup`
-  commands in interactive mode, the commands now behave in the same way
-  when you choose ``default`` (Deploy with default settings),
-  ``custom`` (Deploy with custom settings), or ``cancel`` (Cancel setup)
-  options.
+- Updates the :ref:`atlas-deployments-setup` interactive mode to use the
+  same questions and default values used by the :ref:`atlas-setup` command
+  for the ``default`` (deploy with default settings), ``custom`` (deploy
+  with custom settings), or ``cancel`` (cancel setup) options.
 
 .. _atlas-cli-1.32.0:
 
