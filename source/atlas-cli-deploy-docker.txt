@@ -452,11 +452,11 @@ image, you can refer to the following checklist to simplify converting it to
 the `mongodb-atlas-local <https://hub.docker.com/r/mongodb/mongodb-atlas-local>`__ image.
 
 1. Remove any existing ``command`` from your ``docker-compose.yaml`` file. Because 
-   the ``comand`` in a Docker Compose definition overrides the ``ENTRYPOINT`` 
+   the ``command`` in a Docker Compose definition overrides the ``ENTRYPOINT`` 
    defined in the ``mongodb-atlas-local`` image, you must remove any existing 
    ``command`` for the ``mongodb-atlas-local`` image to run as designed. 
 
-2. There is no need to define a health check for the Atlas deployment, as this 
+2. There is no need to define a health check for the |service| deployment, as this 
    feature is built in to the ``mongodb-atlas-local`` image. 
 
 Example Docker Compose Updates
