@@ -443,8 +443,8 @@ directory:
 
 .. _convert-to-local-dev:
 
-Convert Official Image to an Atlas Local Dev Implementation
------------------------------------------------------------
+Convert Official Image to a Local Atlas Deployment
+--------------------------------------------------
 
 If you have an existing |service| implementation running in Docker Compose that 
 you have built with the official `mongo <https://hub.docker.com/_/mongo>`__ Docker 
@@ -478,7 +478,7 @@ Compose YAML file:
 
    services:
      local_dev_atlas:
-       image: mongodb/mongodb-atlas-local:latest
+       image: mongodb/mongodb-atlas-local:8.0
        hostname: local_dev_atlas
        ports:
          - 27017:27017
