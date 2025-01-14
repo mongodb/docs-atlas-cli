@@ -1,6 +1,6 @@
 .. important::
 
-   If your local machine uses the Apple Silicon M4 chip, add the following 
+   If your local machine runs MacOS Sequoia 15.2 with the Apple Silicon M4 chip, add the following 
    :abbr:`JVM (Java Virtual Machine)` parameter to the ``docker run`` command 
    to prevent your container from crashing upon startup. For example: 
 
