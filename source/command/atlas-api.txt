@@ -13,10 +13,10 @@ atlas api
    :class: singlecol
 
 Access all features of the `{+atlas-admin-api+} <https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/>`__ 
-using the {+atlas-cli+} with the syntax: ``atlas api <tag> <operationId>``.
+by using the {+atlas-cli+} with the syntax: ``atlas api <tag> <operationId>``.
 
 This experimental feature streamlines script development by letting you interact 
-directly with any {+atlas-admin-api+} endpoint using the {+atlas-cli+}.
+directly with any {+atlas-admin-api+} endpoint by using the {+atlas-cli+}.
 
 To learn more about working with the {+atlas-admin-api+}, see :ref:`atlas-admin-api-access`.
 
@@ -28,32 +28,41 @@ Syntax
 
    atlas api <tag> <operationId> [options]
 
+.. important::
+   
+   Both ``<tag>`` and ``<operationId>`` must be in :wikipedia:`camelCase <Camel_case>`.
+
 Arguments  
 ---------  
 
-* **<tag>**
-  
-  *Type:* string
+.. list-table::
+   :header-rows: 1
+   :widths: 20 10 10 60
 
-  *Required*
+   * - Name
+     - Type
+     - Required
+     - Description
+   * - <tag>
+     - string
+     - true
+     - The category of {+atlas-admin-api+} operations in :wikipedia:`camelCase <Camel_case>`. 
+       To find and format the tag, check 
+       the `API documentation <https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/>`__ 
+       |url| for the endpoint. It appears after ``#tag/``, but you need to change to camelCase. 
+       For example, in 
+       ``https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/#tag/Monitoring-and-Logs``, 
+       the tag is ``Monitoring-and-Logs``. In camelCase, it's ``monitoringAndLogs``.
+   * - <operationId>
+     - string
+     - true
+     - The identifier of the {+atlas-admin-api+} endpoint in :wikipedia:`camelCase <Camel_case>`. 
+       To find the operationId, check the 
+       `API documentation <https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/>`__ 
+       |url| for the endpoint. It appears after ``operation/``. For example, in 
+       ``https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/#tag/Clusters/operation/listClusters``, 
+       the operationId is ``listClusters``.
 
-  The category of {+atlas-admin-api+} operations. To find the tag, check 
-  the `API documentation <https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/>`__ 
-  |url| for the endpoint. It appears after ``#tag/``. For example, in 
-  ``https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/#tag/Clusters/operation/listClusters``, 
-  the tag is ``Clusters``.
-
-* **<operationId>**
-
-  *Type:* string
-
-  *Required*
-  
-  The identifier of the {+atlas-admin-api+} endpoint. To find the operationId, check the 
-  `API documentation <https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/>`__ 
-  |url| for the endpoint. It appears after ``operation/``. For example, in 
-  ``https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/#tag/Clusters/operation/listClusters``, 
-  the operationId is ``listClusters``.
 
 Options  
 -------  
@@ -65,6 +74,11 @@ the {+atlas-cli+} command is:
 .. code-block:: shell
 
    atlas api <tag> <operationId> --orgId <ORG_ID> --invoiceId <INVOICE_ID> 
+
+.. note::
+   
+   You usually don't need to specify ``--orgId`` and ``--projectId`` as they are sourced 
+   from your profile. Specify them only if they are not set in your profile.
 
 If applicable to the endpoint, pass in the request body using the ``--file`` option 
 or standard input (``stdin``). 
@@ -88,12 +102,19 @@ In addition, the following options are available for all {+atlas-admin-api+} end
      - string  
      - false  
      - Specify the :ref:`version <api-versioning-overview>` of the {+atlas-admin-api+} 
-       for the command. Defaults to the latest API version.  
+       for the command. Defaults to the latest API version or the value you've configured for ``api_version`` in your profile. 
    * - ``--format``  
      - string  
      - false  
-     - Output format. Supported formats include ``json``, ``csv``, or a Go template. 
-       Defaults to ``json``.  
+     - Output format. The default is ``json``, but the supported formats can vary by endpoint:
+
+       - Most endpoints output ``json``. When ``json`` is supported, you can also use a Go template.
+       - Some endpoints support ``json`` and ``csv``, allowing you to use ``json``, ``csv``, or a Go template.
+       - Certain endpoints output binary data (for example, logs in gzip format), requiring the ``--out`` option.
+      
+       To determine the supported formats for an endpoint:
+       - Check the content response type examples in the API documentation.
+       - Run ``atlas api <tag> <operationId> --help`` for details.  
    * - ``--file``  
      - string  
      - false  
