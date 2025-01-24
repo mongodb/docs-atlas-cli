@@ -37,7 +37,7 @@ Arguments
 
 .. list-table::
    :header-rows: 1
-   :widths: 20 10 10 60
+   :widths: 20 20 10 50
 
    * - Name
      - Type
@@ -113,7 +113,8 @@ In addition, the following options are available for all {+atlas-admin-api+} end
        - Certain endpoints output binary data (for example, logs in gzip format), requiring the ``--out`` option.
       
        To determine the supported formats for an endpoint:
-       - Check the content response type examples in the API documentation.
+       
+       - Check the content response type examples in the `API documentation <https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/>`__.
        - Run ``atlas api <tag> <operationId> --help`` for details.  
    * - ``--file``  
      - string  
