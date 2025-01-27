@@ -37,7 +37,7 @@ Arguments
 
 .. list-table::
    :header-rows: 1
-   :widths: 20 20 10 50
+   :widths: 30 30 10 30
 
    * - Name
      - Type
@@ -50,6 +50,7 @@ Arguments
        To find and format the tag, check 
        the `API documentation <https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/>`__ 
        |url| for the endpoint. It appears after ``#tag/``, but you need to change to camelCase. 
+       
        For example, in 
        ``https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/#tag/Monitoring-and-Logs``, 
        the tag is ``Monitoring-and-Logs``. In camelCase, it's ``monitoringAndLogs``.
@@ -59,7 +60,9 @@ Arguments
      - The identifier of the {+atlas-admin-api+} endpoint in :wikipedia:`camelCase <Camel_case>`. 
        To find the operationId, check the 
        `API documentation <https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/>`__ 
-       |url| for the endpoint. It appears after ``operation/``. For example, in 
+       |url| for the endpoint. It appears after ``operation/``. 
+       
+       For example, in 
        ``https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/#tag/Clusters/operation/listClusters``, 
        the operationId is ``listClusters``.
 
