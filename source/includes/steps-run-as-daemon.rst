@@ -21,7 +21,7 @@
 
       .. note::
 
-         You must have access to GitHub in order to use the Atlas CLI in Docker.
+         You must have access to the GitHub API in order to use the Atlas CLI in Docker.
 
       To authenticate and run commands, set up API keys in the `environment file 
       <https://docs.docker.com/engine/reference/commandline/run/#env>`__. 
