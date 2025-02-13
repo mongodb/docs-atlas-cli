@@ -46,12 +46,12 @@ clean up your Docker environment and start fresh:
 
    docker stop $(docker ps -a -q) && docker system prune -a
 
-Failed to Install AtlasCLI Plugin
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Failed to Install or Update of the AtlasCLI Plugin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you are experiencing a failed installation of the AtlasCLI plugin, check to 
-make sure that you have access to the GitHub API, as GitHub API access is 
-required  in order to use the Atlas CLI in Docker. 
+If you are experiencing a failed installation or update of an {+atlas-cli+} 
+plugin, check to make sure that you have access to the `GitHub API <https://docs.github.com/en/rest?apiVersion=2022-11-28>`__, 
+as GitHub API access is required  in order to install or update the {+atlas-cli+}. 
 
 Run Diagnostics
 ~~~~~~~~~~~~~~~
