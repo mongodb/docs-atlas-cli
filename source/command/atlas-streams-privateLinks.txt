@@ -1,8 +1,8 @@
-.. _atlas-kubernetes-operator:
+.. _atlas-streams-privateLinks:
 
-=========================
-atlas kubernetes operator
-=========================
+==========================
+atlas streams privateLinks
+==========================
 
 .. default-domain:: mongodb
 
@@ -12,9 +12,9 @@ atlas kubernetes operator
    :depth: 1
    :class: singlecol
 
-Manage Atlas Kubernetes Operator.
+Manage Atlas Stream Processing PrivateLink endpoints.
 
-This command manages the Atlas Kubernetes Operator.
+Create your Atlas Stream Processing PrivateLink endpoints
 
 Options
 -------
@@ -30,7 +30,7 @@ Options
    * - -h, --help
      - 
      - false
-     - help for operator
+     - help for privateLinks
 
 Inherited Options
 -----------------
@@ -51,11 +51,11 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-kubernetes-operator-install` - Install Atlas Kubernetes Operator to a cluster.
+* :ref:`atlas-streams-privateLinks-create` - Creates a PrivateLink endpoint that can be used as an Atlas Stream Processor connection.
 
 
 .. toctree::
    :titlesonly:
 
-   install </command/atlas-kubernetes-operator-install>
+   create </command/atlas-streams-privateLinks-create>
 
