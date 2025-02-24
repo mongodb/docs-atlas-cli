@@ -61,7 +61,7 @@ Options
      - Role or roles that you want to assign to the API key. 
        To assign more than one role, specify each role with a separate role flag or specify all of the roles as a comma-separated list using one role flag.
        For the full list of accepted values, see the Items Enum list for the corresponding :oas-atlas-tag:`Atlas API endpoint </Programmatic-API-Keys/operation/createApiKey>`.  
-       To learn more about organization level user roles, see :ref:`organization-roles`. 
+       To learn more about organization level user roles, see :atlas:`organization-roles`. 
 
 Inherited Options
 -----------------
