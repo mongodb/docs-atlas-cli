@@ -106,16 +106,16 @@ mode.
 
                   atlas deployments search indexes create
 
-            #. Specify the deployment and press :kbd:`Enter`..
+            #. Specify the deployment and press :kbd:`Enter`.
 
             #. Specify ``searchIndex`` as the name for the index 
-               and press :kbd:`Enter`..
+               and press :kbd:`Enter`.
             
             #. Specify the ``sample_mflix`` database and press 
-               :kbd:`Enter`..
+               :kbd:`Enter`.
 
             #. Specify the ``movies`` collection and press 
-               :kbd:`Enter`..
+               :kbd:`Enter`.
 
          .. step:: Connect to the deployment.
 
@@ -126,9 +126,9 @@ mode.
                   atlas deployments connect
       
             #. Specify the deployment to connect to and press 
-               :kbd:`Enter`..
+               :kbd:`Enter`.
 
-            #. Specify ``mongosh`` and press :kbd:`Enter`..
+            #. Specify ``mongosh`` and press :kbd:`Enter`.
 
          .. step:: Switch to the ``sample_mflix`` database.
 
@@ -216,9 +216,9 @@ mode.
                   atlas deployments connect
       
             #. Specify the deployment to connect to and press 
-               :kbd:`Enter`..
+               :kbd:`Enter`.
 
-            #. Specify ``mongosh`` and press :kbd:`Enter`..
+            #. Specify ``mongosh`` and press :kbd:`Enter`.
 
          .. step:: Switch to the ``sample_mflix`` database.
 
@@ -309,7 +309,7 @@ mode.
 
                   atlas deployments search indexes create --file indexDef.json
 
-            #. Specify the deployment and press :kbd:`Enter`..
+            #. Specify the deployment and press :kbd:`Enter`.
 
          .. step:: Connect to the deployment.
 
@@ -320,9 +320,9 @@ mode.
                   atlas deployments connect
       
             #. Specify the deployment to connect to and press 
-               :kbd:`Enter`..
+               :kbd:`Enter`.
 
-            #. Specify ``mongosh`` and press :kbd:`Enter`..
+            #. Specify ``mongosh`` and press :kbd:`Enter`.
 
          .. step:: Switch to the ``sample_mflix`` database.
 
@@ -431,7 +431,7 @@ Search <avs-types-vector-search>`.
          ``indexDef-vector.json`` isn't in the directory from where you
          wish to run the command.
 
-      #. Specify the deployment and press :kbd:`Enter`..
+      #. Specify the deployment and press :kbd:`Enter`.
 
    .. step:: Create the ``query-embeddings.js`` file.
 
@@ -455,9 +455,9 @@ Search <avs-types-vector-search>`.
             atlas deployments connect
       
       #. Specify the deployment to connect to and press 
-         :kbd:`Enter`..
+         :kbd:`Enter`.
 
-      #. Specify ``mongosh`` and press :kbd:`Enter`..
+      #. Specify ``mongosh`` and press :kbd:`Enter`.
 
    .. step:: Switch to the ``sample_mflix`` database.
 
