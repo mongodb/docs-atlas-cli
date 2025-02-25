@@ -433,7 +433,7 @@ Search <avs-types-vector-search>`.
 
       a. Create a file named ``query-embeddings.js``.
 
-      #. Copy and paste the following embeddings into the
+      #. Copy and paste the following embedding into the
          ``query-embeddings.js`` file. 
 
          .. code-block:: js 
@@ -463,13 +463,14 @@ Search <avs-types-vector-search>`.
 
    .. step:: Load the ``query-embeddings.js`` file. 
 
-      To load the file, run the following command: 
+      To load the file, run the following command, replacing ``<path-to-file>`` 
+      with the complete path to your ``query-embeddings.js`` file.
 
       .. code-block:: shell 
 
-         load('<path/to>/query-embeddings.js')
+         load('<path-to-file>/query-embeddings.js')
 
-      You can verify if the file was loaded by running the following
+      You can verify if the file loaded properly by running the following
       command: 
 
       .. io-code-block:: 
