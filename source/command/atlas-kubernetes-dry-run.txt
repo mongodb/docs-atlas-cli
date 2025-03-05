@@ -12,9 +12,9 @@ atlas kubernetes dry-run
    :depth: 1
    :class: singlecol
 
-Deploy and run Atlas Kubernetes Operator in dry-run mode
+Deploy and run Atlas Kubernetes Operator in dry-run mode.
 
-This command deploys the Atlas Kubernetes operator with the DryRun mode.
+This command deploys the Atlas Kubernetes operator with the dry-run mode.
 
 Syntax
 ------
@@ -52,7 +52,7 @@ Options
    * - --targetNamespace
      - string
      - false
-     - Namespaces to use for generated kubernetes entities
+     - Namespaces to use for generated Kubernetes entities.
    * - --watch
      - 
      - false
@@ -60,7 +60,7 @@ Options
    * - --watchNamespace
      - strings
      - false
-     - List that contains namespaces that the operator will listen to.
+     - List that contains namespaces that the Operator listens to.
    * - --watchTimeout
      - int
      - false
