@@ -22,11 +22,11 @@
 Released 13 March 2025
 
 - Stops publishing the {+atlas-cli+} to the MongoDB 5.0 repositories.
-- Auto-generated :ref:`atlas-api` commands now support the hidden flag, ``--projectId``, 
-  which is an alias for ``--groupId``.
+- Adds the hidden flag, ``--projectId``, which is an alias for ``--groupId``, to the 
+  auto-generated :ref:`atlas-api` commands.
 - Fixes a bug with ``atlas dbusers update <USER> --password <PASSWORD>`` where the 
   scope and role fields reset when not provided.
-- Added ``--watch`` support to:
+- Adds ``--watch`` support to:
   
   - ``atlas api clusterOutageSimulation startOutageSimulation``
   - ``atlas api clusterOutageSimulation endOutageSimulation``
