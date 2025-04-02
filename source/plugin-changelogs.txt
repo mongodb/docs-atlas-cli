@@ -17,12 +17,12 @@
 .. _ak8so-cli-plugin-changelog:
 
 {+ak8so+} CLI Plugin
--------------------------------
+----------------------------------------------------
 
 .. _ak8so-cli-plugin-1.1.1-changelog:
 
 {+ak8so+} CLI Plugin 1.1.1
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Updates the :ref:`atlas-kubernetes-config-apply` command to support the same features as
   the :ref:`atlas-kubernetes-config-generate` command.
@@ -30,8 +30,8 @@
   :ref:`atlas-kubernetes-config-apply` now supports the following flags, which were
   introduced to :ref:`atlas-kubernetes-config-generate` in previous releases:
 
-  - `--dataFederationName`
-  - `--independentResources`
+  - ``--dataFederationName``
+  - ``--independentResources``
 
 This release of the {+ak8so+} CLI Plugin is compatible with the 
 following {+ak8so+} releases:
