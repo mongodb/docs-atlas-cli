@@ -12,7 +12,11 @@ atlas api cloudBackups createExportBucket
    :depth: 1
    :class: singlecol
 
-`Public Preview: please provide feedback at <https://feedback.mongodb.com/forums/930808-atlas-cli>`_: Creates a Snapshot Export Bucket for an AWS S3 Bucket or Azure Blob Storage Container.
+.. blockquote::
+
+   Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
+
+Creates a Snapshot Export Bucket for an AWS S3 Bucket or Azure Blob Storage Container.
 
 Once created, an snapshots can be exported to the Export Bucket and its referenced AWS S3 Bucket or Azure Blob Storage Container. To use this resource, the requesting API Key must have the Project Owner role.
 
@@ -95,13 +99,13 @@ Inherited Options
 Examples
 -----------------
 
-.. tabs::
-   .. tab:: Example
+.. directive:: tabs
+
+   .. directive:: tab
       :tabid: 2023-01-01_aws
+      :title: AWS
 
-      AWS
-
-      Create the file below and save it as `payload.json`
+      Create the file below and save it as ``payload.json``
 
       .. code-block::
 
@@ -113,7 +117,7 @@ Examples
 
       .. Code end marker, please don't delete this comment
 
-      After creating `payload.json`, run the command below in the same directory.
+      After creating ``payload.json``, run the command below in the same directory.
 
       .. code-block::
 
@@ -121,12 +125,11 @@ Examples
 
       .. Code end marker, please don't delete this comment
 
-   .. tab:: Example 1
+   .. directive:: tab
       :tabid: 2024-05-30_aws
+      :title: AWS (2024-05-30)
 
-      AWS
-
-      Create the file below and save it as `payload.json`
+      Create the file below and save it as ``payload.json``
 
       .. code-block::
 
@@ -138,7 +141,7 @@ Examples
 
       .. Code end marker, please don't delete this comment
 
-      After creating `payload.json`, run the command below in the same directory.
+      After creating ``payload.json``, run the command below in the same directory.
 
       .. code-block::
 
@@ -146,12 +149,11 @@ Examples
 
       .. Code end marker, please don't delete this comment
 
-   .. tab:: Example 2
+   .. directive:: tab
       :tabid: 2024-05-30_azure
+      :title: Azure
 
-      Azure
-
-      Create the file below and save it as `payload.json`
+      Create the file below and save it as ``payload.json``
 
       .. code-block::
 
@@ -163,7 +165,7 @@ Examples
 
       .. Code end marker, please don't delete this comment
 
-      After creating `payload.json`, run the command below in the same directory.
+      After creating ``payload.json``, run the command below in the same directory.
 
       .. code-block::
 
