@@ -99,11 +99,10 @@ Inherited Options
 Examples
 -----------------
 
-.. directive:: tabs
+.. tabs::
 
-   .. directive:: tab
+   .. tab:: AWS
       :tabid: 2023-01-01_aws
-      :title: AWS
 
       Create the file below and save it as ``payload.json``
 
@@ -125,9 +124,8 @@ Examples
 
       .. Code end marker, please don't delete this comment
 
-   .. directive:: tab
+   .. tab:: AWS (2024-05-30)
       :tabid: 2024-05-30_aws
-      :title: AWS (2024-05-30)
 
       Create the file below and save it as ``payload.json``
 
@@ -149,9 +147,8 @@ Examples
 
       .. Code end marker, please don't delete this comment
 
-   .. directive:: tab
+   .. tab:: Azure
       :tabid: 2024-05-30_azure
-      :title: Azure
 
       Create the file below and save it as ``payload.json``
 
