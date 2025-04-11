@@ -12,6 +12,7 @@ atlas api maintenanceWindows
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -55,27 +56,32 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-maintenanceWindows-deferMaintenanceWindow` - .. blockquote::
+* :ref:`atlas-api-maintenanceWindows-deferMaintenanceWindow` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Defers the maintenance window for the specified project.
-* :ref:`atlas-api-maintenanceWindows-getMaintenanceWindow` - .. blockquote::
+* :ref:`atlas-api-maintenanceWindows-getMaintenanceWindow` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the maintenance window for the specified project.
-* :ref:`atlas-api-maintenanceWindows-resetMaintenanceWindow` - .. blockquote::
+* :ref:`atlas-api-maintenanceWindows-resetMaintenanceWindow` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Resets the maintenance window for the specified project.
-* :ref:`atlas-api-maintenanceWindows-toggleMaintenanceAutoDefer` - .. blockquote::
+* :ref:`atlas-api-maintenanceWindows-toggleMaintenanceAutoDefer` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Toggles automatic deferral of the maintenance window for the specified project.
-* :ref:`atlas-api-maintenanceWindows-updateMaintenanceWindow` - .. blockquote::
+* :ref:`atlas-api-maintenanceWindows-updateMaintenanceWindow` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

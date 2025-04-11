@@ -12,6 +12,7 @@ atlas api legacyBackup updateLegacySnapshotSchedule
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli

@@ -12,6 +12,7 @@ atlas api rollingIndex
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -55,7 +56,8 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-rollingIndex-createRollingIndex` - .. blockquote::
+* :ref:`atlas-api-rollingIndex-createRollingIndex` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

@@ -12,6 +12,7 @@ atlas api x509Authentication
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -55,17 +56,20 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-x509Authentication-createDatabaseUserCertificate` - .. blockquote::
+* :ref:`atlas-api-x509Authentication-createDatabaseUserCertificate` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Generates one X.509 certificate for the specified MongoDB user.
-* :ref:`atlas-api-x509Authentication-disableCustomerManagedX509` - .. blockquote::
+* :ref:`atlas-api-x509Authentication-disableCustomerManagedX509` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Clears the customer-managed X.509 settings on a project, including the uploaded Certificate Authority, which disables self-managed X.509.
-* :ref:`atlas-api-x509Authentication-listDatabaseUserCertificates` - .. blockquote::
+* :ref:`atlas-api-x509Authentication-listDatabaseUserCertificates` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

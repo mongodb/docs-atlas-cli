@@ -12,6 +12,7 @@ atlas api cloudMigrationService
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -55,42 +56,50 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-cloudMigrationService-createLinkToken` - .. blockquote::
+* :ref:`atlas-api-cloudMigrationService-createLinkToken` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Create one link-token that contains all the information required to complete the link.
-* :ref:`atlas-api-cloudMigrationService-createPushMigration` - .. blockquote::
+* :ref:`atlas-api-cloudMigrationService-createPushMigration` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Migrate one cluster that Cloud or Ops Manager manages to MongoDB Atlas.
-* :ref:`atlas-api-cloudMigrationService-cutoverMigration` - .. blockquote::
+* :ref:`atlas-api-cloudMigrationService-cutoverMigration` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Cut over the migrated cluster to MongoDB Atlas.
-* :ref:`atlas-api-cloudMigrationService-deleteLinkToken` - .. blockquote::
+* :ref:`atlas-api-cloudMigrationService-deleteLinkToken` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Remove one organization link and its associated public API key.
-* :ref:`atlas-api-cloudMigrationService-getPushMigration` - .. blockquote::
+* :ref:`atlas-api-cloudMigrationService-getPushMigration` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Return details of one cluster migration job.
-* :ref:`atlas-api-cloudMigrationService-getValidationStatus` - .. blockquote::
+* :ref:`atlas-api-cloudMigrationService-getValidationStatus` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Return the status of one migration validation job.
-* :ref:`atlas-api-cloudMigrationService-listSourceProjects` - .. blockquote::
+* :ref:`atlas-api-cloudMigrationService-listSourceProjects` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Return all projects that you can migrate to the specified organization.
-* :ref:`atlas-api-cloudMigrationService-validateMigration` - .. blockquote::
+* :ref:`atlas-api-cloudMigrationService-validateMigration` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

@@ -12,6 +12,7 @@ atlas api privateEndpointServices
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -53,47 +54,56 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-privateEndpointServices-createPrivateEndpoint` - .. blockquote::
+* :ref:`atlas-api-privateEndpointServices-createPrivateEndpoint` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Creates one private endpoint for the specified cloud service provider.
-* :ref:`atlas-api-privateEndpointServices-createPrivateEndpointService` - .. blockquote::
+* :ref:`atlas-api-privateEndpointServices-createPrivateEndpointService` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Creates one private endpoint service for the specified cloud service provider.
-* :ref:`atlas-api-privateEndpointServices-deletePrivateEndpoint` - .. blockquote::
+* :ref:`atlas-api-privateEndpointServices-deletePrivateEndpoint` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Removes one private endpoint from the specified project and private endpoint service, as managed by the specified cloud service provider.
-* :ref:`atlas-api-privateEndpointServices-deletePrivateEndpointService` - .. blockquote::
+* :ref:`atlas-api-privateEndpointServices-deletePrivateEndpointService` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Removes one private endpoint service from the specified project.
-* :ref:`atlas-api-privateEndpointServices-getPrivateEndpoint` - .. blockquote::
+* :ref:`atlas-api-privateEndpointServices-getPrivateEndpoint` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the connection state of the specified private endpoint.
-* :ref:`atlas-api-privateEndpointServices-getPrivateEndpointService` - .. blockquote::
+* :ref:`atlas-api-privateEndpointServices-getPrivateEndpointService` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the name, interfaces, and state of the specified private endpoint service from one project.
-* :ref:`atlas-api-privateEndpointServices-getRegionalizedPrivateEndpointSetting` - .. blockquote::
+* :ref:`atlas-api-privateEndpointServices-getRegionalizedPrivateEndpointSetting` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Checks whether each region in the specified cloud service provider can create multiple private endpoints per region.
-* :ref:`atlas-api-privateEndpointServices-listPrivateEndpointServices` - .. blockquote::
+* :ref:`atlas-api-privateEndpointServices-listPrivateEndpointServices` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the name, interfaces, and state of all private endpoint services for the specified cloud service provider.
-* :ref:`atlas-api-privateEndpointServices-toggleRegionalizedPrivateEndpointSetting` - .. blockquote::
+* :ref:`atlas-api-privateEndpointServices-toggleRegionalizedPrivateEndpointSetting` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

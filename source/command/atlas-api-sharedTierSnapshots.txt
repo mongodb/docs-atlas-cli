@@ -12,6 +12,7 @@ atlas api sharedTierSnapshots
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -53,17 +54,20 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-sharedTierSnapshots-downloadSharedClusterBackup` - .. blockquote::
+* :ref:`atlas-api-sharedTierSnapshots-downloadSharedClusterBackup` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Requests one snapshot for the specified shared cluster.
-* :ref:`atlas-api-sharedTierSnapshots-getSharedClusterBackup` - .. blockquote::
+* :ref:`atlas-api-sharedTierSnapshots-getSharedClusterBackup` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns details for one snapshot for the specified shared cluster.
-* :ref:`atlas-api-sharedTierSnapshots-listSharedClusterBackups` - .. blockquote::
+* :ref:`atlas-api-sharedTierSnapshots-listSharedClusterBackups` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

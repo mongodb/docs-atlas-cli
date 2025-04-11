@@ -12,6 +12,7 @@ atlas api databaseUsers
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -53,27 +54,32 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-databaseUsers-createDatabaseUser` - .. blockquote::
+* :ref:`atlas-api-databaseUsers-createDatabaseUser` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Creates one database user in the specified project.
-* :ref:`atlas-api-databaseUsers-deleteDatabaseUser` - .. blockquote::
+* :ref:`atlas-api-databaseUsers-deleteDatabaseUser` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Removes one database user from the specified project.
-* :ref:`atlas-api-databaseUsers-getDatabaseUser` - .. blockquote::
+* :ref:`atlas-api-databaseUsers-getDatabaseUser` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns one database user that belong to the specified project.
-* :ref:`atlas-api-databaseUsers-listDatabaseUsers` - .. blockquote::
+* :ref:`atlas-api-databaseUsers-listDatabaseUsers` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns all database users that belong to the specified project.
-* :ref:`atlas-api-databaseUsers-updateDatabaseUser` - .. blockquote::
+* :ref:`atlas-api-databaseUsers-updateDatabaseUser` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

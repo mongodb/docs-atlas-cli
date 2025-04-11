@@ -12,6 +12,7 @@ atlas api monitoringAndLogs
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -53,72 +54,86 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-monitoringAndLogs-getAtlasProcess` - .. blockquote::
+* :ref:`atlas-api-monitoringAndLogs-getAtlasProcess` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the processes for the specified host for the specified project.
-* :ref:`atlas-api-monitoringAndLogs-getDatabase` - .. blockquote::
+* :ref:`atlas-api-monitoringAndLogs-getDatabase` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns one database running on the specified host for the specified project.
-* :ref:`atlas-api-monitoringAndLogs-getDatabaseMeasurements` - .. blockquote::
+* :ref:`atlas-api-monitoringAndLogs-getDatabaseMeasurements` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the measurements of one database for the specified host for the specified project.
-* :ref:`atlas-api-monitoringAndLogs-getDiskMeasurements` - .. blockquote::
+* :ref:`atlas-api-monitoringAndLogs-getDiskMeasurements` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the measurements of one disk or partition for the specified host for the specified project.
-* :ref:`atlas-api-monitoringAndLogs-getHostLogs` - .. blockquote::
+* :ref:`atlas-api-monitoringAndLogs-getHostLogs` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns a compressed (.gz) log file that contains a range of log messages for the specified host for the specified project.
-* :ref:`atlas-api-monitoringAndLogs-getHostMeasurements` - .. blockquote::
+* :ref:`atlas-api-monitoringAndLogs-getHostMeasurements` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns disk, partition, or host measurements per process for the specified host for the specified project.
-* :ref:`atlas-api-monitoringAndLogs-getIndexMetrics` - .. blockquote::
+* :ref:`atlas-api-monitoringAndLogs-getIndexMetrics` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the Atlas Search metrics data series within the provided time range for one namespace and index name on the specified process.
-* :ref:`atlas-api-monitoringAndLogs-getMeasurements` - .. blockquote::
+* :ref:`atlas-api-monitoringAndLogs-getMeasurements` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the Atlas Search hardware and status data series within the provided time range for one process in the specified project.
-* :ref:`atlas-api-monitoringAndLogs-listAtlasProcesses` - .. blockquote::
+* :ref:`atlas-api-monitoringAndLogs-listAtlasProcesses` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns details of all processes for the specified project.
-* :ref:`atlas-api-monitoringAndLogs-listDatabases` - .. blockquote::
+* :ref:`atlas-api-monitoringAndLogs-listDatabases` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the list of databases running on the specified host for the specified project.
-* :ref:`atlas-api-monitoringAndLogs-listDiskMeasurements` - .. blockquote::
+* :ref:`atlas-api-monitoringAndLogs-listDiskMeasurements` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns measurement details for one disk or partition for the specified host for the specified project.
-* :ref:`atlas-api-monitoringAndLogs-listDiskPartitions` - .. blockquote::
+* :ref:`atlas-api-monitoringAndLogs-listDiskPartitions` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the list of disks or partitions for the specified host for the specified project.
-* :ref:`atlas-api-monitoringAndLogs-listIndexMetrics` - .. blockquote::
+* :ref:`atlas-api-monitoringAndLogs-listIndexMetrics` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the Atlas Search index metrics within the specified time range for one namespace in the specified process.
-* :ref:`atlas-api-monitoringAndLogs-listMetricTypes` - .. blockquote::
+* :ref:`atlas-api-monitoringAndLogs-listMetricTypes` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

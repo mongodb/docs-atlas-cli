@@ -12,6 +12,7 @@ atlas api auditing
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -53,12 +54,14 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-auditing-getAuditingConfiguration` - .. blockquote::
+* :ref:`atlas-api-auditing-getAuditingConfiguration` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the auditing configuration for the specified project.
-* :ref:`atlas-api-auditing-updateAuditingConfiguration` - .. blockquote::
+* :ref:`atlas-api-auditing-updateAuditingConfiguration` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

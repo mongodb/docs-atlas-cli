@@ -12,6 +12,7 @@ atlas api thirdPartyIntegrations
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -58,27 +59,32 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-thirdPartyIntegrations-createThirdPartyIntegration` - .. blockquote::
+* :ref:`atlas-api-thirdPartyIntegrations-createThirdPartyIntegration` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Adds the settings for configuring one third-party service integration.
-* :ref:`atlas-api-thirdPartyIntegrations-deleteThirdPartyIntegration` - .. blockquote::
+* :ref:`atlas-api-thirdPartyIntegrations-deleteThirdPartyIntegration` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Removes the settings that permit configuring one third-party service integration.
-* :ref:`atlas-api-thirdPartyIntegrations-getThirdPartyIntegration` - .. blockquote::
+* :ref:`atlas-api-thirdPartyIntegrations-getThirdPartyIntegration` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the settings for configuring integration with one third-party service.
-* :ref:`atlas-api-thirdPartyIntegrations-listThirdPartyIntegrations` - .. blockquote::
+* :ref:`atlas-api-thirdPartyIntegrations-listThirdPartyIntegrations` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the settings that permit integrations with all configured third-party services.
-* :ref:`atlas-api-thirdPartyIntegrations-updateThirdPartyIntegration` - .. blockquote::
+* :ref:`atlas-api-thirdPartyIntegrations-updateThirdPartyIntegration` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

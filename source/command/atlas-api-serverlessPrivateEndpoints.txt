@@ -12,6 +12,7 @@ atlas api serverlessPrivateEndpoints
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -55,27 +56,32 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-serverlessPrivateEndpoints-createServerlessPrivateEndpoint` - .. blockquote::
+* :ref:`atlas-api-serverlessPrivateEndpoints-createServerlessPrivateEndpoint` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Creates one private endpoint for one serverless instance.
-* :ref:`atlas-api-serverlessPrivateEndpoints-deleteServerlessPrivateEndpoint` - .. blockquote::
+* :ref:`atlas-api-serverlessPrivateEndpoints-deleteServerlessPrivateEndpoint` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Remove one private endpoint from one serverless instance.
-* :ref:`atlas-api-serverlessPrivateEndpoints-getServerlessPrivateEndpoint` - .. blockquote::
+* :ref:`atlas-api-serverlessPrivateEndpoints-getServerlessPrivateEndpoint` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Return one private endpoint for one serverless instance.
-* :ref:`atlas-api-serverlessPrivateEndpoints-listServerlessPrivateEndpoints` - .. blockquote::
+* :ref:`atlas-api-serverlessPrivateEndpoints-listServerlessPrivateEndpoints` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns all private endpoints for one serverless instance.
-* :ref:`atlas-api-serverlessPrivateEndpoints-updateServerlessPrivateEndpoint` - .. blockquote::
+* :ref:`atlas-api-serverlessPrivateEndpoints-updateServerlessPrivateEndpoint` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

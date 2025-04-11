@@ -12,6 +12,7 @@ atlas api customDatabaseRoles
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -55,27 +56,32 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-customDatabaseRoles-createCustomDatabaseRole` - .. blockquote::
+* :ref:`atlas-api-customDatabaseRoles-createCustomDatabaseRole` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Creates one custom role in the specified project.
-* :ref:`atlas-api-customDatabaseRoles-deleteCustomDatabaseRole` - .. blockquote::
+* :ref:`atlas-api-customDatabaseRoles-deleteCustomDatabaseRole` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Removes one custom role from the specified project.
-* :ref:`atlas-api-customDatabaseRoles-getCustomDatabaseRole` - .. blockquote::
+* :ref:`atlas-api-customDatabaseRoles-getCustomDatabaseRole` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns one custom role for the specified project.
-* :ref:`atlas-api-customDatabaseRoles-listCustomDatabaseRoles` - .. blockquote::
+* :ref:`atlas-api-customDatabaseRoles-listCustomDatabaseRoles` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns all custom roles for the specified project.
-* :ref:`atlas-api-customDatabaseRoles-updateCustomDatabaseRole` - .. blockquote::
+* :ref:`atlas-api-customDatabaseRoles-updateCustomDatabaseRole` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

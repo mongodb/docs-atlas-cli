@@ -12,6 +12,7 @@ atlas api alerts
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -55,22 +56,26 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-alerts-acknowledgeAlert` - .. blockquote::
+* :ref:`atlas-api-alerts-acknowledgeAlert` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Confirms receipt of one existing alert.
-* :ref:`atlas-api-alerts-getAlert` - .. blockquote::
+* :ref:`atlas-api-alerts-getAlert` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns one alert.
-* :ref:`atlas-api-alerts-listAlerts` - .. blockquote::
+* :ref:`atlas-api-alerts-listAlerts` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns all alerts.
-* :ref:`atlas-api-alerts-listAlertsByAlertConfigurationId` - .. blockquote::
+* :ref:`atlas-api-alerts-listAlertsByAlertConfigurationId` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

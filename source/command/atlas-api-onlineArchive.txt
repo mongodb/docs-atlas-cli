@@ -12,6 +12,7 @@ atlas api onlineArchive
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -53,32 +54,38 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-onlineArchive-createOnlineArchive` - .. blockquote::
+* :ref:`atlas-api-onlineArchive-createOnlineArchive` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Creates one online archive.
-* :ref:`atlas-api-onlineArchive-deleteOnlineArchive` - .. blockquote::
+* :ref:`atlas-api-onlineArchive-deleteOnlineArchive` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Removes one online archive.
-* :ref:`atlas-api-onlineArchive-downloadOnlineArchiveQueryLogs` - .. blockquote::
+* :ref:`atlas-api-onlineArchive-downloadOnlineArchiveQueryLogs` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Downloads query logs for the specified online archive.
-* :ref:`atlas-api-onlineArchive-getOnlineArchive` - .. blockquote::
+* :ref:`atlas-api-onlineArchive-getOnlineArchive` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns one online archive for one cluster.
-* :ref:`atlas-api-onlineArchive-listOnlineArchives` - .. blockquote::
+* :ref:`atlas-api-onlineArchive-listOnlineArchives` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns details of all online archives.
-* :ref:`atlas-api-onlineArchive-updateOnlineArchive` - .. blockquote::
+* :ref:`atlas-api-onlineArchive-updateOnlineArchive` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

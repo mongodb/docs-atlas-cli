@@ -12,6 +12,7 @@ atlas api resourcePolicies
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -53,37 +54,44 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-resourcePolicies-createAtlasResourcePolicy` - .. blockquote::
+* :ref:`atlas-api-resourcePolicies-createAtlasResourcePolicy` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Create one Atlas Resource Policy for an org.
-* :ref:`atlas-api-resourcePolicies-deleteAtlasResourcePolicy` - .. blockquote::
+* :ref:`atlas-api-resourcePolicies-deleteAtlasResourcePolicy` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Delete one Atlas Resource Policy for an org.
-* :ref:`atlas-api-resourcePolicies-getAtlasResourcePolicies` - .. blockquote::
+* :ref:`atlas-api-resourcePolicies-getAtlasResourcePolicies` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Return all Atlas Resource Policies for the org.
-* :ref:`atlas-api-resourcePolicies-getAtlasResourcePolicy` - .. blockquote::
+* :ref:`atlas-api-resourcePolicies-getAtlasResourcePolicy` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Return one Atlas Resource Policy for an org.
-* :ref:`atlas-api-resourcePolicies-getResourcesNonCompliant` - .. blockquote::
+* :ref:`atlas-api-resourcePolicies-getResourcesNonCompliant` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Return all non-compliant resources for an org.
-* :ref:`atlas-api-resourcePolicies-updateAtlasResourcePolicy` - .. blockquote::
+* :ref:`atlas-api-resourcePolicies-updateAtlasResourcePolicy` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Update one Atlas Resource Policy for an org.
-* :ref:`atlas-api-resourcePolicies-validateAtlasResourcePolicy` - .. blockquote::
+* :ref:`atlas-api-resourcePolicies-validateAtlasResourcePolicy` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

@@ -12,6 +12,7 @@ atlas api accessTracking
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -55,12 +56,14 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-accessTracking-listAccessLogsByClusterName` - .. blockquote::
+* :ref:`atlas-api-accessTracking-listAccessLogsByClusterName` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the access logs of one cluster identified by the cluster's name.
-* :ref:`atlas-api-accessTracking-listAccessLogsByHostname` - .. blockquote::
+* :ref:`atlas-api-accessTracking-listAccessLogsByHostname` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

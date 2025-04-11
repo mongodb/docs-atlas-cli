@@ -12,6 +12,7 @@ atlas api flexSnapshots
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -53,17 +54,20 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-flexSnapshots-downloadFlexBackup` - .. blockquote::
+* :ref:`atlas-api-flexSnapshots-downloadFlexBackup` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Requests one snapshot for the specified flex cluster.
-* :ref:`atlas-api-flexSnapshots-getFlexBackup` - .. blockquote::
+* :ref:`atlas-api-flexSnapshots-getFlexBackup` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns one snapshot of one flex cluster from the specified project.
-* :ref:`atlas-api-flexSnapshots-listFlexBackups` - .. blockquote::
+* :ref:`atlas-api-flexSnapshots-listFlexBackups` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

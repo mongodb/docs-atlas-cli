@@ -12,6 +12,7 @@ atlas api ldapConfiguration
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -55,27 +56,32 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-ldapConfiguration-deleteLdapConfiguration` - .. blockquote::
+* :ref:`atlas-api-ldapConfiguration-deleteLdapConfiguration` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Removes the current LDAP Distinguished Name mapping captured in the userToDNMapping document from the LDAP configuration for the specified project.
-* :ref:`atlas-api-ldapConfiguration-getLdapConfiguration` - .. blockquote::
+* :ref:`atlas-api-ldapConfiguration-getLdapConfiguration` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the current LDAP configuration for the specified project.
-* :ref:`atlas-api-ldapConfiguration-getLdapConfigurationStatus` - .. blockquote::
+* :ref:`atlas-api-ldapConfiguration-getLdapConfigurationStatus` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the status of one request to verify one LDAP configuration for the specified project.
-* :ref:`atlas-api-ldapConfiguration-saveLdapConfiguration` - .. blockquote::
+* :ref:`atlas-api-ldapConfiguration-saveLdapConfiguration` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Edits the LDAP configuration for the specified project.
-* :ref:`atlas-api-ldapConfiguration-verifyLdapConfiguration` - .. blockquote::
+* :ref:`atlas-api-ldapConfiguration-verifyLdapConfiguration` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

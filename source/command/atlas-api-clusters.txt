@@ -12,6 +12,7 @@ atlas api clusters
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -55,97 +56,116 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-clusters-autoScalingConfiguration` - .. blockquote::
+* :ref:`atlas-api-clusters-autoScalingConfiguration` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the internal configuration of AutoScaling for sharded clusters.
-* :ref:`atlas-api-clusters-createCluster` - .. blockquote::
+* :ref:`atlas-api-clusters-createCluster` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Creates one cluster in the specified project.
-* :ref:`atlas-api-clusters-deleteCluster` - .. blockquote::
+* :ref:`atlas-api-clusters-deleteCluster` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Removes one cluster from the specified project.
-* :ref:`atlas-api-clusters-getCluster` - .. blockquote::
+* :ref:`atlas-api-clusters-getCluster` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the details for one cluster in the specified project.
-* :ref:`atlas-api-clusters-getClusterAdvancedConfiguration` - .. blockquote::
+* :ref:`atlas-api-clusters-getClusterAdvancedConfiguration` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the advanced configuration details for one cluster in the specified project.
-* :ref:`atlas-api-clusters-getClusterStatus` - .. blockquote::
+* :ref:`atlas-api-clusters-getClusterStatus` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the status of all changes that you made to the specified cluster in the specified project.
-* :ref:`atlas-api-clusters-getSampleDatasetLoadStatus` - .. blockquote::
+* :ref:`atlas-api-clusters-getSampleDatasetLoadStatus` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Checks the progress of loading the sample dataset into one cluster.
-* :ref:`atlas-api-clusters-grantMongoDbEmployeeAccess` - .. blockquote::
+* :ref:`atlas-api-clusters-grantMongoDbEmployeeAccess` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Grants MongoDB employee cluster access for the given duration and at the specified level for one cluster.
-* :ref:`atlas-api-clusters-listCloudProviderRegions` - .. blockquote::
+* :ref:`atlas-api-clusters-listCloudProviderRegions` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the list of regions available for the specified cloud provider at the specified tier.
-* :ref:`atlas-api-clusters-listClusters` - .. blockquote::
+* :ref:`atlas-api-clusters-listClusters` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the details for all clusters in the specific project to which you have access.
-* :ref:`atlas-api-clusters-listClustersForAllProjects` - .. blockquote::
+* :ref:`atlas-api-clusters-listClustersForAllProjects` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the details for all clusters in all projects to which you have access.
-* :ref:`atlas-api-clusters-loadSampleDataset` - .. blockquote::
+* :ref:`atlas-api-clusters-loadSampleDataset` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Requests loading the MongoDB sample dataset into the specified cluster.
-* :ref:`atlas-api-clusters-pinFeatureCompatibilityVersion` - .. blockquote::
+* :ref:`atlas-api-clusters-pinFeatureCompatibilityVersion` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Pins the Feature Compatibility Version (FCV) to the current MongoDB version and sets the pin expiration date.
-* :ref:`atlas-api-clusters-revokeMongoDbEmployeeAccess` - .. blockquote::
+* :ref:`atlas-api-clusters-revokeMongoDbEmployeeAccess` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Revokes a previously granted MongoDB employee cluster access.
-* :ref:`atlas-api-clusters-testFailover` - .. blockquote::
+* :ref:`atlas-api-clusters-testFailover` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Starts a failover test for the specified cluster in the specified project.
-* :ref:`atlas-api-clusters-unpinFeatureCompatibilityVersion` - .. blockquote::
+* :ref:`atlas-api-clusters-unpinFeatureCompatibilityVersion` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Unpins the current fixed Feature Compatibility Version (FCV).
-* :ref:`atlas-api-clusters-updateCluster` - .. blockquote::
+* :ref:`atlas-api-clusters-updateCluster` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Updates the details for one cluster in the specified project.
-* :ref:`atlas-api-clusters-updateClusterAdvancedConfiguration` - .. blockquote::
+* :ref:`atlas-api-clusters-updateClusterAdvancedConfiguration` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Updates the advanced configuration details for one cluster in the specified project.
-* :ref:`atlas-api-clusters-upgradeSharedCluster` - .. blockquote::
+* :ref:`atlas-api-clusters-upgradeSharedCluster` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

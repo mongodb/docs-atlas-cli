@@ -12,6 +12,7 @@ atlas api globalClusters
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -56,27 +57,32 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-globalClusters-createCustomZoneMapping` - .. blockquote::
+* :ref:`atlas-api-globalClusters-createCustomZoneMapping` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Creates one custom zone mapping for the specified global cluster.
-* :ref:`atlas-api-globalClusters-createManagedNamespace` - .. blockquote::
+* :ref:`atlas-api-globalClusters-createManagedNamespace` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Creates one managed namespace within the specified global cluster.
-* :ref:`atlas-api-globalClusters-deleteAllCustomZoneMappings` - .. blockquote::
+* :ref:`atlas-api-globalClusters-deleteAllCustomZoneMappings` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Removes all custom zone mappings for the specified global cluster.
-* :ref:`atlas-api-globalClusters-deleteManagedNamespace` - .. blockquote::
+* :ref:`atlas-api-globalClusters-deleteManagedNamespace` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Removes one managed namespace within the specified global cluster.
-* :ref:`atlas-api-globalClusters-getManagedNamespace` - .. blockquote::
+* :ref:`atlas-api-globalClusters-getManagedNamespace` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

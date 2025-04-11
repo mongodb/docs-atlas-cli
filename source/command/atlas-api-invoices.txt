@@ -12,6 +12,7 @@ atlas api invoices
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -53,37 +54,44 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-invoices-createCostExplorerQueryProcess` - .. blockquote::
+* :ref:`atlas-api-invoices-createCostExplorerQueryProcess` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Creates a query process within the Cost Explorer for the given parameters.
-* :ref:`atlas-api-invoices-downloadInvoiceCsv` - .. blockquote::
+* :ref:`atlas-api-invoices-downloadInvoiceCsv` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns one invoice that MongoDB issued to the specified organization in CSV format.
-* :ref:`atlas-api-invoices-getCostExplorerQueryProcess` - .. blockquote::
+* :ref:`atlas-api-invoices-getCostExplorerQueryProcess` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the usage details for a Cost Explorer query, if the query is finished and the data is ready to be viewed.
-* :ref:`atlas-api-invoices-getInvoice` - .. blockquote::
+* :ref:`atlas-api-invoices-getInvoice` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns one invoice that MongoDB issued to the specified organization.
-* :ref:`atlas-api-invoices-listInvoices` - .. blockquote::
+* :ref:`atlas-api-invoices-listInvoices` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns all invoices that MongoDB issued to the specified organization.
-* :ref:`atlas-api-invoices-listPendingInvoices` - .. blockquote::
+* :ref:`atlas-api-invoices-listPendingInvoices` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns all invoices accruing charges for the current billing cycle for the specified organization.
-* :ref:`atlas-api-invoices-queryLineItemsFromSingleInvoice` - .. blockquote::
+* :ref:`atlas-api-invoices-queryLineItemsFromSingleInvoice` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

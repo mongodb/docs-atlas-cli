@@ -12,6 +12,7 @@ atlas api projectIpAccessList
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -55,27 +56,32 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-projectIpAccessList-createProjectIpAccessList` - .. blockquote::
+* :ref:`atlas-api-projectIpAccessList-createProjectIpAccessList` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Adds one or more access list entries to the specified project.
-* :ref:`atlas-api-projectIpAccessList-deleteProjectIpAccessList` - .. blockquote::
+* :ref:`atlas-api-projectIpAccessList-deleteProjectIpAccessList` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Removes one access list entry from the specified project's IP access list.
-* :ref:`atlas-api-projectIpAccessList-getProjectIpAccessListStatus` - .. blockquote::
+* :ref:`atlas-api-projectIpAccessList-getProjectIpAccessListStatus` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the status of one project IP access list entry.
-* :ref:`atlas-api-projectIpAccessList-getProjectIpList` - .. blockquote::
+* :ref:`atlas-api-projectIpAccessList-getProjectIpList` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns one access list entry from the specified project's IP access list.
-* :ref:`atlas-api-projectIpAccessList-listProjectIpAccessLists` - .. blockquote::
+* :ref:`atlas-api-projectIpAccessList-listProjectIpAccessLists` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

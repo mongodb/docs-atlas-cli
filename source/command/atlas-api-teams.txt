@@ -12,6 +12,7 @@ atlas api teams
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -53,62 +54,74 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-teams-addAllTeamsToProject` - .. blockquote::
+* :ref:`atlas-api-teams-addAllTeamsToProject` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Adds one or more teams to the specified project.
-* :ref:`atlas-api-teams-addTeamUser` - .. blockquote::
+* :ref:`atlas-api-teams-addTeamUser` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Adds one or more MongoDB Cloud users from the specified organization to the specified team.
-* :ref:`atlas-api-teams-createTeam` - .. blockquote::
+* :ref:`atlas-api-teams-createTeam` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Creates one team in the specified organization.
-* :ref:`atlas-api-teams-deleteTeam` - .. blockquote::
+* :ref:`atlas-api-teams-deleteTeam` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Removes one team specified using its unique 24-hexadecimal digit identifier from the organization specified using its unique 24-hexadecimal digit identifier.
-* :ref:`atlas-api-teams-getTeamById` - .. blockquote::
+* :ref:`atlas-api-teams-getTeamById` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns one team that you identified using its unique 24-hexadecimal digit ID.
-* :ref:`atlas-api-teams-getTeamByName` - .. blockquote::
+* :ref:`atlas-api-teams-getTeamByName` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns one team that you identified using its human-readable name.
-* :ref:`atlas-api-teams-listOrganizationTeams` - .. blockquote::
+* :ref:`atlas-api-teams-listOrganizationTeams` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns all teams that belong to the specified organization.
-* :ref:`atlas-api-teams-listProjectTeams` - .. blockquote::
+* :ref:`atlas-api-teams-listProjectTeams` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns all teams to which the authenticated user has access in the project specified using its unique 24-hexadecimal digit identifier.
-* :ref:`atlas-api-teams-removeProjectTeam` - .. blockquote::
+* :ref:`atlas-api-teams-removeProjectTeam` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Removes one team specified using its unique 24-hexadecimal digit identifier from the project specified using its unique 24-hexadecimal digit identifier.
-* :ref:`atlas-api-teams-removeTeamUser` - .. blockquote::
+* :ref:`atlas-api-teams-removeTeamUser` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Removes one MongoDB Cloud user from the specified team.
-* :ref:`atlas-api-teams-renameTeam` - .. blockquote::
+* :ref:`atlas-api-teams-renameTeam` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Renames one team in the specified organization.
-* :ref:`atlas-api-teams-updateTeamRoles` - .. blockquote::
+* :ref:`atlas-api-teams-updateTeamRoles` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

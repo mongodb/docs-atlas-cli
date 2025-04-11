@@ -12,6 +12,7 @@ atlas api flexRestoreJobs
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -53,17 +54,20 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-flexRestoreJobs-createFlexBackupRestoreJob` - .. blockquote::
+* :ref:`atlas-api-flexRestoreJobs-createFlexBackupRestoreJob` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Restores one snapshot of one flex cluster from the specified project.
-* :ref:`atlas-api-flexRestoreJobs-getFlexBackupRestoreJob` - .. blockquote::
+* :ref:`atlas-api-flexRestoreJobs-getFlexBackupRestoreJob` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns one restore job for one flex cluster from the specified project.
-* :ref:`atlas-api-flexRestoreJobs-listFlexBackupRestoreJobs` - .. blockquote::
+* :ref:`atlas-api-flexRestoreJobs-listFlexBackupRestoreJobs` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

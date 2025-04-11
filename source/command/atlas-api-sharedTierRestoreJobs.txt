@@ -12,6 +12,7 @@ atlas api sharedTierRestoreJobs
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -53,17 +54,20 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-sharedTierRestoreJobs-createSharedClusterBackupRestoreJob` - .. blockquote::
+* :ref:`atlas-api-sharedTierRestoreJobs-createSharedClusterBackupRestoreJob` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Restores the specified M2 or M5 cluster.
-* :ref:`atlas-api-sharedTierRestoreJobs-getSharedClusterBackupRestoreJob` - .. blockquote::
+* :ref:`atlas-api-sharedTierRestoreJobs-getSharedClusterBackupRestoreJob` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 Returns the specified restore job for the specified M2 or M5 cluster.
-* :ref:`atlas-api-sharedTierRestoreJobs-listSharedClusterBackupRestoreJobs` - .. blockquote::
+* :ref:`atlas-api-sharedTierRestoreJobs-listSharedClusterBackupRestoreJobs` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

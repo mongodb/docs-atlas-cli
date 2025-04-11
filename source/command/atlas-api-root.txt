@@ -12,6 +12,7 @@ atlas api root
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
@@ -55,12 +56,14 @@ Inherited Options
 Related Commands
 ----------------
 
-* :ref:`atlas-api-root-getSystemStatus` - .. blockquote::
+* :ref:`atlas-api-root-getSystemStatus` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 
 This resource returns information about the MongoDB application along with API key meta data.
-* :ref:`atlas-api-root-returnAllControlPlaneIpAddresses` - .. blockquote::
+* :ref:`atlas-api-root-returnAllControlPlaneIpAddresses` - 
+.. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
 

@@ -12,6 +12,7 @@ atlas api atlasSearch createAtlasSearchIndexDeprecated
    :depth: 1
    :class: singlecol
 
+
 .. blockquote::
 
    Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
