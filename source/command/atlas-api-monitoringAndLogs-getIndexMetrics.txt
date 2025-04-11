@@ -12,7 +12,11 @@ atlas api monitoringAndLogs getIndexMetrics
    :depth: 1
    :class: singlecol
 
-`Public Preview: please provide feedback at <https://feedback.mongodb.com/forums/930808-atlas-cli>`_: Returns the Atlas Search metrics data series within the provided time range for one namespace and index name on the specified process.
+.. blockquote::
+
+   Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
+
+Returns the Atlas Search metrics data series within the provided time range for one namespace and index name on the specified process.
 
 You must have the Project Read Only or higher role to view the Atlas Search metric types.
 
@@ -127,7 +131,7 @@ Run the command below.
 
 .. code-block::
 
-   atlas api monitoringAndLogs getIndexMetrics --version 2023-01-01 --collectionName mycoll --databaseName mydb --envelope false --granularity PT1M --groupId 32b6e34b3d91647abb20e7b8 --indexName myindex --metrics [metrics] --period PT10H --processId my.host.name.com:27017
+   atlas api monitoringAndLogs getIndexMetrics --version 2023-01-01 --collectionName mycoll --databaseName mydb --granularity PT1M --groupId 32b6e34b3d91647abb20e7b8 --indexName myindex --metrics [metrics] --period PT10H --processId my.host.name.com:27017
 
 .. Code end marker, please don't delete this comment
 

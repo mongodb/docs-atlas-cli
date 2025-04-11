@@ -12,7 +12,11 @@ atlas api performanceAdvisor getServerlessAutoIndexing
    :depth: 1
    :class: singlecol
 
-`Public Preview: please provide feedback at <https://feedback.mongodb.com/forums/930808-atlas-cli>`_: Get whether the Serverless Auto Indexing feature is enabled.
+.. blockquote::
+
+   Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
+
+Get whether the Serverless Auto Indexing feature is enabled.
 
 This endpoint returns a value for Flex clusters that were created with the createServerlessInstance endpoint or Flex clusters that were migrated from Serverless instances. However, the value returned is not indicative of the Auto Indexing state as Auto Indexing is unavailable for Flex clusters. This endpoint will be sunset in January 2026.
 
@@ -70,7 +74,7 @@ Options
    * - --pretty
      - 
      - false
-     - Flag that indicates whether the response body should be in the <a href="https://en.wikipedia.org/wiki/Prettyprint" target="_blank" rel="noopener noreferrer">prettyprint</a> format.
+     - Flag that indicates whether the response body should be in the prettyprint format.
    * - --version
      - string
      - false
@@ -99,7 +103,7 @@ Run the command below.
 
 .. code-block::
 
-   atlas api performanceAdvisor getServerlessAutoIndexing --version 2023-01-01 --clusterName [clusterName] --envelope false --groupId 32b6e34b3d91647abb20e7b8 --pretty false
+   atlas api performanceAdvisor getServerlessAutoIndexing --version 2023-01-01 --clusterName [clusterName] --groupId 32b6e34b3d91647abb20e7b8
 
 .. Code end marker, please don't delete this comment
 
