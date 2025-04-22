@@ -12,7 +12,11 @@ atlas api cloudMigrationService createPushMigration
    :depth: 1
    :class: singlecol
 
-`Public Preview: please provide feedback at <https://feedback.mongodb.com/forums/930808-atlas-cli>`_: Migrate one cluster that Cloud or Ops Manager manages to MongoDB Atlas.
+.. blockquote::
+
+   Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
+
+Migrate one cluster that Cloud or Ops Manager manages to MongoDB Atlas.
 
 Please make sure to validate your migration before initiating it.
 
@@ -76,7 +80,7 @@ Options
    * - --pretty
      - 
      - false
-     - Flag that indicates whether the response body should be in the <a href="https://en.wikipedia.org/wiki/Prettyprint" target="_blank" rel="noopener noreferrer">prettyprint</a> format.
+     - Flag that indicates whether the response body should be in the prettyprint format.
    * - --version
      - string
      - false

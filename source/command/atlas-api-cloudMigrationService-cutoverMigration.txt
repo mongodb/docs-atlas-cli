@@ -12,7 +12,11 @@ atlas api cloudMigrationService cutoverMigration
    :depth: 1
    :class: singlecol
 
-`Public Preview: please provide feedback at <https://feedback.mongodb.com/forums/930808-atlas-cli>`_: Cut over the migrated cluster to MongoDB Atlas.
+.. blockquote::
+
+   Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
+
+Cut over the migrated cluster to MongoDB Atlas.
 
 Confirm when the cut over completes. When the cut over completes, MongoDB Atlas completes the live migration process and stops synchronizing with the source cluster. Your API Key must have the Organization Owner role to successfully call this resource.
 
@@ -70,7 +74,7 @@ Options
    * - --pretty
      - 
      - false
-     - Flag that indicates whether the response body should be in the <a href="https://en.wikipedia.org/wiki/Prettyprint" target="_blank" rel="noopener noreferrer">prettyprint</a> format.
+     - Flag that indicates whether the response body should be in the prettyprint format.
    * - --version
      - string
      - false
@@ -93,13 +97,20 @@ Inherited Options
      - Name of the profile to use from your configuration file. To learn about profiles for the Atlas CLI, see https://dochub.mongodb.org/core/atlas-cli-save-connection-settings.
 
 Examples
------------------
-
-Run the command below.
+--------
 
 .. code-block::
+   :copyable: false
 
-   atlas api cloudMigrationService cutoverMigration --version 2023-01-01 --envelope false --groupId 32b6e34b3d91647abb20e7b8 --liveMigrationId 6296fb4c7c7aa997cf94e9a8 --pretty false
+   Examples
+ -----------------
 
-.. Code end marker, please don't delete this comment
+ Run the command below.
+
+ .. code-block::
+
+    atlas api cloudMigrationService cutoverMigration --version 2023-01-01 --groupId 32b6e34b3d91647abb20e7b8 --liveMigrationId 6296fb4c7c7aa997cf94e9a8
+
+ .. Code end marker, please don't delete this comment
+
 

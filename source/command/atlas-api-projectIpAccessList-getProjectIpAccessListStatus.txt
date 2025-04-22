@@ -12,7 +12,11 @@ atlas api projectIpAccessList getProjectIpAccessListStatus
    :depth: 1
    :class: singlecol
 
-`Public Preview: please provide feedback at <https://feedback.mongodb.com/forums/930808-atlas-cli>`_: Returns the status of one project IP access list entry.
+.. blockquote::
+
+   Public Preview: please provide feedback at https://feedback.mongodb.com/forums/930808-atlas-cli
+
+Returns the status of one project IP access list entry.
 
 This resource checks if the provided project IP access list entry applies to all cloud providers serving clusters from the specified project.
 
@@ -70,7 +74,7 @@ Options
    * - --pretty
      - 
      - false
-     - Flag that indicates whether the response body should be in the <a href="https://en.wikipedia.org/wiki/Prettyprint" target="_blank" rel="noopener noreferrer">prettyprint</a> format.
+     - Flag that indicates whether the response body should be in the prettyprint format.
    * - --version
      - string
      - false
@@ -93,15 +97,22 @@ Inherited Options
      - Name of the profile to use from your configuration file. To learn about profiles for the Atlas CLI, see https://dochub.mongodb.org/core/atlas-cli-save-connection-settings.
 
 Examples
------------------
-
-   Returns the status of 10.0.0.0/16
-
-Run the command below.
+--------
 
 .. code-block::
+   :copyable: false
 
-   atlas api projectIpAccessList getProjectIpAccessListStatus --version 2023-01-01 --entryValue 10.0.0.0/16 --envelope false --groupId [your-project-id] --pretty false
+   Examples
+ -----------------
 
-.. Code end marker, please don't delete this comment
+    Returns the status of 10.0.0.0/16
+
+ Run the command below.
+
+ .. code-block::
+
+    atlas api projectIpAccessList getProjectIpAccessListStatus --version 2023-01-01 --entryValue 10.0.0.0/16 --groupId [your-project-id]
+
+ .. Code end marker, please don't delete this comment
+
 
