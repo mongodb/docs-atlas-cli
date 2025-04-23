@@ -103,12 +103,8 @@ Inherited Options
 Examples
 -----------------
 
-   Returns details of all processes for the specified project
-
-Run the command below.
-
 .. code-block::
-
+   # Returns details of all processes for the specified project
    atlas api monitoringAndLogs listAtlasProcesses --version 2023-01-01 --groupId [your-project-id]
 
 .. Code end marker, please don't delete this comment
