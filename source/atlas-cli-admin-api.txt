@@ -1,7 +1,7 @@
 .. _atlas-cli-admin-api:
 
 ===============================================================
-Run {+atlas-cli+} Commands with {+atlas-admin-api+}
+Run {+atlas-cli+} Commands with the {+atlas-admin-api+}
 ===============================================================
 
 .. meta::
@@ -109,7 +109,8 @@ following options:
      - Conditional 
      - |json| file that contains the |api| path, query, and request body
        parameters for the operation. This is required only if there are
-       required path, query, or request body parameters for the operation. 
+       required path, query, or request body parameters for the
+       operation that you aren't specifying directly with the command. 
 
    * - ``--version`` 
      - Optional 
