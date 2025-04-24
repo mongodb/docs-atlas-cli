@@ -120,7 +120,7 @@ The {+atlas-cli+} supports the following environment variables:
 
    * - ``MONGODB_ATLAS_LOCAL_DEPLOYMENT_IMAGE``
      - String that specifies the container registry with the namespace
-       and name of repository that contains the image to use for local
+       and name of the repository that contains the image to use for local
        deployments. 
 
    * - ``HTTP_PROXY``
