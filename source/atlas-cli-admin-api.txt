@@ -21,9 +21,9 @@ and endpoint from the {+atlas-cli+} to create and manage |service|
 deployments. {+atlas-cli+} support for the {+atlas-admin-api+} provides the
 following benefits:  
 
-- Full feature parity with the {+atlas-admin-api+}
-- Quicker access to new {+atlas-admin-api+} resources and endpoints
-- A unified, predictable command structure for automation
+- Full feature parity with the {+atlas-admin-api+}.
+- Quicker access to new {+atlas-admin-api+} resources and endpoints.
+- A unified, predictable command structure for automation.
 - Ability to pin a desired API version, ensuring your scripts remain
   reliable, even if you update the CLI.
 
@@ -55,16 +55,19 @@ Arguments
        {+atlas-admin-api+} documentation |url|. However, you must
        convert it to camelcase in the {+atlas-cli+} command syntax. 
 
+       For example, consider the following |url| for an
+       {+atlas-admin-api+} resource:
+
        .. code-block:: shell 
 
-          https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/#tag/<Tag-Name>/
+          https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/#tag/Example-Tag-Name/
        
        For accessing the resource in the preceding |url|, replace
-       ``<tag>`` with ``tagName`` in the command: 
+       ``<tag>`` with ``exampleTagName`` in the command syntax: 
 
        .. code-block:: shell 
 
-          atlas admin tagName <operationId> 
+          atlas api exampleTagName <operationId> 
 
        For more examples, see :ref:`atlas-cli-admin-api-examples`.
 
@@ -74,18 +77,21 @@ Arguments
        documentation |url| for the |api| endpoint. The value is in
        camelcase format.  
 
+       For example, consider the following |url| for an
+       {+atlas-admin-api+} endpoint operation:
+
        .. code-block:: shell 
 
-          https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/#tag/<Tag-Name>/operation/someEndpointOperation
+          https://www.mongodb.com/docs/atlas/reference/api-resources-spec/v2/#tag/Example-Tag-Name/operation/exampleEndpointOperationId
        
        For performing the operation supported by the endpoint in the
-       preceding |url|, replace ``<tag>`` with ``tagName`` and use the
-       ID of the operation, ``someEndpointOperation``, as shown the
+       preceding |url|, replace ``<tag>`` with ``exampleTagName`` and use
+       the ID of the operation, ``exampleEndpointOperationId``, as shown the
        command. 
 
        .. code-block:: shell 
 
-          atlas admin tagName someEndpointOperation [options]
+          atlas api exampleTagName exampleEndpointOperationId [options]
 
        For more examples, see :ref:`atlas-cli-admin-api-examples`.
 
