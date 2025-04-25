@@ -22,7 +22,7 @@
 {+atlas-cli+} 1.42.1
 --------------------
 
-Released 25 April 2025
+Released 24 April 2025
 
 Internal changes to release process. 
 
