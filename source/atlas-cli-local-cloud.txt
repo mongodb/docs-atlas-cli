@@ -57,7 +57,7 @@ command  for local and cloud |service| deployments including, but not limited to
    
 - :ref:`List Atlas deployments <atlas-cli-deploy-local-manage>`.
   
-- :ref:`Connect <atlas-cli-deploy-local-manage>` with {+mongosh+} or 
+- :ref:`Connect <atlas-cli-deploy-local-manage>` with {+mongosh+},
   :compass:`Compass </>`, `MongoDB for VS Code
   <https://www.mongodb.com/docs/mongodb-vscode/install/>`__ 
   (versions 1.13.0+), or return the connection string for an |service|
