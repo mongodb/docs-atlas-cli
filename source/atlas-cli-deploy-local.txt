@@ -409,7 +409,7 @@ atlas deployments respectively.
       #. Specify how you want to connect to the deployment and press 
          :kbd:`Enter`..
 
-         You can connect with any of the following or retrieve the
+         You can retrieve the connection string or connect to the following clients:
          connection string: 
 
          - {+mongosh+} if you installed :binary:`~bin.mongosh`
