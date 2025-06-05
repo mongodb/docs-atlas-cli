@@ -141,5 +141,3 @@ variant = "warning"
 value = """\
     {+atlas-cli+} support for running commands with the {+atlas-admin-api+} is in Preview. The feature and the corresponding documentation might change at any time during the Preview period. To learn more, see `Preview Features <https://www.mongodb.com/docs/preview-features/>`__.\
     """
-
->>>>>>> 003cac9 (DOCSP-50382 Update all preview callouts to link to new preview info page (#1115))
