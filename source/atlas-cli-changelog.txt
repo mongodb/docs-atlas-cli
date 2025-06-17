@@ -17,6 +17,18 @@
    :depth: 1
    :class: singlecol
 
+.. _atlas-cli-1.43.0:
+
+{+atlas-cli+} 1.43.0
+--------------------
+
+Released 29 May 2025
+
+- Drops Ubuntu 20.04 support.
+- Fixes a bug with the ``atlas deployment search indexes create`` command that prevents creating a search index with a custom 
+  analyzer.
+- Updates the documentation of the ``atlas api`` commands to clarify that the {+atlas-cli+} commands are in preview.
+
 .. _atlas-cli-1.42.2: 
 
 {+atlas-cli+} 1.42.2
