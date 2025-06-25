@@ -162,10 +162,14 @@ Released 09 January 2025
 
 - Adds :ref:`atlas-backups-snapshots-download` command to download
   Flex Cluster snapshots.
-- Deprecates the following: 
+- As part of the :ref:`migration to Flex Clusters <flex-migration>`,
+  this release deprecates the following: 
 
-  - ``atlas-serverless`` commands 
-  - ``M1`` and ``M5`` tiers
+  - ``atlas-serverless`` commands: {+atlas-cli+} now prompts users on
+    invoking these commands to migrate to Flex Clusters.
+  - ``M2`` and ``M5`` tiers: {+atlas-cli+} issues a deprecation
+    warning when these values are passed via the ``--tier`` flag.
+    
 
   .. tip:: 
 
