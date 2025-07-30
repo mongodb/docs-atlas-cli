@@ -1,2 +1,1 @@
-# docs-atlas-cli
-Source files for the Atlas CLI
+This repository is archived. For the source for the MongoDB Atlas CLI documentation, see https://github.com/mongodb/docs.
